@@ -13,7 +13,7 @@ program factorial
 		end do
 		print *, 'The answer is' , result
 		yn = ' '
-    	yn_loop: do
+   		yn_loop: do
       		write(*,*) 'Perform another calculation? y[n]'
       		read(*,'(a1)') yn
       		if (yn=='y' .or. yn=='Y') exit yn_loop
