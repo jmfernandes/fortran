@@ -14,20 +14,18 @@ program change
 		read *, money
 		diff = money - price
 		total = diff
-		write(*,110) 'total=', diff 
-  		110 format (A,F5.3)
-  		print *, diff
-		!do (while diff > 0)
 		quarters = diff / q
 		diff = diff - (q * quarters)
 		dimes = diff / d
 		diff = diff - (d * dimes)
 		nickels = diff / n
 		diff = diff - (n * nickels)
+		!two lines below correct a float error that causes the number of pennies to be reduced by 1.
+		ii = ANINT(diff*100.0) !Multiply by 100 and round to int
+        diff  = ii / 100.0     !Floating point divide by 100 
 		pennies = diff / p
 		diff = diff - (p * pennies)
 		write(*,*)'Customer recieves' , quarters , 'quarters,' , dimes , 'dimes,' , nickels , 'nickels,' , 'and ' , pennies , 'pennies.'
-		!end do
 		yn_loop: do
       		write(*,*) 'Perform another calculation? y[n]'
       		read(*,'(a1)') yn
