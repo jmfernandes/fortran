@@ -1,19 +1,16 @@
-fortran
+Fortran Projects
 =======
 
-A folder for fortran research
+This repository includes simple fortran programs. The goal of this repository is to strengthen understanding of fortran.  
 
 List of included programs
 -------------------------
 
-* hello
-
+* hello.f90
 	this program simply prints "hello worlld"
 
-* cylinder
-
+* cylinder.f90
 	this program was copied from an example online. It computes the volume of a cylinder. I will add my own improvements.
 
-* change
-
+* change.f90
 	This program asks for two inputs: the price of an item and the money given by a customer. It then returns the change to be given in the amount of quarters, dimes, nickels, and pennies.
