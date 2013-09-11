@@ -1,7 +1,8 @@
 !program to calulate the factorial of a number
 program factorial
 	!declare my constants
-	integer :: number, result
+	implicit none    ! Require all variables to be explicitly declared
+	integer :: number, result, i
 	character(1) :: yn
 	!start a master do loop so that I can do multiple functions within it
 	interactive_loop: do

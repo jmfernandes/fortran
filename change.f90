@@ -1,7 +1,8 @@
 !this is a program to return the change for a money transaction
 program change
+	implicit none    ! Require all variables to be explicitly declared
 	integer :: quarters, dimes, nickels, pennies, ierr
-	real :: q, d, n , p , money, price, diff, total
+	real :: q, d, n , p , money, price, diff, total, ii
 	character(1) :: yn
 	q = 0.25
 	d = 0.10
