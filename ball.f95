@@ -13,7 +13,7 @@ program ball_path
 
 	use setup
 	implicit none
-	real(dp) :: t, dt, x, y, vx, vy, vx0, vy0
+	real(dp) :: t, dt, x, y, vx, vy, vx0, vy0, x0, y0
 
 	!!define variables
 	h0 = 100._dp
