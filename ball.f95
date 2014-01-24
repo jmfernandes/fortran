@@ -8,3 +8,11 @@ module setup
 	real(dp) :: h0, v0, alpha
 
 end module setup
+
+program ball_path 
+
+	use setup
+	implicit none
+	real(dp) :: t, dt, x, y, vx, vy
+
+end program ball_path
