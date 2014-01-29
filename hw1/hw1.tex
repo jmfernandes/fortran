@@ -1,0 +1,205 @@
+
+
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{dkblue}{rgb}{0,0.0,0.6}
+\definecolor{dkred}{rgb}{0.9,0.0,0.1}
+
+
+\begin{document}
+
+\lstset{language=Fortran,tabsize=4,numbers=left,numberstyle=\tiny,basicstyle=\ttfamily\small\color{dkblue},stringstyle=\ttfamily\color{blue},keywordstyle=\rmfamily\color{dkred}\bfseries\emph,backgroundcolor=\color{white},commentstyle=\color{dkgreen}}
+
+
+
+
+\title{One dimensional Scattering}
+\author{Josh Fernandes \\
+Department of Physics\\
+California State University Long Beach}
+\date{\today }
+
+  
+\maketitle
+
+
+
+\begin{abstract}
+The results of a one dimensional scattering equation are plotted.
+\end{abstract}
+
+\section{Introduction}
+
+introduction goes here.
+
+
+
+\section{The Fortran95 code}
+
+The fortran code solves a one dimensional scattering equation. In our first Fortran95 code, let us consider the path of a ball thrown in the air from height $h$ with initial velocity $\vec{v}_{0}$ in the direction which makes $\alpha$ angle with the horizontal.
+
+The Makefile in Fig.\ \ref{makefile} describes the structure of the code. The codes in {\tt OBJS1} are 
+compiled together. The {\tt .o} files were created from the {\tt .f95} file by using the {\tt F95} command
+with flags {\tt F95FLAGS}. In building the executable code {\tt LDFLAGS} were used, which contains 
+the {\tt LIB} library. These {\tt LDFLAGS} are optimal for Intel Core2 architecture and uses the 
+Apple's {\tt vecLib} library from Xcode. By typing {\tt make} we can produce the executable file.
+
+Basically we code the formula $x=v_{0} t$ and
+\begin{gather}
+T = \frac{\frac{1}{4}\Gamma^2}{(E-E_0)^2 + \frac{1}{4}\Gamma^2}.
+\end{gather}
+
+
+
+\begin{lstlisting}[frame=single,caption={Typical {\tt Makefile}},label=makefile]
+
+OBJS = numtype.o scattering.o 
+
+PROG = scattering
+
+F95 = gfortran
+
+F95FLAGS = -O3 -funroll-loops -fexternal-blas
+
+LIBS = -framework vecLib
+
+LDFLAGS = $(LIBS)
+
+all: $(PROG) 
+
+$(PROG): $(OBJS)
+	$(F95) $(LDFLAGS) -o $@ $(OBJS) 
+
+clean:
+	rm -f $(PROG) *.{o,mod}
+
+.SUFFIXES: $(SUFFIXES) .f95
+
+.f95.o:
+	$(F95) $(F95FLAGS) -c $<
+
+\end{lstlisting}
+
+Our first   Fortran95 code is shown below. The precision is defined in the Module {\tt NumType}. The constants parameters are defined in Module {\tt setup}. The implicit none statement ensures that all the variables has to be defined. We use {\tt do-end do} structure for the loop, and exit if the next height would be negative. 
+
+
+\begin{lstlisting}[frame=single,caption={Module {\tt NumType}},label=module]
+
+module NumType
+
+	save
+	integer, parameter :: dp = kind(1.d0)
+	real(dp), parameter :: pi = 4*atan(1._dp)
+	complex(dp), parameter :: iic = (0._dp,1._dp)
+	
+end module NumType
+
+\end{lstlisting}
+
+
+\begin{lstlisting}[frame=single,caption={The {\tt setup} module.},label=setup]
+
+module setup
+
+	use NumType
+	implicit none
+	real(dp), parameter :: g = 10._dp
+	real(dp), parameter :: h0 = 20._dp
+	real(dp), parameter :: v0 = 15._dp
+	real(dp), parameter :: alpha = 30*(pi/180)
+	
+end module setup
+
+\end{lstlisting}
+
+
+\begin{lstlisting}[frame=single,caption={The {\tt scattering.f95}},label=scattering95]
+
+
+module setup
+
+	use NumType
+	implicit none
+	real(dp), parameter :: g = 9.81_dp
+	real(dp) :: h0, v0, alpha
+	
+
+end module setup
+
+program scattering_path
+
+	use setup
+	implicit none
+	real(dp) :: E, dE, E0, gamma(4)
+	REAL, DIMENSION(:, :), ALLOCATABLE :: T
+	integer :: i, j, N, M, DeAllocateStatus,
+	AllocateStatus, Emax
+
+
+	gamma  = (/ 1.0, 0.5, 0.1, 0.01/) 
+
+	E = 0._dp
+	dE = 0.01_dp
+	Emax = 10_dp
+
+	E0 = 5_dp	
+	j = 0._dp		
+
+	N = size(gamma)
+	M = (Emax/dE)+1
+
+	ALLOCATE ( T(N, M), STAT = AllocateStatus)
+	IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
+		
+	do while (E < Emax)
+		j = j + 1
+		do i=1,4
+			T(i,j) = (.25*(gamma(i)**2))/((E-E0)**2 + .25*(gamma(i)**2))
+		end do
+		print *, E, T(1,j), T(2,j), T(3,j), T(4,j)
+		E = E + DE
+	end do 
+		
+	DEALLOCATE (T, STAT = DeAllocateStatus)
+end program scattering_path
+
+\end{lstlisting}
+
+
+We can run the code by typing {\tt ball}. The results are printed on the screen, or we can redirect to the file {\tt 1} by typing {\tt ball > 1}. The {\tt Plot} provides the picture in Fig.\ \ref{linearscattering}, which, with little work, 
+can be put in a much nicer form. 
+
+
+\begin{figure}[htb]
+\graphicspath{ {/plots/} }
+\includegraphics[width=1.\textwidth]{linearplot.pdf}
+\caption{Results of the {\tt scattering.f95} code plotted on a linear scale. }
+\label{linearscattering}
+\end{figure}
+
+
+
+
+
+\section{Summary and conclusions}
+
+We presented our first Fortran95 code \cite{metcalf}. We plotted the height of a falling ball as a function of time.
+The numerical results agree with our prior knowledge and expectations.
+
+\begin{thebibliography}{}
+
+
+\bibitem{metcalf} M.\ Metcalf, J.\ Reid and M.\ Cohen, {\it Fortran 95/2003 explained}. Oxford University Press, 2004.
+ 
+
+\end{thebibliography}
+
+
+
+
+\end{document}
