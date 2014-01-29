@@ -39,7 +39,7 @@ program ball_path
 		x = vx*t
 		y = y0 + vy0*t - g/2 * t**2
 
-		print *, t, y
+		print *, t, vx, vy
 		t = t + dt
 
 	end do
