@@ -1,7 +1,7 @@
 
-OBJS = numtype.o ball.o
+OBJS = numtype.o scattering.o
 
-PROG = ball
+PROG = scattering
 
 F95 = gfortran
 
