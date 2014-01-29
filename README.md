@@ -16,3 +16,5 @@ List of included programs
 	This program asks for two inputs: the price of an item and the money given by a customer. It then returns the change to be given in the amount of quarters, dimes, nickels, and pennies.
 * ball.f95  
 	This program calculates the trajectory of a ball with initial conditions of initial velocity, initial height, and angle relative to the horizontal. Possible outputs or x,y,x-velocity, and y-velocity.
+* scattering.f95  
+	This program calculates the scattering coefficient based on four different values of $\Gamma$

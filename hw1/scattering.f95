@@ -1,4 +1,4 @@
-!this program shoots a ball
+!this program calculates Scattering
 
 module setup
 
