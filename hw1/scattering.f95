@@ -4,8 +4,9 @@ module setup
 
 	use NumType
 	implicit none
-	real(dp), parameter :: g = 9.81_dp
-	real(dp) :: h0, v0, alpha
+	real(dp) :: E, dE, E0, gamma(4)
+	REAL, DIMENSION(:, :), ALLOCATABLE :: T
+	integer :: i, j, N, M, DeAllocateStatus, AllocateStatus, Emax
 	
 
 end module setup
@@ -14,11 +15,7 @@ program ball_path
 
 	use setup
 	implicit none
-	real(dp) :: E, dE, E0, gamma(4)
-	REAL, DIMENSION(:, :), ALLOCATABLE :: T
-	integer :: i, j, N, M, DeAllocateStatus, AllocateStatus, Emax
-
-
+	
 	gamma  = (/ 1.0, 0.5, 0.1, 0.01/) !set the values of gamma
 
 	E = 0._dp		!this is min E value	
