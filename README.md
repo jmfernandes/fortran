@@ -17,4 +17,4 @@ List of included programs
 * ball.f95  
 	This program calculates the trajectory of a ball with initial conditions of initial velocity, initial height, and angle relative to the horizontal. Possible outputs or x,y,x-velocity, and y-velocity.
 * scattering.f95  
-	This program calculates the scattering coefficient based on four different values of &#915 `&#8212;`.
+	This program calculates the scattering coefficient based on four different values of<dd> &#915 `&#8212;`</dd>.
