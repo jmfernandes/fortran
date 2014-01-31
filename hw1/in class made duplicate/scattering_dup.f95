@@ -15,7 +15,6 @@ program transmit
 	implicit none
 	real(dp) :: e, de, gam, t1, t2, t3, t4
 	integer :: i 
-	real(dp), external :: tcoeff
 
 	de = emax/imax
 
@@ -38,18 +37,21 @@ program transmit
 
 	end do
 
+	contains
+
+		function tcoeff(e,gam) result(t)
+
+			!use NumType
+			!use setup
+			implicit none
+
+			real(dp) :: e, gam, t
+
+			t = (gam/2)**2 / ( (e-e0)**2 + (gam/2)**2 )
+
+		end function tcoeff
+
 
 end program transmit
 
 
-function tcoeff(e,gam) result(t)
-
-	!use NumType
-	use setup
-	implicit none
-
-	real(dp) :: e, gam, t
-
-	t = (gam/2)**2 / ( (e-e0)**2 + (gam/2)**2 )
-
-end function tcoeff
