@@ -44,7 +44,7 @@ end program transmit
 
 function tcoeff(e,gam) result(t)
 
-	use NumType
+	!use NumType
 	use setup
 	implicit none
 

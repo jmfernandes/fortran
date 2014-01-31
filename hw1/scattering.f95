@@ -11,7 +11,7 @@ module setup
 
 end module setup
 
-program ball_path 
+program scattering
 
 	use setup
 	implicit none
@@ -46,4 +46,4 @@ program ball_path
 	end do 
 		
 	DEALLOCATE (T, STAT = DeAllocateStatus)
-end program ball_path
+end program scattering
