@@ -1,7 +1,7 @@
 
-OBJS = numtype.o scattering.o
+OBJS = numtype.o heat.o
 
-PROG = scattering
+PROG = heat
 
 F95 = gfortran
 
