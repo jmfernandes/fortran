@@ -32,21 +32,29 @@ California State University Long Beach}
 
 
 \begin{abstract}
-For this assignments we are practicing some pasic coding concepts in Fortran as well as \LaTeX~  We are given Fourier's law to paramaterize and then graph the outcome $\Theta$. We then practice basic unix command to pipe our data in to a data file and graph using PlotPublish. We then needed to publish our results in /LaTex~and learn to use Makefiles. 
+The goal of this assignment is to continue to use Fortran as well as \LaTeX\, in order to understand to use these languages. The assignment focusses on the parameterization of Fourier's law. Fourier's law is calculated for a range of distances and discrete time values. The results are plotted in order to show that as time increases, the peak max flux is lower and the values are more broadly distributed. 
 \end{abstract}
 
 \section{Introduction}\label{s:intro}
 
-This is the first assignment for the class. The purpose of the assignment is to familiarize ourselves with Fortran,Make file, and LaTeX notation. Fortran dates back to 1953, but it has been updated nine times since it's release. This class focuses on Fortran95, but there are more recent versions of Fortran with another update coming in 2015. This paper solves a scattering coefficient equation for several values of $\Gamma$. The results are plotted on the same graph, so the effect of $\Gamma$ on the shape of the curve can be determined. 
+This is the first assignment for the class. The purpose of the assignment is to familiarize ourselves with Fortran,Make file, and LaTeX notation. Fortran dates back to 1953, but it has been updated nine times since it's release. This class focuses on Fortran95, but there are more recent versions of Fortran with another update coming in 2015. This paper solves Fourier's Law, which gives the heat flux of an object $\Theta$ in terms of parameters distance $x$ and time $t$. The x values range from -10$<$x$<$10 and the t values are
 
+\begin{align*}
+t = 5 \\
+t = 1 \\
+t = .5 \\
+t = .1 \\
+t = .01
+\end{align*}
 
+The results are plotted on the same graph, so the effect of $t$ on the shape of the curve can be determined. 
 
 \section{The Fortran95 code}
 
-The fortran code solves a one dimensional scattering equation. There is a transmission coefficient that represents a probability of a particle being transmitted. It ranges from 0 to 1. It is centered at some Energy ${E}_{0}$ . The function also depends on a constant denoted by $\Gamma$. The formula is 
+The fortran code solves Fourier's law equation. $\Theta$ represents the heat flux of the system. It is centered at some x value ${x}_{0}$ . The function also depends on the conductivity of the substance $\kappa$ and a discrete time constants denoted by $t$. The formula is 
 
 \begin{gather}
-T = \frac{\frac{1}{4}\Gamma^2}{(E-E_0)^2 + \frac{1}{4}\Gamma^2}.
+\Theta(x,t) = \frac{Q}{2 \sqrt{\pi \kappa t}}e^{-\frac{(x-x_0)^2}{4 \kappa t}}.
 \end{gather}
 
 The Makefile in Listing \ \ref{makefile} describes the structure of the code. The codes in {\tt OBJS1} are 
@@ -61,9 +69,9 @@ Apple's {\tt vecLib} library from Xcode. By typing {\tt make} we can produce the
 
 \begin{lstlisting}[frame=single,caption={Typical {\tt Makefile}},label=makefile]
 
-OBJS = numtype.o scattering.o 
+OBJS = numtype.o heat.0 
 
-PROG = scattering
+PROG = heat
 
 F95 = gfortran
 
@@ -88,7 +96,7 @@ clean:
 
 \end{lstlisting}
 
-The Fortran95 code is shown below. The precision is defined in the Module {\tt NumType}. The constants parameters are defined in Module {\tt setup}. The implicit none statement ensures that all the variables has to be defined. {\tt do while-end do} is used to increase the value of E while also calculating T for the four different $\Gamma$ values. 
+The Fortran95 code is shown below. The precision is defined in the Module {\tt NumType}. The constants parameters are defined in Module {\tt setup}. The implicit none statement ensures that all the variables has to be defined. {\tt do while} is used to increase the value of x while also calculating $\Theta$ for the five different $t$ values. The function {\tt contains} is a way of defining a function that can be reused within the code. Note that the parameters have to be reassigned with the function {\tt tcoeff}. 
 
 
 \begin{lstlisting}[frame=single,caption={Module {\tt NumType}},label=module]
@@ -105,59 +113,72 @@ end module NumType
 \end{lstlisting}
 
 
-\begin{lstlisting}[frame=single,caption={The {\tt scattering.f95}},label=scattering95]
-
+\begin{lstlisting}[frame=single,caption={{\tt heat.f95}},label=scattering95]
 
 module setup
 
 	use NumType
 	implicit none
-	real(dp) :: E, dE, E0, gamma(4)
-	REAL, DIMENSION(:, :), ALLOCATABLE :: T
-	integer :: i, j, N, M, DeAllocateStatus,
-	AllocateStatus, Emax
+	real(dp), parameter :: X0 = 0._dp, Xmin = -10._dp, &
+	Xmax = 10._dp, conductivity = 1._dp, &
+	Q = 1._dp
+	real(dp) :: x, dx, t(5)
+	REAL, DIMENSION(:, :), ALLOCATABLE :: result
+	integer :: i, j, DeAllocateStatus, AllocateStatus, &
+	steps
 	
 
 end module setup
 
-program scattering_path
+program heat
 
 	use setup
 	implicit none
 	
-	gamma  = (/ 1.0, 0.5, 0.1, 0.01/) 
+	t  = (/ 5.0, 1.0, 0.5, 0.1, 0.01/) 
 
-	E = 0._dp
-	dE = 0.01_dp
-	Emax = 10_dp
+	steps = 500
+	x = Xmin
+	dx = (Xmax-Xmin)/steps
 
-	E0 = 5_dp	
 	j = 0._dp		
 
-	N = size(gamma)
-	M = (Emax/dE)+1
-
-	ALLOCATE ( T(N, M), STAT = AllocateStatus)
-	IF (AllocateStatus /= 0) STOP 
+	ALLOCATE ( result(size(t), steps), & 
+	STAT = AllocateStatus)
+	IF (AllocateStatus /= 0) STOP  &
 	"*** Not enough memory ***"
-		
-	do while (E < Emax)
+	
+	do while(x < Xmax)
 		j = j + 1
-		do i=1,4
-			T(i,j) = (.25*(gamma(i)**2))/((E-E0)**2 + 
-			.25*(gamma(i)**2))
+		do i=1,5
+			result(i,j) = tcoeff(x,i)
 		end do
-		print *, E, T(1,j), T(2,j), T(3,j), T(4,j)
-		E = E + DE
-	end do 
+		print *, x, result(1,j), result(2,j), &
+		result(3,j), result(4,j), result(5,j)
+		x = x + dx
+	end do
+
+	DEALLOCATE (result, STAT = DeAllocateStatus)
+
+	contains
+		function tcoeff(x,i) result(theta)
+
+			implicit none
+
+			real(dp) :: x, theta
+			integer :: i
+
+			theta = Q/(2*sqrt(pi*conductivity*t(i)))*&
+			exp(-(x-X0)**2/(4*conductivity*t(i)))
+
+		end function tcoeff
 		
-	DEALLOCATE (T, STAT = DeAllocateStatus)
-end program scattering_path
+end program heat
 
 \end{lstlisting}
 
 
-The code is run by typing {\tt ./scattering}. The results are printed on the screen, or the data can redirect to the file {\tt 1} by typing {\tt ./scattering > 1}. The {\tt Plot} provides the picture in Fig.\ \ref{linearscattering} and Fig.\ \ref{logscattering}. 
+The code is run by typing {\tt ./heat}. The results are printed on the screen, or the data can redirect to the file {\tt indisputableknowledge} by typing {\tt ./heat > indisputableknowledge.data}. The {\tt Plot} provides the picture in Fig.\ \ref{linearscattering} and Fig.\ \ref{logscattering}. 
 
 
 \begin{figure}[!htb]
@@ -178,7 +199,7 @@ The code is run by typing {\tt ./scattering}. The results are printed on the scr
 
 \section{Summary and conclusions}
 
-The first Fortran95 code \cite{metcalf} for the class was written. The transmission coefficient as a function of E with four different $\Gamma$ values was plotted. The numerical results agree with our prior knowledge and expectations.
+The first Fortran95 code \cite{metcalf} for the class was written. The heat flux as a function of $\Theta$ with five different $t$ values were plotted. The graph demonstrates that as $t$ increases the data is more broadly distributed with a smaller maximum heat flux.
 
 \begin{thebibliography}{}
 
