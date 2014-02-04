@@ -18,3 +18,5 @@ List of included programs
 	This program calculates the trajectory of a ball with initial conditions of initial velocity, initial height, and angle relative to the horizontal. Possible outputs or x,y,x-velocity, and y-velocity.
 * scattering.f95  
 	This program calculates the scattering coefficient based on four different values of Gamma.
+* heat.f95  
+	This program calculates Fourier's law for a range of x values and 5 discrete t values.
