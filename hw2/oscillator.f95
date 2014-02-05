@@ -14,15 +14,20 @@ end module initiate_phase_one
 
 program potatoe
 
+	use initiate_phase_one
 	steps = 10
-	x = -2._dp
+	x = 2._dp
 	E0 = 1._dp
 	E1 = 1._dp
 
+	print *, 0, E0, E1
 	do i = 1,steps
 		E0 = E0*(x/i)
 		E1 = E1 + E0
+		print *, i, E0, E1
 	end do
+
+	print *, 'result',x,E1,exp(x)
 
 end program potatoe
 
