@@ -4,10 +4,8 @@ module initiate_phase_one
 
 	use NumType
 	implicit none
-	real(dp), parameter :: X0 = 0._dp, Xmin = -10._dp, &
-	Xmax = 10._dp, conductivity = 1._dp, &
-	Q = 1._dp
-	real(dp) :: x, dx, t(5)
+	real(dp), parameter :: X0 = 0._dp
+	real(dp) :: x, E0, E1
 	REAL, DIMENSION(:, :), ALLOCATABLE :: result
 	integer :: i, j, DeAllocateStatus, AllocateStatus, steps
 	
@@ -16,7 +14,15 @@ end module initiate_phase_one
 
 program potatoe
 
-	
+	steps = 10
+	x = -2._dp
+	E0 = 1._dp
+	E1 = 1._dp
+
+	do i = 1,steps
+		E0 = E0*(x/i)
+		E1 = E1 + E0
+	end do
 
 end program potatoe
 
