@@ -28,7 +28,7 @@ contains
 		integer :: n
 
 		if ( n < 0 ) then
-			stop 'error'
+			stop "n can't be less than zero"
 		else if ( n == 0) then
 			hpol = 1._dp
 		else if ( n == 1) then
