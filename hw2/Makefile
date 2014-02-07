@@ -1,7 +1,7 @@
 
-OBJS = numtype.o oscillator.o
+OBJS = numtype.o hermite.o
 
-PROG = oscillator
+PROG = fire
 
 F95 = gfortran
 
