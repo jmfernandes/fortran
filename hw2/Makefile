@@ -1,5 +1,5 @@
 
-OBJS = numtype.o hermite.o
+OBJS = numtype.o continuous_frac.o
 
 PROG = fire
 
