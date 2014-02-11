@@ -1,5 +1,5 @@
 
-OBJS = numtype.o continuous_frac.o
+OBJS = numtype.o oscillator.o
 
 PROG = fire
 
