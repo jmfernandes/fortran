@@ -20,3 +20,11 @@ List of included programs
 	This program calculates the scattering coefficient based on four different values of Gamma.
 * heat.f95  
 	This program calculates Fourier's law for a range of x values and 5 discrete t values.
+* oscillator.f95  
+	This program solves for the eigenfunctions of the 1 dimensional harmonic oscillator.
+* continuous_frac.f95  
+	This program calculates an infinite recursive fraction.
+* exponential_calculation.f95  
+	This code replicates the exponential function.
+* hermite.f95  
+	This code replicates the hermit function. 

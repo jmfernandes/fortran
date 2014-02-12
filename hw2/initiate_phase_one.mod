@@ -1,5 +1,5 @@
 GFORTRAN module version '10' created from oscillator.f95
-MD5:dbf1557e017cff8b29f3ef94507ec33f -- If you edit this, you'll get what you deserve.
+MD5:3cbf588e91b1fa03c133c395dcd1fca0 -- If you edit this, you'll get what you deserve.
 
 (() () () () () () () () () () () () () () () () () () () () () () ()
 () () () ())
@@ -23,68 +23,108 @@ UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0) (INTEGER 4 0 0 0 INTEGER ()) 0 0
 4 'atan' '(intrinsic)' '' 1 ((PROCEDURE UNKNOWN-INTENT UNKNOWN-PROC
 UNKNOWN UNKNOWN 0 0 FUNCTION) (REAL 4 0 0 0 REAL ()) 0 0 () () 4 () () ()
 0 0)
-5 'deallocatestatus' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT
+5 'curve' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT
+UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0 ALLOCATABLE DIMENSION) (REAL 8 0
+0 0 REAL ()) 0 0 () (1 0 DEFERRED () ()) 0 () () () 0 0)
+6 'deallocatestatus' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT
 UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0) (INTEGER 4 0 0 0 INTEGER ()) 0 0
 () () 0 () () () 0 0)
-6 'dp' 'numtype' '' 1 ((PARAMETER UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN
+7 'dp' 'numtype' '' 1 ((PARAMETER UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN
 IMPLICIT-SAVE 0 0) (INTEGER 4 0 0 0 INTEGER ()) 0 0 () (CONSTANT (
 INTEGER 4 0 0 0 INTEGER ()) 0 '8') () 0 () () () 0 0)
-7 'e' 'numtype' '' 1 ((PARAMETER UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN
+8 'e' 'numtype' '' 1 ((PARAMETER UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN
 IMPLICIT-SAVE 0 0) (REAL 8 0 0 0 REAL ()) 0 0 () (CONSTANT (REAL 8 0 0 0
 REAL ()) 0 '0.2b7e151628aed2@1') () 0 () () () 0 0)
-8 'exp' '(intrinsic)' '' 1 ((PROCEDURE UNKNOWN-INTENT UNKNOWN-PROC
-UNKNOWN UNKNOWN 0 0 FUNCTION) (REAL 4 0 0 0 REAL ()) 0 0 () () 8 () () ()
+9 'exp' '(intrinsic)' '' 1 ((PROCEDURE UNKNOWN-INTENT UNKNOWN-PROC
+UNKNOWN UNKNOWN 0 0 FUNCTION) (REAL 4 0 0 0 REAL ()) 0 0 () () 9 () () ()
 0 0)
-9 'i' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC
+10 'i' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC
 UNKNOWN IMPLICIT-SAVE 0 0) (INTEGER 4 0 0 0 INTEGER ()) 0 0 () () 0 () ()
 () 0 0)
-10 'iic' 'numtype' '' 1 ((PARAMETER UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN
+11 'iic' 'numtype' '' 1 ((PARAMETER UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN
 IMPLICIT-SAVE 0 0) (COMPLEX 8 0 0 0 COMPLEX ()) 0 0 () (CONSTANT (
 COMPLEX 8 0 0 0 COMPLEX ()) 0 '0.00000000000000@0' '0.10000000000000@1')
 () 0 () () () 0 0)
-11 'initiate_phase_one' 'initiate_phase_one' '' 1 ((MODULE
+12 'initiate_phase_one' 'initiate_phase_one' '' 1 ((MODULE
 UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN UNKNOWN 0 0) (UNKNOWN 0 0 0 0
 UNKNOWN ()) 0 0 () () 0 () () () 0 0)
-12 'j' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC
+13 'j' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC
 UNKNOWN IMPLICIT-SAVE 0 0) (INTEGER 4 0 0 0 INTEGER ()) 0 0 () () 0 () ()
 () 0 0)
-13 'kind' '(intrinsic)' '' 1 ((PROCEDURE UNKNOWN-INTENT UNKNOWN-PROC
-UNKNOWN UNKNOWN 0 0 FUNCTION) (INTEGER 4 0 0 0 INTEGER ()) 0 0 () () 13
-() () () 0 0)
-14 'm' 'initiate_phase_one' '' 1 ((PARAMETER UNKNOWN-INTENT UNKNOWN-PROC
-UNKNOWN IMPLICIT-SAVE 0 0) (REAL 8 0 0 0 REAL ()) 0 0 () (CONSTANT (
-REAL 8 0 0 0 REAL ()) 0 '0.10000000000000@1') () 0 () () () 0 0)
-15 'n' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC
-UNKNOWN IMPLICIT-SAVE 0 0 ALLOCATABLE DIMENSION) (INTEGER 4 0 0 0
-INTEGER ()) 0 0 () (1 0 DEFERRED () ()) 0 () () () 0 0)
-16 'numtype' 'numtype' '' 1 ((MODULE UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN
-UNKNOWN 0 0) (UNKNOWN 0 0 0 0 UNKNOWN ()) 0 0 () () 0 () () () 0 0)
-17 'pi' 'numtype' '' 1 ((PARAMETER UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN
-IMPLICIT-SAVE 0 0) (REAL 8 0 0 0 REAL ()) 0 0 () (CONSTANT (REAL 8 0 0 0
-REAL ()) 0 '0.3243f6a8885a30@1') () 0 () () () 0 0)
-18 'psi' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT
-UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0 ALLOCATABLE DIMENSION) (REAL 4 0
-0 0 REAL ()) 0 0 () (2 0 DEFERRED () () () ()) 0 () () () 0 0)
-19 'steps' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT
-UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0) (INTEGER 4 0 0 0 INTEGER ()) 0 0
-() () 0 () () () 0 0)
-20 'w' 'initiate_phase_one' '' 1 ((PARAMETER UNKNOWN-INTENT UNKNOWN-PROC
-UNKNOWN IMPLICIT-SAVE 0 0) (REAL 8 0 0 0 REAL ()) 0 0 () (CONSTANT (
-REAL 8 0 0 0 REAL ()) 0 '0.10000000000000@1') () 0 () () () 0 0)
-21 'x' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC
+14 'k' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC
 UNKNOWN IMPLICIT-SAVE 0 0) (REAL 8 0 0 0 REAL ()) 0 0 () () 0 () () () 0
 0)
-22 'xmax' 'initiate_phase_one' '' 1 ((PARAMETER UNKNOWN-INTENT
+15 'kind' '(intrinsic)' '' 1 ((PROCEDURE UNKNOWN-INTENT UNKNOWN-PROC
+UNKNOWN UNKNOWN 0 0 FUNCTION) (INTEGER 4 0 0 0 INTEGER ()) 0 0 () () 15
+() () () 0 0)
+16 'm' 'initiate_phase_one' '' 1 ((PARAMETER UNKNOWN-INTENT UNKNOWN-PROC
+UNKNOWN IMPLICIT-SAVE 0 0) (REAL 8 0 0 0 REAL ()) 0 0 () (CONSTANT (
+REAL 8 0 0 0 REAL ()) 0 '0.10000000000000@1') () 0 () () () 0 0)
+17 'n' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC
+UNKNOWN IMPLICIT-SAVE 0 0 ALLOCATABLE DIMENSION) (INTEGER 4 0 0 0
+INTEGER ()) 0 0 () (1 0 DEFERRED () ()) 0 () () () 0 0)
+18 'numtype' 'numtype' '' 1 ((MODULE UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN
+UNKNOWN 0 0) (UNKNOWN 0 0 0 0 UNKNOWN ()) 0 0 () () 0 () () () 0 0)
+19 'pi' 'numtype' '' 1 ((PARAMETER UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN
+IMPLICIT-SAVE 0 0) (REAL 8 0 0 0 REAL ()) 0 0 () (CONSTANT (REAL 8 0 0 0
+REAL ()) 0 '0.3243f6a8885a30@1') () 0 () () () 0 0)
+20 'plot1' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT
+UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0 DIMENSION) (REAL 8 0 0 0 REAL ())
+0 0 () (1 0 EXPLICIT (CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '1') (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '5000')) 0 () () () 0 0)
+21 'plot2' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT
+UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0 DIMENSION) (REAL 8 0 0 0 REAL ())
+0 0 () (1 0 EXPLICIT (CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '1') (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '5000')) 0 () () () 0 0)
+22 'plot3' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT
+UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0 DIMENSION) (REAL 8 0 0 0 REAL ())
+0 0 () (1 0 EXPLICIT (CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '1') (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '5000')) 0 () () () 0 0)
+23 'plot4' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT
+UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0 DIMENSION) (REAL 8 0 0 0 REAL ())
+0 0 () (1 0 EXPLICIT (CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '1') (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '5000')) 0 () () () 0 0)
+24 'plot5' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT
+UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0 DIMENSION) (REAL 8 0 0 0 REAL ())
+0 0 () (1 0 EXPLICIT (CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '1') (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '5000')) 0 () () () 0 0)
+25 'plot6' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT
+UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0 DIMENSION) (REAL 8 0 0 0 REAL ())
+0 0 () (1 0 EXPLICIT (CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '1') (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '5000')) 0 () () () 0 0)
+26 'plot7' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT
+UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0 DIMENSION) (REAL 8 0 0 0 REAL ())
+0 0 () (1 0 EXPLICIT (CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '1') (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '5000')) 0 () () () 0 0)
+27 'plot8' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT
+UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0 DIMENSION) (REAL 8 0 0 0 REAL ())
+0 0 () (1 0 EXPLICIT (CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '1') (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '5000')) 0 () () () 0 0)
+28 'psi' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT
+UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0 ALLOCATABLE DIMENSION) (REAL 4 0
+0 0 REAL ()) 0 0 () (2 0 DEFERRED () () () ()) 0 () () () 0 0)
+29 'steps' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT
+UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0) (INTEGER 4 0 0 0 INTEGER ()) 0 0
+() () 0 () () () 0 0)
+30 'w' 'initiate_phase_one' '' 1 ((PARAMETER UNKNOWN-INTENT UNKNOWN-PROC
+UNKNOWN IMPLICIT-SAVE 0 0) (REAL 8 0 0 0 REAL ()) 0 0 () (CONSTANT (
+REAL 8 0 0 0 REAL ()) 0 '0.10000000000000@1') () 0 () () () 0 0)
+31 'x' 'initiate_phase_one' '' 1 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC
+UNKNOWN IMPLICIT-SAVE 0 0) (REAL 8 0 0 0 REAL ()) 0 0 () () 0 () () () 0
+0)
+32 'xmax' 'initiate_phase_one' '' 1 ((PARAMETER UNKNOWN-INTENT
 UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0) (REAL 8 0 0 0 REAL ()) 0 0 () (
 CONSTANT (REAL 8 0 0 0 REAL ()) 0 '0.a0000000000000@1') () 0 () () () 0
 0)
-23 'xmin' 'initiate_phase_one' '' 1 ((PARAMETER UNKNOWN-INTENT
+33 'xmin' 'initiate_phase_one' '' 1 ((PARAMETER UNKNOWN-INTENT
 UNKNOWN-PROC UNKNOWN IMPLICIT-SAVE 0 0) (REAL 8 0 0 0 REAL ()) 0 0 () (
 CONSTANT (REAL 8 0 0 0 REAL ()) 0 '-0.a0000000000000@1') () 0 () () () 0
 0)
 )
 
-('__convert_i4_r8' 0 2 'allocatestatus' 0 3 'atan' 0 4 'deallocatestatus'
-0 5 'dp' 0 6 'e' 0 7 'exp' 0 8 'i' 0 9 'iic' 0 10 'initiate_phase_one' 0
-11 'j' 0 12 'kind' 0 13 'm' 0 14 'n' 0 15 'numtype' 0 16 'pi' 0 17 'psi'
-0 18 'steps' 0 19 'w' 0 20 'x' 0 21 'xmax' 0 22 'xmin' 0 23)
+('__convert_i4_r8' 0 2 'allocatestatus' 0 3 'atan' 0 4 'curve' 0 5
+'deallocatestatus' 0 6 'dp' 0 7 'e' 0 8 'exp' 0 9 'i' 0 10 'iic' 0 11
+'initiate_phase_one' 0 12 'j' 0 13 'k' 0 14 'kind' 0 15 'm' 0 16 'n' 0
+17 'numtype' 0 18 'pi' 0 19 'plot1' 0 20 'plot2' 0 21 'plot3' 0 22 'plot4'
+0 23 'plot5' 0 24 'plot6' 0 25 'plot7' 0 26 'plot8' 0 27 'psi' 0 28
+'steps' 0 29 'w' 0 30 'x' 0 31 'xmax' 0 32 'xmin' 0 33)

@@ -6,9 +6,11 @@ module initiate_phase_one
 	implicit none
 	real(dp), parameter :: w = 1._dp, &
 	m = 1._dp, Xmin = -10._dp, Xmax = 10._dp
-	real(dp) :: x
+	real(dp) :: x, k, plot1(5000),plot2(5000),plot3(5000), &
+	plot4(5000),plot5(5000),plot6(5000),plot7(5000), plot8(5000)
 	REAL, DIMENSION(:, :), ALLOCATABLE :: psi
 	integer, Dimension(:), ALLOCATABLE :: n
+	real(dp), Dimension(:), ALLOCATABLE :: curve
 	integer :: i, j, DeAllocateStatus, AllocateStatus, steps
 	
 
@@ -21,28 +23,44 @@ program potatoe
 	n = (/0,1, 2, 3, 4, 5, 6, 7/)
 
 	j = 0._dp
+	k = 0.5_dp
 
-	steps = 50000
+	steps = 5000
 	x = Xmin
 	dx = (Xmax-Xmin)/steps
 
+
+
+	ALLOCATE (curve(steps), STAT = AllocateStatus)
+	IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
 
 	ALLOCATE ( psi(size(n), steps), STAT = AllocateStatus)
 	IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
 
 	do while(x < Xmax)
 		j = j + 1
+		curve(j) = 0.5_dp*k*x**2
+		plot1(j) = 1
+		plot2(j) = 3
+		plot3(j) = 5
+		plot4(j) = 7
+		plot5(j) = 9
+		plot6(j) = 11
+		plot7(j) = 13
+		plot8(j) = 15
 		do i=1,size(n)
 			psi(i,j) = quantum_oscillator(n(i),m,w,x)
 		end do
 		print *, x, 1+psi(1,j), 3+psi(2,j), &
 		5+psi(3,j), 7+psi(4,j), 9+psi(5,j), &
-		11+psi(6,j), 13+psi(7,j), 15+psi(8,j)
+		11+psi(6,j), 13+psi(7,j), 15+psi(8,j), &
+		curve(j), plot1(j), plot2(j), plot3(j), &
+		plot4(j), plot5(j), plot6(j), plot7(j), plot8(j)
 		!iterate x
 		x = x + dx
 	end do
 
-
+	DEALLOCATE (curve, STAT = DeAllocateStatus)
 	DEALLOCATE (psi, STAT = DeAllocateStatus)
 
 
@@ -109,7 +127,7 @@ program potatoe
 
 
 			if ( n < 0 ) then
-				stop "fuck you! you know that's wrong"
+				stop "you know that's wrong"
 			else if ( n == 0) then
 				factorial_number = 1
 			else
