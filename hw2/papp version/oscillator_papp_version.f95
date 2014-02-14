@@ -2,9 +2,22 @@
 program stuff
 	use NumType
 	implicit none
-	real(dp) :: x
+	real(dp) :: x, Xmin, Xmax, dx
+	integer :: steps, i
 
 	x = 2.5_dp
+	Xmin = -5._dp
+	Xmax = 5._dp
+
+	steps = 500
+
+	dx = (Xmax-Xmin)/steps
+
+	do i=0,steps
+		x = Xmin + i*dx
+		print *,x,psi_ho1d(0,x),psi_ho1d(1,x),psi_ho1d(2,x)
+
+	end do
 
 
 contains
@@ -12,7 +25,7 @@ contains
 	recursive function psi_ho1d(n,x) result(psi)
 
 		real(dp) :: x, y, psi, alpha
-		real(dp) parameter :: hbar = 1._dp, mass = 1._dp, omega = 1._dp
+		real(dp), parameter :: hbar = 1._dp, mass = 1._dp, omega = 1._dp
 		integer :: n
 
 		alpha = sqrt(mass*omega/hbar)
