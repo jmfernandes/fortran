@@ -1,4 +1,4 @@
-
+!this program is Dr. Papp's way of solving the 1D harmonic oscillator
 program stuff
 	use NumType
 	implicit none
