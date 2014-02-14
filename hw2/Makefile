@@ -1,7 +1,7 @@
 
-OBJS = numtype.o oscillator.o
+OBJS = numtype.o oscillator_papp_version.o
 
-PROG = fire
+PROG = ho
 
 F95 = gfortran
 

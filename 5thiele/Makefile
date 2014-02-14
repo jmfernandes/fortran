@@ -1,8 +1,8 @@
 
-PROG1 =	ho
+PROG1 =	extrap
 
 
-OBJS1 =	numtype.o cfapprox.o cftest.o
+OBJS1 =	numtype.o thielecf.o extrap.o
 
 F95 = gfortran
 
@@ -15,7 +15,7 @@ all: $(PROG1)
 $(PROG1): $(OBJS1)
 	$(F95) $(LDFLAGS) -o $@ $(OBJS1) 
 
-clean:
+attack:
 	rm -f $(PROG1)  *.{o,mod}
 
 .SUFFIXES: $(SUFFIXES) .f95 
