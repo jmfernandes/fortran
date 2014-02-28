@@ -9,41 +9,57 @@ program cf_test
 	real(dp) :: sign, x
 	
 	n = 30
-	x = 12._dp
+	x = 2._dp
 
 !	Taylor coefficients of logarithmic function
 
-	taylor(0) = 0._dp
-	sign = 1._dp
-	do i = 1, n
-	   taylor(i) = sign/i
-	   print*, i,taylor(i)
-	   sign = -sign
-	end do
+! 	taylor(0) = 0._dp
+! 	sign = 1._dp
+! 	do i = 1, n
+! 	   taylor(i) = sign/i
+! 	   print*, i,taylor(i)
+! 	   sign = -sign
+! 	end do
 	
-	print *,'  taylor sum ',x,'=', horner(taylor,n,x)
+! 	print *,'  taylor sum ',x,'=', horner(taylor,n,x)
 	
-	call taylor_cfrac(taylor,n,cf)	
+! 	call taylor_cfrac(taylor,n,cf)	
 
-	print *,'          cf ',x,' =',evalcf(cf,n,x)
-    print *,'         log ',x,'=',log(1+x)	
+! 	print *,'          cf ',x,' =',evalcf(cf,n,x)
+!     print *,'         log ',x,'=',log(1+x)	
 
     print *,'--------------------------'
 !	Taylor coefficients of exponential function
 	
-	taylor(0) = 1._dp	
+! 	taylor(0) = 1._dp	
+! 	taylor(1) = 1_dp
+! 	do i = 2 , n
+! 	   taylor(i) = taylor(i-1)/i
+! 	   print*, i,taylor(i)
+! 	end do   
+	
+! 	print *,'  taylor sum ',x,'=', horner(taylor,n,x)
+	
+! 	call taylor_cfrac(taylor,n,cf)	
+
+! 	print *,'          cf ',x,'=',evalcf(cf,n,x)
+!     print *,'         epx ',x,'=',exp(x)	
+
+	taylor(0) = 0._dp	
 	taylor(1) = 1_dp
+	sign = -1._dp
 	do i = 2 , n
-	   taylor(i) = taylor(i-1)/i
-	   print*, i,taylor(i)
+	   taylor(i) = sign*taylor(i-1)/((2*i-1)*(2*i-2))
+	   print *, i,taylor(i)
+	   sign = -sign
 	end do   
 	
 	print *,'  taylor sum ',x,'=', horner(taylor,n,x)
 	
-	call taylor_cfrac(taylor,n,cf)	
+! 	call taylor_cfrac(taylor,n,cf)	
 
 	print *,'          cf ',x,'=',evalcf(cf,n,x)
-    print *,'         epx ',x,'=',exp(x)	
+    print *,'         epx ',x,'=',sin(x)
 
     contains
     
@@ -56,7 +72,7 @@ program cf_test
             
             y = f(n)
             do i = n-1, 0, -1
-                y = f(i) + x*y
+                y = f(i) + x*y !if the x increses by factor of 2, need x*x
             end do
 
         end function horner
