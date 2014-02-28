@@ -1,0 +1,70 @@
+
+
+
+\documentclass[showpacs,pra,aps,amsmath,amssymb,unsortedaddress]{revtex4-1}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{amsmath}
+\usepackage{times}
+
+
+\begin{document}
+\begin{center}
+\Large Phys 562 Computational Physics, Spring 2014,  Midterm I \\
+\large Z. Papp
+\end{center}
+
+\large
+
+\begin{enumerate}
+
+\item The radial part of the wave function of the three-dimensional harmonic oscillator 
+for angular momentum $l$ and radial quantum number $n_{\rho}$ is given by
+$$
+u_{n_{\rho},l}(\rho)=(-)^{n_{\rho}} \sqrt{2 \frac{ n_{\rho}! }{ (n_{\rho}+l+1/2)!}} \exp(-\rho^{2}/2) \rho^{l+1} L_{n_{\rho}}^{l+1/2}(\rho^{2}).
+$$
+Note that $(1/2)!=\sqrt{\pi}/2$. You should not use the gfortran Gamma function!
+
+\begin{itemize}
+
+\item Write an efficient  subroutine for evaluating $u$. 
+
+\item Plot the first $4$, $l=0$, oscillator functions in the $\rho=[0,5]$ interval.
+
+\item Plot $u_{20,0}(\rho)$ and $u_{21,0}(\rho)$ in an interval which shows the characteristic of the functions. 
+
+\item Write a small report which contains all the relevant achievements.
+
+\end{itemize}
+
+
+\item One of the incomplete gamma functions is defined by 
+$$
+\Gamma(a,z)=\int_{z}^{\infty} dt \: t^{a-1} e^{-t},
+$$
+and it has a nice continued fraction representation
+$$
+\Gamma(a,z)=e^{-z}z^{a} \cfrac{1}{z  
+						+ \cfrac{1-a}{1
+						+ \cfrac{1}{z
+						+ \cfrac{2-a}{1
+						+ \cfrac{2}{z + \cdots }}}}} .
+$$
+
+\begin{itemize}
+
+\item Write a function subprogram for calculating $\Gamma(a,z)$ by evaluating the continued fraction. 
+
+\item Define $f(x) = \Gamma(1/2,x^{2})/\sqrt{\pi}$ if $x \ge 0$, and $f(x) = 2-  \Gamma(1/2,x^{2})/\sqrt{\pi}$ if $x < 0$.
+
+\item Plot $f(x)$ in the $x=[-3,3]$ interval. (Use just 50 points.)
+
+\item Do you have any guess what $f(x)$ might be? Test your idea numerically.
+
+\end{itemize}
+
+
+\end{enumerate}
+
+\end{document} 
+

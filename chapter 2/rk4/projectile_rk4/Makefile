@@ -1,5 +1,5 @@
 
-OBJS1 =	numtype.o projectile.0 rk4step.o
+OBJS1 =	numtype.o projectile.o rk4step.o
 
 PROG1 =	pro
 

@@ -31,8 +31,18 @@ subroutine rk4step(t,y,dt,k)
 			real(dp), dimension(number_of_equations), intent(in) :: y
 			real(dp), dimension(number_of_equations) :: k, f
 
-			f(1) = y(2)
-			f(2) = -(g/length)*sin(y(1)) - (mu/mass)*y(2)
+			real(dp) :: v(2), v_rel(2), v_norm(2), vv, f_drag(2)
+
+			v(1) = y(2)/mass;	v(2) = y(4)/mass
+			v_rel = v - wind
+			vv = sqrt(v_rel(1)**2 + v_rel(2)**2)
+			v_norm = v_rel/vv
+			f_drag = -drag*(vv**2)*v_norm
+
+			f(1) = v(1)
+			f(2) = f_drag(1)
+			f(3) = v(2)
+			f(4) = -mass*g + f_drag(2)
 
 			k = dt * f !step size times derivative
 
