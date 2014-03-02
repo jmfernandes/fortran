@@ -46,48 +46,7 @@ While the classical harmonic oscillator is well suited for solving systems of me
 The parameters are set as $m=1$, $w=1$, and $\hbar=3$. Although these values have no physical meaning, they preserve the shape of the curves. The first seven energy states are plotted in order to determine traits about the curves.
 \section{The Fortran95 code}
 
-The Makefile in Listing \ \ref{makefile} describes the structure of the code. The codes in {\tt OBJS1} are 
-compiled together. The {\tt .o} files were created from the {\tt .f95} file by using the {\tt F95} command
-with flags {\tt F95FLAGS}. In building the executable code {\tt LDFLAGS} were used, which contains 
-the {\tt LIB} library. These {\tt LDFLAGS} are optimal for Intel Core2 architecture and uses the 
-Apple's {\tt vecLib} library from Xcode. By typing {\tt make} we can produce the executable file.
-
-
-
-
-
-\begin{lstlisting}[frame=single,caption={The {\tt Makefile}},label=makefile]
-
-OBJS = numtype.o oscillator.0 
-
-PROG = wowza
-
-F95 = gfortran
-
-F95FLAGS = -O3 -funroll-loops -fexternal-blas
-
-LIBS = -framework vecLib
-
-LDFLAGS = $(LIBS)
-
-all: $(PROG) 
-
-$(PROG): $(OBJS)
-	$(F95) $(LDFLAGS) -o $@ $(OBJS) 
-
-clean:
-	rm -f $(PROG) *.{o,mod}
-
-.SUFFIXES: $(SUFFIXES) .f95
-
-.f95.o:
-	$(F95) $(F95FLAGS) -c $<
-
-\end{lstlisting}
-
-The Fortran95 code is shown below. The precision is defined in the Module {\tt NumType}. The constants parameters are defined in Module {\tt setup}. The implicit none statement ensures that all the variables has to be defined. {\tt do while} is used to increase the value of x while also calculating $\Psi$ for the eight different $n$ values. The resulting wave functions are plotted with an offset on the y axis so they can be clearly seen. A horizontal line is plotted at the offset for clarity using the arrays $plot1$ through $plot8$. The function {\tt contains} is a way of defining a function that can be reused within the code. In this code, three different functions are defined. Note that in each function, the variables that are used have to be defined.   
-
-
+The code is going to solve the problem. First a module called {\tt NumType} is created to store all my global parameters. These include values of pi and the exponential of one. 
 \begin{lstlisting}[frame=single,caption={Module {\tt NumType}},label=module]
 
 module NumType
@@ -102,6 +61,7 @@ end module NumType
 
 \end{lstlisting}
 
+The main program is {\tt oscillator} and it begins with its own module. In this module, I call in numtype.
 
 \begin{lstlisting}[frame=single,caption={{\tt oscillator.f95}},label=scattering95]
 
@@ -259,6 +219,9 @@ end program awesome
 
 The code is run by typing {\tt ./wowza}. The results are printed on the screen, or the data can redirect to the file {\tt amazing data} by typing {\tt ./wowza > amazingdata.data}. The {\tt Plot} provides the picture in Fig.\ \ref{linearscattering}. 
 
+\section{Data Analysis}
+
+the code returns an array of values.
 
 \begin{figure}[!htb]
 \includegraphics[width=1.\textwidth]{quantum_oscillator.pdf}

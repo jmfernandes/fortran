@@ -11,34 +11,15 @@ module setup
 
 end module setup
 
-module gnuplot_fortran
-
-	use NumType
-	implicit none
-	contains
-	subroutine plot2d(x,y1,y2,y3,y4,y5,y6)
-		real(dp), intent(in) :: x,y1,y2,y3,y4,y5,y6
-		!integer :: size_x, size_y, i
-		!size_x = size(x)
-		!size_y = size(y1)
-		open(unit=1, file = 'data.data')
-		write(1,*) x, ' ', y1, ' ', y2, ' ', y3, ' ', y4, ' ', y5, ' ', y6
-
-	end subroutine plot2d
-
-
-end module gnuplot_fortran
-
 program orbit
 
 	use setup
-	use gnuplot_fortran
 	implicit none
 	real(dp) :: y(number_of_equations), t, dt, tmax
 	real(dp) :: X0, Y0, Z0, VX0, VY0, VZ0
 
 
-	X0 = 1.496e+11_dp
+	X0 = 1.596e+11_dp
 	Y0 = 0._dp
 	Z0 = 0._dp
 
@@ -57,16 +38,25 @@ program orbit
 	y(5) = VY0*mass_earth
 	y(6) = VZ0*mass_earth
 
-	!open(unit = 3, file='earth.data', action = 'write', status = 'replace')
+	open(unit = 3, file='earth.data', action = 'write', status = 'replace')
 
 
 	do while( t <= tmax )
 		
-		!write(3, *) y(1), y(2)
+		write(3, *) t,y(1),y(2),y(3),y(4),y(5),y(6)
 		call ark4(t,y,dt)
-		call plot2d(t,y(1),y(2),y(3),y(4),y(5),y(6))
+! 		call plot3d(t,y(1),y(2),y(3),y(4),y(5),y(6))
 
 	end do
+
+! 	contains
+! 		subroutine plot3d(x,y1,y2,y3,y4,y5,y6)
+! 			real(dp), intent(in) :: x,y1,y2,y3,y4,y5,y6
+! 			open(unit=1, file = 'data.data')
+! 			write(1,*) x, ' ', y1, ' ', y2, ' ', y3, ' ', y4, ' ', y5, ' ', y6
+
+! 		end subroutine plot3d
+
 
 
 end program orbit

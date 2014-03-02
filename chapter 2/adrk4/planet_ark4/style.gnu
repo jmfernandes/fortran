@@ -1,5 +1,5 @@
 set terminal aqua enhanced font "arial,15" size 900, 600
-set output 'plot.png'
+#set output 'plot.png'
 set grid
 set key top right
 set border lw 1 lc rgb "black"
@@ -24,16 +24,17 @@ set grid ytics lt 0 lw 1 lc rgb "#F5B800"
 #######################################################################
 
 set view 45,45
-set contour base
 
 set title 'Figure'
 set xlabel 'Distance (meters)'
 set ylabel 'Distance (meters)'
 set zlabel 'Distance (meters)' offset -3 rotate left
 
+
+
 #for auto color
-splot 'data.data' using 2:3:4 with lines title 'data 1',\
-'data.data' using 2:3:(0) with lines title 'data 2'
+splot 'earth.data' using 2:3:4 with points lt 1 pt 6 ps -1 title 'data 1',\
+'earth.data' using 2:3:(0) with lines notitle
 #'data.dat' using 1:3 with lines title 'data 2',\
 #'data.dat' using 1:4 with lines title 'data 3'
 

@@ -1,0 +1,81 @@
+
+
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[section]{placeins} %this stops the figures from showing up in wrong section
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{dkblue}{rgb}{0,0.0,0.6}
+\definecolor{dkred}{rgb}{0.9,0.0,0.1}
+
+
+\begin{document}
+
+\lstset{language=Fortran,tabsize=4,numbers=left,numberstyle=\tiny,basicstyle=\ttfamily\small\color{dkblue},stringstyle=\ttfamily\color{blue},keywordstyle=\rmfamily\color{dkred}\bfseries\emph,backgroundcolor=\color{white},commentstyle=\color{dkgreen}}
+
+
+
+
+\title{Physics 562 - Computational Physics\\[.5cm]
+Assignment 2: Quantum Harmonic Oscillator}
+\author{Josh Fernandes\\
+Department of Physics \& Astronomy\\
+California State University Long Beach}
+\date{\today}
+
+  
+\maketitle
+
+
+
+\begin{abstract}
+The assignment focuses on solving for the eigenfunctions for the one dimensional quantum harmonic oscillator. In the process, programs to imitate the exponential function, hermit function, and factorial function are created. The ground state and the first six excited states are plotted on a graph. The results are not normalized, so this paper only concludes that the amplitude decreases and the wavelength decreases as the energy state is increased.
+\end{abstract}
+
+\section{Introduction}\label{s:intro}
+
+While the classical harmonic oscillator is well suited for solving systems of mechanical springs and pendulums, the quantum harmonic oscillator can solves systems of atomic particles. In addition, the quantum harmonic oscillator is one of the few quantum mechanical systems that has an exact, analytical solution. The eigenfunctions for the quantum harmonic oscillator are of the form
+
+\begin{gather}
+\Psi_n(x) = \frac{1}{\sqrt{2^n \, n!}}\cdot \left(\frac{mw}{\pi \hbar}\right)^{\frac{1}{4}} \cdot e^{-\frac{mwx^2}{2\hbar}} \cdot H_n \left(\sqrt{\frac{mw}{\hbar}} \, x \right).
+\end{gather}
+
+The parameters are set as $m=1$, $w=1$, and $\hbar=3$. Although these values have no physical meaning, they preserve the shape of the curves. The first seven energy states are plotted in order to determine traits about the curves.
+\section{The Fortran95 code}
+
+The code is going to solve the problem. First a module called {\tt NumType} is created to store all my global parameters. These include values of pi and the exponential of one. 
+
+
+The main program is {\tt oscillator} and it begins with its own module. In this module, I call in numtype.
+
+
+
+The code is run by typing {\tt ./wowza}. The results are printed on the screen, or the data can redirect to the file {\tt amazing data} by typing {\tt ./wowza > amazingdata.data}. The {\tt Plot} provides the picture in Fig.\ \ref{linearscattering}. 
+
+\section{Data Analysis}
+
+the code returns an array of values.
+
+\begin {figure}[!htb]
+     \resizebox{\columnwidth}{!}{\input{eg1}}
+\end {figure}
+
+\section{Summary and conclusions}
+
+The eigenfunctions $\Psi$ for the first eight energy states were plotted. The graph demonstrates that as $n$ increases the amplitude decreases and the wavelength decreases.
+
+\begin{thebibliography}{}
+
+
+\bibitem{metcalf} M.\ Metcalf, J.\ Reid and M.\ Cohen, {\it Fortran 95/2003 explained}. Oxford University Press, 2004.
+ 
+
+\end{thebibliography}
+
+
+
+
+\end{document}
