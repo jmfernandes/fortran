@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  1 MAR 2014 18:33
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  1 MAR 2014 20:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -17,20 +17,10 @@ kurmanji, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk,
  polish, portuguese, romanian, romansh, russian, sanskrit, serbian, serbianc, s
 lovak, slovenian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, 
 welsh, loaded.
-\plotpoint=\box26
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 8.
+(Font)              <7> on input line 113.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 8.
-Missing character: There is no T in font nullfont!
-Missing character: There is no h in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no s in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no s in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no h in font nullfont!
-Missing character: There is no e in font nullfont!
+(Font)              <5> on input line 113.
 Missing character: There is no a in font nullfont!
 Missing character: There is no x in font nullfont!
 Missing character: There is no i in font nullfont!
@@ -48,50 +38,43 @@ Missing character: There is no a in font nullfont!
 Missing character: There is no x in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no s in font nullfont!
-Missing character: There is no T in font nullfont!
-Missing character: There is no h in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no s in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no s in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no l in font nullfont!
-Missing character: There is no o in font nullfont!
 Missing character: There is no t in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no f in font nullfont!
-Missing character: There is no s in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no e in font nullfont!
 Missing character: There is no i in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no ( in font nullfont!
-Missing character: There is no x in font nullfont!
-Missing character: There is no ) in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no t in font nullfont!
 
-./eg1.tex:158: LaTeX Error: Missing \begin{document}.
+./eg1.tex:114: Package graphicx or graphics not loaded.
 
-See the LaTeX manual or LaTeX Companion for explanation.
+See the gnuplot documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.158 \end{picture}
-                   
+l.114     \put(0,0){\includegraphics{eg1}}
+                                          %
 ? 
-./eg1.tex:158: Emergency stop.
+./eg1.tex:114: Emergency stop.
  ...                                              
                                                   
-l.158 \end{picture}
-                   
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+l.114     \put(0,0){\includegraphics{eg1}}
+                                          %
+The gnuplot epslatex terminal needs graphicx.sty or graphics.sty.
 
  
 Here is how much of TeX's memory you used:
- 10 strings out of 493488
- 284 string characters out of 3141326
- 68432 words of memory out of 3000000
- 3416 multiletter control sequences out of 15000+200000
+ 25 strings out of 493488
+ 447 string characters out of 3141326
+ 50432 words of memory out of 3000000
+ 3431 multiletter control sequences out of 15000+200000
  3640 words of font info for 14 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 21i,9n,19p,80b,116s stack positions out of 5000i,500n,10000p,200000b,50000s
-./eg1.tex:158:  ==> Fatal error occurred, no output PDF file produced!
+ 22i,5n,19p,83b,149s stack positions out of 5000i,500n,10000p,200000b,50000s
+./eg1.tex:114:  ==> Fatal error occurred, no output PDF file produced!
