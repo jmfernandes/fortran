@@ -1,0 +1,4274 @@
+%!PS-Adobe-2.0 EPSF-2.0
+%%Title: eg3.tex
+%%Creator: gnuplot 4.6 patchlevel 5
+%%CreationDate: Thu Mar 13 16:19:41 2014
+%%DocumentFonts: 
+%%BoundingBox: 50 50 410 302
+%%EndComments
+%%BeginProlog
+/gnudict 256 dict def
+gnudict begin
+%
+% The following true/false flags may be edited by hand if desired.
+% The unit line width and grayscale image gamma correction may also be changed.
+%
+/Color true def
+/Blacktext true def
+/Solid false def
+/Dashlength 1 def
+/Landscape false def
+/Level1 false def
+/Rounded false def
+/ClipToBoundingBox false def
+/SuppressPDFMark false def
+/TransparentPatterns false def
+/gnulinewidth 5.000 def
+/userlinewidth gnulinewidth def
+/Gamma 1.0 def
+/BackgroundColor {-1.000 -1.000 -1.000} def
+%
+/vshift -73 def
+/dl1 {
+  10.0 Dashlength mul mul
+  Rounded { currentlinewidth 0.75 mul sub dup 0 le { pop 0.01 } if } if
+} def
+/dl2 {
+  10.0 Dashlength mul mul
+  Rounded { currentlinewidth 0.75 mul add } if
+} def
+/hpt_ 31.5 def
+/vpt_ 31.5 def
+/hpt hpt_ def
+/vpt vpt_ def
+/doclip {
+  ClipToBoundingBox {
+    newpath 50 50 moveto 410 50 lineto 410 302 lineto 50 302 lineto closepath
+    clip
+  } if
+} def
+%
+% Gnuplot Prolog Version 4.6 (September 2012)
+%
+%/SuppressPDFMark true def
+%
+/M {moveto} bind def
+/L {lineto} bind def
+/R {rmoveto} bind def
+/V {rlineto} bind def
+/N {newpath moveto} bind def
+/Z {closepath} bind def
+/C {setrgbcolor} bind def
+/f {rlineto fill} bind def
+/g {setgray} bind def
+/Gshow {show} def   % May be redefined later in the file to support UTF-8
+/vpt2 vpt 2 mul def
+/hpt2 hpt 2 mul def
+/Lshow {currentpoint stroke M 0 vshift R 
+	Blacktext {gsave 0 setgray show grestore} {show} ifelse} def
+/Rshow {currentpoint stroke M dup stringwidth pop neg vshift R
+	Blacktext {gsave 0 setgray show grestore} {show} ifelse} def
+/Cshow {currentpoint stroke M dup stringwidth pop -2 div vshift R 
+	Blacktext {gsave 0 setgray show grestore} {show} ifelse} def
+/UP {dup vpt_ mul /vpt exch def hpt_ mul /hpt exch def
+  /hpt2 hpt 2 mul def /vpt2 vpt 2 mul def} def
+/DL {Color {setrgbcolor Solid {pop []} if 0 setdash}
+ {pop pop pop 0 setgray Solid {pop []} if 0 setdash} ifelse} def
+/BL {stroke userlinewidth 2 mul setlinewidth
+	Rounded {1 setlinejoin 1 setlinecap} if} def
+/AL {stroke userlinewidth 2 div setlinewidth
+	Rounded {1 setlinejoin 1 setlinecap} if} def
+/UL {dup gnulinewidth mul /userlinewidth exch def
+	dup 1 lt {pop 1} if 10 mul /udl exch def} def
+/PL {stroke userlinewidth setlinewidth
+	Rounded {1 setlinejoin 1 setlinecap} if} def
+3.8 setmiterlimit
+% Default Line colors
+/LCw {1 1 1} def
+/LCb {0 0 0} def
+/LCa {0 0 0} def
+/LC0 {1 0 0} def
+/LC1 {0 1 0} def
+/LC2 {0 0 1} def
+/LC3 {1 0 1} def
+/LC4 {0 1 1} def
+/LC5 {1 1 0} def
+/LC6 {0 0 0} def
+/LC7 {1 0.3 0} def
+/LC8 {0.5 0.5 0.5} def
+% Default Line Types
+/LTw {PL [] 1 setgray} def
+/LTb {BL [] LCb DL} def
+/LTa {AL [1 udl mul 2 udl mul] 0 setdash LCa setrgbcolor} def
+/LT0 {PL [] LC0 DL} def
+/LT1 {PL [4 dl1 2 dl2] LC1 DL} def
+/LT2 {PL [2 dl1 3 dl2] LC2 DL} def
+/LT3 {PL [1 dl1 1.5 dl2] LC3 DL} def
+/LT4 {PL [6 dl1 2 dl2 1 dl1 2 dl2] LC4 DL} def
+/LT5 {PL [3 dl1 3 dl2 1 dl1 3 dl2] LC5 DL} def
+/LT6 {PL [2 dl1 2 dl2 2 dl1 6 dl2] LC6 DL} def
+/LT7 {PL [1 dl1 2 dl2 6 dl1 2 dl2 1 dl1 2 dl2] LC7 DL} def
+/LT8 {PL [2 dl1 2 dl2 2 dl1 2 dl2 2 dl1 2 dl2 2 dl1 4 dl2] LC8 DL} def
+/Pnt {stroke [] 0 setdash gsave 1 setlinecap M 0 0 V stroke grestore} def
+/Dia {stroke [] 0 setdash 2 copy vpt add M
+  hpt neg vpt neg V hpt vpt neg V
+  hpt vpt V hpt neg vpt V closepath stroke
+  Pnt} def
+/Pls {stroke [] 0 setdash vpt sub M 0 vpt2 V
+  currentpoint stroke M
+  hpt neg vpt neg R hpt2 0 V stroke
+ } def
+/Box {stroke [] 0 setdash 2 copy exch hpt sub exch vpt add M
+  0 vpt2 neg V hpt2 0 V 0 vpt2 V
+  hpt2 neg 0 V closepath stroke
+  Pnt} def
+/Crs {stroke [] 0 setdash exch hpt sub exch vpt add M
+  hpt2 vpt2 neg V currentpoint stroke M
+  hpt2 neg 0 R hpt2 vpt2 V stroke} def
+/TriU {stroke [] 0 setdash 2 copy vpt 1.12 mul add M
+  hpt neg vpt -1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt 1.62 mul V closepath stroke
+  Pnt} def
+/Star {2 copy Pls Crs} def
+/BoxF {stroke [] 0 setdash exch hpt sub exch vpt add M
+  0 vpt2 neg V hpt2 0 V 0 vpt2 V
+  hpt2 neg 0 V closepath fill} def
+/TriUF {stroke [] 0 setdash vpt 1.12 mul add M
+  hpt neg vpt -1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt 1.62 mul V closepath fill} def
+/TriD {stroke [] 0 setdash 2 copy vpt 1.12 mul sub M
+  hpt neg vpt 1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt -1.62 mul V closepath stroke
+  Pnt} def
+/TriDF {stroke [] 0 setdash vpt 1.12 mul sub M
+  hpt neg vpt 1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt -1.62 mul V closepath fill} def
+/DiaF {stroke [] 0 setdash vpt add M
+  hpt neg vpt neg V hpt vpt neg V
+  hpt vpt V hpt neg vpt V closepath fill} def
+/Pent {stroke [] 0 setdash 2 copy gsave
+  translate 0 hpt M 4 {72 rotate 0 hpt L} repeat
+  closepath stroke grestore Pnt} def
+/PentF {stroke [] 0 setdash gsave
+  translate 0 hpt M 4 {72 rotate 0 hpt L} repeat
+  closepath fill grestore} def
+/Circle {stroke [] 0 setdash 2 copy
+  hpt 0 360 arc stroke Pnt} def
+/CircleF {stroke [] 0 setdash hpt 0 360 arc fill} def
+/C0 {BL [] 0 setdash 2 copy moveto vpt 90 450 arc} bind def
+/C1 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 90 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C2 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 90 180 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C3 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 180 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C4 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 180 270 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C5 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 90 arc
+	2 copy moveto
+	2 copy vpt 180 270 arc closepath fill
+	vpt 0 360 arc} bind def
+/C6 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 90 270 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C7 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 270 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C8 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 270 360 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C9 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 270 450 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C10 {BL [] 0 setdash 2 copy 2 copy moveto vpt 270 360 arc closepath fill
+	2 copy moveto
+	2 copy vpt 90 180 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C11 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 180 arc closepath fill
+	2 copy moveto
+	2 copy vpt 270 360 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C12 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 180 360 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C13 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 0 90 arc closepath fill
+	2 copy moveto
+	2 copy vpt 180 360 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/C14 {BL [] 0 setdash 2 copy moveto
+	2 copy vpt 90 360 arc closepath fill
+	vpt 0 360 arc} bind def
+/C15 {BL [] 0 setdash 2 copy vpt 0 360 arc closepath fill
+	vpt 0 360 arc closepath} bind def
+/Rec {newpath 4 2 roll moveto 1 index 0 rlineto 0 exch rlineto
+	neg 0 rlineto closepath} bind def
+/Square {dup Rec} bind def
+/Bsquare {vpt sub exch vpt sub exch vpt2 Square} bind def
+/S0 {BL [] 0 setdash 2 copy moveto 0 vpt rlineto BL Bsquare} bind def
+/S1 {BL [] 0 setdash 2 copy vpt Square fill Bsquare} bind def
+/S2 {BL [] 0 setdash 2 copy exch vpt sub exch vpt Square fill Bsquare} bind def
+/S3 {BL [] 0 setdash 2 copy exch vpt sub exch vpt2 vpt Rec fill Bsquare} bind def
+/S4 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt Square fill Bsquare} bind def
+/S5 {BL [] 0 setdash 2 copy 2 copy vpt Square fill
+	exch vpt sub exch vpt sub vpt Square fill Bsquare} bind def
+/S6 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt vpt2 Rec fill Bsquare} bind def
+/S7 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt vpt2 Rec fill
+	2 copy vpt Square fill Bsquare} bind def
+/S8 {BL [] 0 setdash 2 copy vpt sub vpt Square fill Bsquare} bind def
+/S9 {BL [] 0 setdash 2 copy vpt sub vpt vpt2 Rec fill Bsquare} bind def
+/S10 {BL [] 0 setdash 2 copy vpt sub vpt Square fill 2 copy exch vpt sub exch vpt Square fill
+	Bsquare} bind def
+/S11 {BL [] 0 setdash 2 copy vpt sub vpt Square fill 2 copy exch vpt sub exch vpt2 vpt Rec fill
+	Bsquare} bind def
+/S12 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt2 vpt Rec fill Bsquare} bind def
+/S13 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt2 vpt Rec fill
+	2 copy vpt Square fill Bsquare} bind def
+/S14 {BL [] 0 setdash 2 copy exch vpt sub exch vpt sub vpt2 vpt Rec fill
+	2 copy exch vpt sub exch vpt Square fill Bsquare} bind def
+/S15 {BL [] 0 setdash 2 copy Bsquare fill Bsquare} bind def
+/D0 {gsave translate 45 rotate 0 0 S0 stroke grestore} bind def
+/D1 {gsave translate 45 rotate 0 0 S1 stroke grestore} bind def
+/D2 {gsave translate 45 rotate 0 0 S2 stroke grestore} bind def
+/D3 {gsave translate 45 rotate 0 0 S3 stroke grestore} bind def
+/D4 {gsave translate 45 rotate 0 0 S4 stroke grestore} bind def
+/D5 {gsave translate 45 rotate 0 0 S5 stroke grestore} bind def
+/D6 {gsave translate 45 rotate 0 0 S6 stroke grestore} bind def
+/D7 {gsave translate 45 rotate 0 0 S7 stroke grestore} bind def
+/D8 {gsave translate 45 rotate 0 0 S8 stroke grestore} bind def
+/D9 {gsave translate 45 rotate 0 0 S9 stroke grestore} bind def
+/D10 {gsave translate 45 rotate 0 0 S10 stroke grestore} bind def
+/D11 {gsave translate 45 rotate 0 0 S11 stroke grestore} bind def
+/D12 {gsave translate 45 rotate 0 0 S12 stroke grestore} bind def
+/D13 {gsave translate 45 rotate 0 0 S13 stroke grestore} bind def
+/D14 {gsave translate 45 rotate 0 0 S14 stroke grestore} bind def
+/D15 {gsave translate 45 rotate 0 0 S15 stroke grestore} bind def
+/DiaE {stroke [] 0 setdash vpt add M
+  hpt neg vpt neg V hpt vpt neg V
+  hpt vpt V hpt neg vpt V closepath stroke} def
+/BoxE {stroke [] 0 setdash exch hpt sub exch vpt add M
+  0 vpt2 neg V hpt2 0 V 0 vpt2 V
+  hpt2 neg 0 V closepath stroke} def
+/TriUE {stroke [] 0 setdash vpt 1.12 mul add M
+  hpt neg vpt -1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt 1.62 mul V closepath stroke} def
+/TriDE {stroke [] 0 setdash vpt 1.12 mul sub M
+  hpt neg vpt 1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt -1.62 mul V closepath stroke} def
+/PentE {stroke [] 0 setdash gsave
+  translate 0 hpt M 4 {72 rotate 0 hpt L} repeat
+  closepath stroke grestore} def
+/CircE {stroke [] 0 setdash 
+  hpt 0 360 arc stroke} def
+/Opaque {gsave closepath 1 setgray fill grestore 0 setgray closepath} def
+/DiaW {stroke [] 0 setdash vpt add M
+  hpt neg vpt neg V hpt vpt neg V
+  hpt vpt V hpt neg vpt V Opaque stroke} def
+/BoxW {stroke [] 0 setdash exch hpt sub exch vpt add M
+  0 vpt2 neg V hpt2 0 V 0 vpt2 V
+  hpt2 neg 0 V Opaque stroke} def
+/TriUW {stroke [] 0 setdash vpt 1.12 mul add M
+  hpt neg vpt -1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt 1.62 mul V Opaque stroke} def
+/TriDW {stroke [] 0 setdash vpt 1.12 mul sub M
+  hpt neg vpt 1.62 mul V
+  hpt 2 mul 0 V
+  hpt neg vpt -1.62 mul V Opaque stroke} def
+/PentW {stroke [] 0 setdash gsave
+  translate 0 hpt M 4 {72 rotate 0 hpt L} repeat
+  Opaque stroke grestore} def
+/CircW {stroke [] 0 setdash 
+  hpt 0 360 arc Opaque stroke} def
+/BoxFill {gsave Rec 1 setgray fill grestore} def
+/Density {
+  /Fillden exch def
+  currentrgbcolor
+  /ColB exch def /ColG exch def /ColR exch def
+  /ColR ColR Fillden mul Fillden sub 1 add def
+  /ColG ColG Fillden mul Fillden sub 1 add def
+  /ColB ColB Fillden mul Fillden sub 1 add def
+  ColR ColG ColB setrgbcolor} def
+/BoxColFill {gsave Rec PolyFill} def
+/PolyFill {gsave Density fill grestore grestore} def
+/h {rlineto rlineto rlineto gsave closepath fill grestore} bind def
+%
+% PostScript Level 1 Pattern Fill routine for rectangles
+% Usage: x y w h s a XX PatternFill
+%	x,y = lower left corner of box to be filled
+%	w,h = width and height of box
+%	  a = angle in degrees between lines and x-axis
+%	 XX = 0/1 for no/yes cross-hatch
+%
+/PatternFill {gsave /PFa [ 9 2 roll ] def
+  PFa 0 get PFa 2 get 2 div add PFa 1 get PFa 3 get 2 div add translate
+  PFa 2 get -2 div PFa 3 get -2 div PFa 2 get PFa 3 get Rec
+  TransparentPatterns {} {gsave 1 setgray fill grestore} ifelse
+  clip
+  currentlinewidth 0.5 mul setlinewidth
+  /PFs PFa 2 get dup mul PFa 3 get dup mul add sqrt def
+  0 0 M PFa 5 get rotate PFs -2 div dup translate
+  0 1 PFs PFa 4 get div 1 add floor cvi
+	{PFa 4 get mul 0 M 0 PFs V} for
+  0 PFa 6 get ne {
+	0 1 PFs PFa 4 get div 1 add floor cvi
+	{PFa 4 get mul 0 2 1 roll M PFs 0 V} for
+ } if
+  stroke grestore} def
+%
+/languagelevel where
+ {pop languagelevel} {1} ifelse
+ 2 lt
+	{/InterpretLevel1 true def}
+	{/InterpretLevel1 Level1 def}
+ ifelse
+%
+% PostScript level 2 pattern fill definitions
+%
+/Level2PatternFill {
+/Tile8x8 {/PaintType 2 /PatternType 1 /TilingType 1 /BBox [0 0 8 8] /XStep 8 /YStep 8}
+	bind def
+/KeepColor {currentrgbcolor [/Pattern /DeviceRGB] setcolorspace} bind def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop 0 0 M 8 8 L 0 8 M 8 0 L stroke} 
+>> matrix makepattern
+/Pat1 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop 0 0 M 8 8 L 0 8 M 8 0 L stroke
+	0 4 M 4 8 L 8 4 L 4 0 L 0 4 L stroke}
+>> matrix makepattern
+/Pat2 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop 0 0 M 0 8 L
+	8 8 L 8 0 L 0 0 L fill}
+>> matrix makepattern
+/Pat3 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop -4 8 M 8 -4 L
+	0 12 M 12 0 L stroke}
+>> matrix makepattern
+/Pat4 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop -4 0 M 8 12 L
+	0 -4 M 12 8 L stroke}
+>> matrix makepattern
+/Pat5 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop -2 8 M 4 -4 L
+	0 12 M 8 -4 L 4 12 M 10 0 L stroke}
+>> matrix makepattern
+/Pat6 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop -2 0 M 4 12 L
+	0 -4 M 8 12 L 4 -4 M 10 8 L stroke}
+>> matrix makepattern
+/Pat7 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop 8 -2 M -4 4 L
+	12 0 M -4 8 L 12 4 M 0 10 L stroke}
+>> matrix makepattern
+/Pat8 exch def
+<< Tile8x8
+ /PaintProc {0.5 setlinewidth pop 0 -2 M 12 4 L
+	-4 0 M 12 8 L -4 4 M 8 10 L stroke}
+>> matrix makepattern
+/Pat9 exch def
+/Pattern1 {PatternBgnd KeepColor Pat1 setpattern} bind def
+/Pattern2 {PatternBgnd KeepColor Pat2 setpattern} bind def
+/Pattern3 {PatternBgnd KeepColor Pat3 setpattern} bind def
+/Pattern4 {PatternBgnd KeepColor Landscape {Pat5} {Pat4} ifelse setpattern} bind def
+/Pattern5 {PatternBgnd KeepColor Landscape {Pat4} {Pat5} ifelse setpattern} bind def
+/Pattern6 {PatternBgnd KeepColor Landscape {Pat9} {Pat6} ifelse setpattern} bind def
+/Pattern7 {PatternBgnd KeepColor Landscape {Pat8} {Pat7} ifelse setpattern} bind def
+} def
+%
+%
+%End of PostScript Level 2 code
+%
+/PatternBgnd {
+  TransparentPatterns {} {gsave 1 setgray fill grestore} ifelse
+} def
+%
+% Substitute for Level 2 pattern fill codes with
+% grayscale if Level 2 support is not selected.
+%
+/Level1PatternFill {
+/Pattern1 {0.250 Density} bind def
+/Pattern2 {0.500 Density} bind def
+/Pattern3 {0.750 Density} bind def
+/Pattern4 {0.125 Density} bind def
+/Pattern5 {0.375 Density} bind def
+/Pattern6 {0.625 Density} bind def
+/Pattern7 {0.875 Density} bind def
+} def
+%
+% Now test for support of Level 2 code
+%
+Level1 {Level1PatternFill} {Level2PatternFill} ifelse
+%
+/Symbol-Oblique /Symbol findfont [1 0 .167 1 0 0] makefont
+dup length dict begin {1 index /FID eq {pop pop} {def} ifelse} forall
+currentdict end definefont pop
+Level1 SuppressPDFMark or 
+{} {
+/SDict 10 dict def
+systemdict /pdfmark known not {
+  userdict /pdfmark systemdict /cleartomark get put
+} if
+SDict begin [
+  /Title (eg3.tex)
+  /Subject (gnuplot plot)
+  /Creator (gnuplot 4.6 patchlevel 5)
+  /Author (josh)
+%  /Producer (gnuplot)
+%  /Keywords ()
+  /CreationDate (Thu Mar 13 16:19:41 2014)
+  /DOCINFO pdfmark
+end
+} ifelse
+end
+%%EndProlog
+%%Page: 1 1
+gnudict begin
+gsave
+doclip
+50 50 translate
+0.050 0.050 scale
+0 setgray
+newpath
+1.000 UL
+LTb
+LCb setrgbcolor
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 1078 704 M
+5725 0 V
+stroke
+LTb
+LCb setrgbcolor
+1078 704 M
+63 0 V
+5662 0 R
+-63 0 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 1078 1038 M
+5725 0 V
+stroke
+LTb
+LCb setrgbcolor
+1078 1038 M
+63 0 V
+5662 0 R
+-63 0 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 1078 1372 M
+5725 0 V
+stroke
+LTb
+LCb setrgbcolor
+1078 1372 M
+63 0 V
+5662 0 R
+-63 0 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 1078 1706 M
+5725 0 V
+stroke
+LTb
+LCb setrgbcolor
+1078 1706 M
+63 0 V
+5662 0 R
+-63 0 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 1078 2040 M
+5725 0 V
+stroke
+LTb
+LCb setrgbcolor
+1078 2040 M
+63 0 V
+5662 0 R
+-63 0 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 1078 2374 M
+5725 0 V
+stroke
+LTb
+LCb setrgbcolor
+1078 2374 M
+63 0 V
+5662 0 R
+-63 0 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 1078 2709 M
+5725 0 V
+stroke
+LTb
+LCb setrgbcolor
+1078 2709 M
+63 0 V
+5662 0 R
+-63 0 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 1078 3043 M
+5725 0 V
+stroke
+LTb
+LCb setrgbcolor
+1078 3043 M
+63 0 V
+5662 0 R
+-63 0 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 1078 3377 M
+5725 0 V
+stroke
+LTb
+LCb setrgbcolor
+1078 3377 M
+63 0 V
+5662 0 R
+-63 0 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 1078 3711 M
+5725 0 V
+stroke
+LTb
+LCb setrgbcolor
+1078 3711 M
+63 0 V
+5662 0 R
+-63 0 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 1078 4045 M
+5725 0 V
+stroke
+LTb
+LCb setrgbcolor
+1078 4045 M
+63 0 V
+5662 0 R
+-63 0 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 1078 4379 M
+5725 0 V
+stroke
+LTb
+LCb setrgbcolor
+1078 4379 M
+63 0 V
+5662 0 R
+-63 0 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 1078 704 M
+0 3675 V
+stroke
+LTb
+LCb setrgbcolor
+1078 704 M
+0 63 V
+0 3612 R
+0 -63 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 2032 704 M
+0 3675 V
+stroke
+LTb
+LCb setrgbcolor
+2032 704 M
+0 63 V
+0 3612 R
+0 -63 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 2986 704 M
+0 3675 V
+stroke
+LTb
+LCb setrgbcolor
+2986 704 M
+0 63 V
+0 3612 R
+0 -63 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 3941 704 M
+0 3675 V
+stroke
+LTb
+LCb setrgbcolor
+3941 704 M
+0 63 V
+0 3612 R
+0 -63 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 4895 704 M
+0 3392 V
+0 220 R
+0 63 V
+stroke
+LTb
+LCb setrgbcolor
+4895 704 M
+0 63 V
+0 3612 R
+0 -63 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 5849 704 M
+0 3392 V
+0 220 R
+0 63 V
+stroke
+LTb
+LCb setrgbcolor
+5849 704 M
+0 63 V
+0 3612 R
+0 -63 V
+stroke
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+0.75 0.80 0.21 C 6803 704 M
+0 3675 V
+stroke
+LTb
+LCb setrgbcolor
+6803 704 M
+0 63 V
+0 3612 R
+0 -63 V
+stroke
+LTb
+1.000 UL
+LTb
+1078 4379 N
+0 -3675 V
+5725 0 V
+0 3675 V
+-5725 0 V
+Z stroke
+1.000 UP
+1.000 UL
+LTb
+1.000 UL
+LT0
+LC0 setrgbcolor
+LC2 setrgbcolor
+LCb setrgbcolor
+LT0
+LC0 setrgbcolor
+LC2 setrgbcolor
+5948 4206 M
+591 0 V
+4281 4061 M
+139 -13 V
+274 -38 V
+301 -63 V
+288 -83 V
+266 -101 V
+245 -119 V
+225 -139 V
+199 -160 V
+125 -134 V
+85 -125 V
+59 -127 V
+29 -120 V
+4 -113 V
+-18 -105 V
+-36 -100 V
+-52 -96 V
+-67 -93 V
+-80 -91 V
+-94 -93 V
+-113 -99 V
+-110 -92 V
+-106 -85 V
+-96 -76 V
+-90 -71 V
+-87 -69 V
+-88 -68 V
+-91 -69 V
+-98 -70 V
+-109 -70 V
+-122 -69 V
+-136 -66 V
+-149 -58 V
+-162 -49 V
+-172 -38 V
+-182 -29 V
+-194 -17 V
+-206 -4 V
+-222 12 V
+-239 32 V
+-206 48 V
+-179 61 V
+-147 71 V
+-118 78 V
+-93 85 V
+-70 90 V
+-50 94 V
+-37 98 V
+-28 89 V
+-24 68 V
+-27 61 V
+-35 61 V
+-41 58 V
+-47 58 V
+-53 58 V
+-59 63 V
+-65 70 V
+-72 81 V
+-77 102 V
+-70 119 V
+-45 118 V
+-21 118 V
+5 118 V
+30 121 V
+59 124 V
+90 123 V
+123 119 V
+155 114 V
+186 103 V
+216 92 V
+246 77 V
+280 62 V
+314 41 V
+329 16 V
+284 -9 V
+281 -27 V
+265 -43 V
+250 -57 V
+235 -69 V
+222 -80 V
+211 -91 V
+200 -102 V
+190 -117 V
+180 -135 V
+133 -126 V
+94 -115 V
+69 -117 V
+41 -111 V
+16 -105 V
+-4 -100 V
+-23 -97 V
+-40 -93 V
+-56 -91 V
+-71 -90 V
+-86 -91 V
+-103 -93 V
+-123 -98 V
+5895 1793 L
+-132 -90 V
+-120 -79 V
+-116 -72 V
+-115 -68 V
+-117 -66 V
+-122 -64 V
+-130 -62 V
+-140 -58 V
+-151 -53 V
+-162 -46 V
+-173 -38 V
+-181 -27 V
+-191 -16 V
+-199 -3 V
+-210 10 V
+-221 29 V
+-233 52 V
+-187 64 V
+-158 77 V
+-124 84 V
+-92 90 V
+-65 93 V
+-39 95 V
+-19 93 V
+-5 92 V
+-1 98 V
+-4 65 V
+-10 57 V
+-18 57 V
+-26 55 V
+-33 53 V
+-40 55 V
+-46 59 V
+-52 66 V
+-58 76 V
+-62 94 V
+-58 116 V
+-34 118 V
+-9 116 V
+18 116 V
+45 117 V
+74 116 V
+105 113 V
+135 106 V
+164 97 V
+193 87 V
+224 75 V
+256 60 V
+286 40 V
+291 16 V
+274 -6 V
+255 -23 V
+240 -37 V
+225 -49 V
+215 -59 V
+204 -67 V
+195 -77 V
+188 -85 V
+180 -95 V
+174 -108 V
+166 -125 V
+123 -115 V
+89 -107 V
+66 -109 V
+40 -104 V
+17 -99 V
+-3 -96 V
+-21 -92 V
+-39 -91 V
+-54 -89 V
+-69 -88 V
+-85 -88 V
+-102 -90 V
+-122 -95 V
+5847 1764 L
+-143 -91 V
+-132 -79 V
+-125 -72 V
+-124 -66 V
+-125 -62 V
+-129 -60 V
+-135 -56 V
+-144 -52 V
+-153 -46 V
+-163 -39 V
+-172 -31 V
+-180 -20 V
+-188 -9 V
+-196 4 V
+-204 19 V
+-213 37 V
+-215 61 V
+-166 70 V
+-137 81 V
+-103 87 V
+-72 91 V
+-46 91 V
+-22 91 V
+-6 88 V
+4 88 V
+4 76 V
+-1 59 V
+-9 54 V
+-16 53 V
+-25 52 V
+-32 50 V
+-39 53 V
+-46 56 V
+-51 63 V
+-58 73 V
+-62 90 V
+-58 110 V
+-37 115 V
+-11 112 V
+14 113 V
+41 112 V
+70 112 V
+99 108 V
+128 104 V
+158 95 V
+187 85 V
+217 73 V
+247 58 V
+268 38 V
+270 17 V
+259 -4 V
+245 -20 V
+234 -33 V
+222 -46 V
+213 -55 V
+204 -65 V
+196 -74 V
+189 -84 V
+183 -96 V
+177 -110 V
+166 -127 V
+111 -109 V
+86 -111 V
+57 -106 V
+31 -100 V
+10 -96 V
+-10 -93 V
+-27 -89 V
+-44 -87 V
+-60 -86 V
+-74 -85 V
+-89 -85 V
+-106 -86 V
+-125 -91 V
+-142 -94 V
+-134 -82 V
+-123 -72 V
+-116 -65 V
+-114 -60 V
+-114 -58 V
+-117 -54 V
+-122 -52 V
+-129 -49 V
+-138 -44 V
+-147 -39 V
+-157 -30 V
+-164 -22 V
+-173 -11 V
+-179 1 V
+-187 15 V
+-194 31 V
+-196 53 V
+-168 69 V
+-128 75 V
+-93 80 V
+-65 83 V
+-42 83 V
+-23 84 V
+-11 84 V
+-8 79 V
+-9 58 V
+-16 52 V
+-23 52 V
+-32 50 V
+stroke 2600 2099 M
+-38 49 V
+-46 49 V
+-52 52 V
+-60 57 V
+-66 66 V
+-72 78 V
+-76 97 V
+-64 108 V
+-39 108 V
+-15 107 V
+8 108 V
+32 109 V
+60 109 V
+87 108 V
+116 104 V
+145 98 V
+175 89 V
+202 79 V
+229 65 V
+250 48 V
+263 29 V
+265 9 V
+261 -8 V
+253 -25 V
+244 -40 V
+235 -52 V
+227 -66 V
+219 -79 V
+212 -94 V
+204 -111 V
+171 -119 V
+124 -108 V
+91 -104 V
+68 -106 V
+41 -102 V
+18 -98 V
+-3 -93 V
+-22 -90 V
+-38 -87 V
+-54 -84 V
+-69 -82 V
+-82 -80 V
+-96 -81 V
+-112 -83 V
+-129 -87 V
+-113 -73 V
+-108 -66 V
+-98 -61 V
+-93 -56 V
+-90 -53 V
+-88 -53 V
+-90 -51 V
+-94 -50 V
+-100 -49 V
+-107 -48 V
+-118 -43 V
+-128 -38 V
+-138 -30 V
+-146 -22 V
+-155 -12 V
+-163 -1 V
+-172 13 V
+-181 31 V
+-167 49 V
+-133 58 V
+-101 64 V
+-77 68 V
+-59 72 V
+-48 76 V
+-39 70 V
+-33 55 V
+-35 50 V
+-43 51 V
+-50 48 V
+-56 47 V
+-61 48 V
+-68 49 V
+-75 54 V
+-82 60 V
+-89 69 V
+-95 84 V
+-93 99 V
+-72 102 V
+-49 100 V
+-27 100 V
+-6 102 V
+15 102 V
+38 104 V
+62 103 V
+86 102 V
+112 100 V
+138 96 V
+165 90 V
+193 82 V
+220 71 V
+246 58 V
+270 42 V
+291 23 V
+306 1 V
+313 -23 V
+310 -47 V
+301 -72 V
+285 -98 V
+231 -107 V
+stroke 5509 3486 M
+175 -106 V
+135 -105 V
+107 -111 V
+75 -109 V
+45 -105 V
+20 -100 V
+-2 -95 V
+-22 -91 V
+-39 -87 V
+-55 -83 V
+-68 -79 V
+-80 -77 V
+-91 -76 V
+-105 -79 V
+-103 -72 V
+-88 -61 V
+-80 -57 V
+-70 -52 V
+-62 -50 V
+-58 -48 V
+-54 -48 V
+-52 -50 V
+-54 -50 V
+-57 -53 V
+-64 -55 V
+-74 -56 V
+-87 -54 V
+-99 -50 V
+-112 -43 V
+-124 -36 V
+-135 -27 V
+-148 -17 V
+-162 -4 V
+-178 11 V
+-150 25 V
+-134 37 V
+-115 46 V
+-104 52 V
+-87 52 V
+-76 48 V
+-70 46 V
+-70 43 V
+-78 47 V
+-82 46 V
+-85 47 V
+-89 48 V
+-95 51 V
+-100 56 V
+-105 61 V
+-112 71 V
+-116 84 V
+-110 95 V
+-88 97 V
+-64 94 V
+-41 92 V
+-22 93 V
+-2 92 V
+16 94 V
+36 93 V
+56 94 V
+75 94 V
+96 93 V
+119 92 V
+143 91 V
+171 88 V
+202 85 V
+239 79 V
+271 67 V
+286 48 V
+284 26 V
+279 6 V
+273 -14 V
+263 -34 V
+249 -52 V
+228 -71 V
+199 -84 V
+166 -94 V
+131 -100 V
+97 -103 V
+66 -103 V
+37 -100 V
+12 -98 V
+-11 -92 V
+-29 -88 V
+-46 -82 V
+-58 -78 V
+-69 -74 V
+-77 -73 V
+-87 -77 V
+-65 -57 V
+-56 -55 V
+-43 -48 V
+-33 -46 V
+-24 -44 V
+-18 -44 V
+-12 -47 V
+-9 -50 V
+-8 -54 V
+-8 -61 V
+-15 -69 V
+-26 -76 V
+-44 -79 V
+-64 -76 V
+-82 -70 V
+stroke 4858 1491 M
+-100 -64 V
+-119 -55 V
+-138 -48 V
+-162 -38 V
+-190 -25 V
+-175 -7 V
+-159 7 V
+-158 18 V
+-135 25 V
+-138 32 V
+-121 34 V
+-127 39 V
+-125 43 V
+-125 46 V
+-125 48 V
+-125 52 V
+-128 56 V
+-130 61 V
+-133 68 V
+-135 79 V
+-134 91 V
+-119 97 V
+-83 88 V
+-64 89 V
+-43 87 V
+-22 87 V
+-4 85 V
+13 84 V
+31 84 V
+48 83 V
+64 83 V
+81 84 V
+99 83 V
+119 85 V
+141 86 V
+169 89 V
+189 86 V
+186 72 V
+179 60 V
+176 49 V
+174 40 V
+175 32 V
+177 23 V
+180 13 V
+181 3 V
+182 -8 V
+181 -21 V
+179 -34 V
+171 -48 V
+158 -63 V
+136 -75 V
+108 -82 V
+77 -87 V
+49 -87 V
+22 -86 V
+1 -83 V
+-18 -79 V
+-30 -74 V
+-40 -72 V
+-44 -75 V
+-30 -54 V
+-18 -47 V
+-10 -45 V
+2 -43 V
+10 -41 V
+19 -42 V
+26 -43 V
+34 -47 V
+39 -53 V
+45 -61 V
+49 -73 V
+46 -90 V
+31 -100 V
+7 -100 V
+-18 -99 V
+-42 -96 V
+-68 -93 V
+-94 -89 V
+-119 -83 V
+-144 -74 V
+-168 -64 V
+-186 -50 V
+-196 -35 V
+-200 -20 V
+-200 -6 V
+-197 7 V
+-194 17 V
+-190 27 V
+-188 36 V
+-184 45 V
+-182 53 V
+-179 62 V
+-178 72 V
+-176 85 V
+-172 100 V
+-135 97 V
+-102 92 V
+-80 95 V
+-55 92 V
+-32 89 V
+-11 86 V
+8 84 V
+25 81 V
+41 80 V
+stroke 1789 2403 M
+57 77 V
+71 76 V
+86 75 V
+100 75 V
+115 76 V
+134 78 V
+138 75 V
+125 64 V
+112 55 V
+105 49 V
+100 46 V
+98 43 V
+97 40 V
+98 39 V
+100 35 V
+105 33 V
+110 29 V
+117 23 V
+123 17 V
+129 9 V
+134 -1 V
+138 -11 V
+140 -24 V
+135 -38 V
+116 -50 V
+89 -56 V
+65 -60 V
+47 -62 V
+35 -64 V
+31 -69 V
+25 -49 V
+27 -43 V
+34 -40 V
+42 -40 V
+50 -40 V
+57 -40 V
+64 -42 V
+71 -44 V
+79 -48 V
+86 -55 V
+93 -64 V
+101 -78 V
+96 -90 V
+77 -94 V
+54 -93 V
+33 -93 V
+12 -93 V
+-9 -93 V
+-29 -93 V
+-50 -93 V
+-72 -92 V
+-94 -89 V
+-115 -85 V
+-139 -81 V
+-161 -74 V
+-184 -67 V
+-207 -58 V
+-229 -46 V
+-253 -33 V
+-276 -15 V
+-298 5 V
+-317 31 V
+-322 61 V
+-249 73 V
+-205 81 V
+-177 92 V
+-140 96 V
+-107 97 V
+-76 97 V
+-49 95 V
+-25 92 V
+-2 90 V
+17 86 V
+35 82 V
+50 78 V
+64 74 V
+76 71 V
+86 69 V
+96 69 V
+107 72 V
+80 53 V
+71 50 V
+58 44 V
+49 41 V
+41 41 V
+35 40 V
+30 41 V
+27 43 V
+25 45 V
+27 49 V
+32 53 V
+41 56 V
+53 58 V
+68 56 V
+82 51 V
+97 44 V
+112 38 V
+129 30 V
+151 19 V
+153 3 V
+133 -9 V
+121 -17 V
+110 -24 V
+101 -26 V
+stroke 4412 3307 M
+97 -29 V
+104 -34 V
+105 -36 V
+106 -38 V
+108 -40 V
+110 -42 V
+114 -46 V
+118 -50 V
+122 -55 V
+127 -62 V
+130 -72 V
+131 -84 V
+115 -91 V
+90 -89 V
+63 -86 V
+42 -84 V
+22 -83 V
+4 -82 V
+-14 -81 V
+-31 -81 V
+-48 -81 V
+-65 -80 V
+-82 -79 V
+-99 -79 V
+-119 -80 V
+-140 -79 V
+-165 -80 V
+-193 -79 V
+-199 -68 V
+-192 -55 V
+-185 -42 V
+-180 -33 V
+-177 -22 V
+-176 -14 V
+-174 -3 V
+-173 6 V
+-170 18 V
+-165 28 V
+-157 41 V
+-146 53 V
+-129 63 V
+-108 72 V
+-82 78 V
+-57 80 V
+-31 82 V
+-9 79 V
+10 76 V
+27 73 V
+38 68 V
+46 67 V
+51 68 V
+35 50 V
+22 43 V
+13 41 V
+2 38 V
+-9 38 V
+-17 37 V
+-25 39 V
+-33 42 V
+-40 46 V
+-46 53 V
+-51 63 V
+-52 77 V
+-44 91 V
+-24 95 V
+0 94 V
+23 92 V
+48 90 V
+71 86 V
+96 81 V
+119 74 V
+139 65 V
+157 53 V
+170 42 V
+178 28 V
+183 16 V
+185 5 V
+185 -7 V
+186 -16 V
+186 -25 V
+185 -35 V
+185 -43 V
+184 -53 V
+184 -64 V
+183 -77 V
+181 -92 V
+143 -90 V
+111 -88 V
+89 -91 V
+63 -89 V
+39 -86 V
+19 -84 V
+-1 -81 V
+-19 -80 V
+-35 -77 V
+-52 -75 V
+-65 -73 V
+-80 -71 V
+-93 -70 V
+-107 -69 V
+-122 -71 V
+-134 -71 V
+-127 -63 V
+-111 -52 V
+stroke 5103 1806 M
+-99 -46 V
+-90 -42 V
+-86 -39 V
+-81 -37 V
+-80 -35 V
+-79 -34 V
+-79 -32 V
+-83 -30 V
+-87 -27 V
+-92 -24 V
+-98 -19 V
+-104 -13 V
+-109 -5 V
+-113 3 V
+-116 14 V
+-114 26 V
+-100 36 V
+-79 43 V
+-63 47 V
+-52 51 V
+-45 49 V
+-39 40 V
+-40 36 V
+-44 35 V
+-54 35 V
+-60 36 V
+-68 36 V
+-73 37 V
+-81 40 V
+-88 43 V
+-95 49 V
+-103 55 V
+-109 66 V
+-113 78 V
+-103 87 V
+-80 88 V
+-57 86 V
+-36 86 V
+-17 86 V
+3 86 V
+22 86 V
+40 85 V
+60 84 V
+79 82 V
+98 80 V
+118 78 V
+138 74 V
+161 70 V
+184 64 V
+212 58 V
+242 48 V
+273 35 V
+282 14 V
+267 -6 V
+245 -24 V
+222 -39 V
+200 -51 V
+176 -62 V
+151 -71 V
+127 -78 V
+100 -83 V
+75 -86 V
+50 -86 V
+27 -86 V
+5 -85 V
+-16 -81 V
+-33 -77 V
+-48 -74 V
+-60 -69 V
+-71 -66 V
+-79 -64 V
+-88 -64 V
+-71 -52 V
+-56 -44 V
+-45 -41 V
+-34 -37 V
+-23 -36 V
+-15 -36 V
+-7 -36 V
+-1 -37 V
+5 -41 V
+9 -46 V
+10 -51 V
+9 -58 V
+2 -68 V
+-12 -74 V
+-31 -74 V
+-52 -72 V
+-71 -67 V
+-93 -62 V
+-113 -54 V
+-134 -45 V
+-146 -32 V
+-135 -17 V
+-143 -7 V
+-130 2 V
+-137 9 V
+-137 17 V
+-138 22 V
+-137 28 V
+-138 32 V
+-139 37 V
+-142 42 V
+-143 48 V
+stroke 2768 1553 M
+-146 55 V
+-148 62 V
+-150 74 V
+-147 84 V
+-117 83 V
+-97 86 V
+-71 84 V
+-48 81 V
+-28 80 V
+-8 78 V
+9 77 V
+26 75 V
+43 74 V
+58 73 V
+73 72 V
+88 71 V
+104 71 V
+120 70 V
+138 72 V
+155 71 V
+151 62 V
+139 53 V
+130 44 V
+122 39 V
+119 34 V
+116 29 V
+115 25 V
+114 21 V
+115 15 V
+115 10 V
+117 4 V
+117 -4 V
+117 -12 V
+115 -20 V
+109 -31 V
+101 -40 V
+85 -48 V
+65 -55 V
+45 -57 V
+26 -58 V
+10 -59 V
+0 -57 V
+-4 -60 V
+1 -45 V
+7 -38 V
+16 -34 V
+25 -35 V
+35 -33 V
+43 -34 V
+52 -34 V
+60 -36 V
+69 -40 V
+76 -45 V
+85 -52 V
+92 -61 V
+97 -76 V
+90 -86 V
+69 -88 V
+46 -87 V
+26 -88 V
+4 -87 V
+-16 -87 V
+-36 -86 V
+-57 -84 V
+-77 -82 V
+-97 -77 V
+-117 -73 V
+-136 -67 V
+-154 -60 V
+-173 -52 V
+-191 -43 V
+-207 -32 V
+-224 -21 V
+-241 -7 V
+-256 10 V
+-273 30 V
+-277 53 V
+-220 63 V
+-197 75 V
+-160 81 V
+-127 84 V
+-98 85 V
+-71 86 V
+-47 85 V
+-25 84 V
+-4 83 V
+15 80 V
+33 76 V
+48 74 V
+63 70 V
+74 66 V
+85 64 V
+95 63 V
+106 63 V
+91 52 V
+75 44 V
+65 40 V
+54 37 V
+43 35 V
+35 33 V
+28 33 V
+22 35 V
+17 36 V
+14 38 V
+stroke 3136 2869 M
+14 41 V
+15 46 V
+20 49 V
+30 53 V
+43 53 V
+58 52 V
+74 47 V
+90 42 V
+109 35 V
+130 26 V
+116 10 V
+109 2 V
+104 -6 V
+100 -11 V
+107 -17 V
+100 -19 V
+108 -24 V
+111 -27 V
+114 -31 V
+117 -34 V
+122 -38 V
+125 -42 V
+129 -47 V
+134 -54 V
+138 -62 V
+140 -73 V
+133 -83 V
+108 -85 V
+82 -82 V
+57 -80 V
+36 -78 V
+17 -77 V
+-1 -76 V
+-18 -75 V
+-35 -74 V
+-51 -73 V
+-66 -72 V
+-83 -71 V
+-98 -70 V
+-115 -70 V
+-133 -70 V
+-155 -70 V
+-171 -67 V
+-167 -57 V
+-157 -47 V
+-147 -38 V
+-141 -31 V
+-136 -25 V
+-134 -18 V
+-132 -13 V
+-130 -6 V
+-128 1 V
+-126 8 V
+-122 16 V
+-118 25 V
+-111 34 V
+-100 42 V
+-87 50 V
+-68 57 V
+-49 61 V
+-28 62 V
+-10 62 V
+7 61 V
+18 58 V
+27 58 V
+29 58 V
+14 42 V
+5 35 V
+-5 34 V
+-17 33 V
+-27 31 V
+-36 32 V
+-44 33 V
+-54 35 V
+-62 39 V
+-70 45 V
+-78 52 V
+-85 64 V
+-88 78 V
+-75 86 V
+-52 87 V
+-31 87 V
+-9 87 V
+12 85 V
+32 85 V
+54 82 V
+74 78 V
+94 74 V
+113 68 V
+131 62 V
+148 53 V
+163 45 V
+177 36 V
+189 26 V
+201 15 V
+212 4 V
+221 -10 V
+229 -23 V
+238 -40 V
+244 -60 V
+207 -69 V
+168 -73 V
+145 -81 V
+115 -83 V
+stroke 5543 3159 M
+86 -84 V
+62 -83 V
+39 -82 V
+18 -81 V
+-2 -80 V
+-20 -76 V
+-37 -75 V
+-53 -71 V
+-66 -68 V
+-79 -65 V
+-90 -62 V
+-100 -61 V
+-111 -61 V
+-103 -53 V
+-86 -44 V
+-76 -40 V
+-64 -36 V
+-53 -33 V
+-45 -32 V
+-37 -31 V
+-31 -31 V
+-27 -32 V
+-23 -34 V
+-21 -35 V
+-22 -38 V
+-25 -40 V
+-32 -43 V
+-42 -43 V
+-54 -42 V
+-66 -39 V
+-81 -33 V
+-97 -28 V
+-118 -19 V
+-103 -6 V
+-94 2 V
+-88 9 V
+-86 12 V
+-86 15 V
+-95 20 V
+-98 23 V
+-102 26 V
+-105 28 V
+-109 31 V
+-115 35 V
+-119 39 V
+-124 44 V
+-130 50 V
+-134 58 V
+-138 68 V
+-134 78 V
+-113 82 V
+-87 80 V
+-63 79 V
+-41 76 V
+-22 76 V
+-3 75 V
+14 74 V
+30 73 V
+47 72 V
+63 71 V
+79 70 V
+94 69 V
+111 68 V
+129 68 V
+149 67 V
+169 66 V
+177 59 V
+167 47 V
+155 38 V
+147 29 V
+142 23 V
+137 17 V
+133 10 V
+131 3 V
+127 -3 V
+123 -11 V
+119 -18 V
+113 -27 V
+105 -34 V
+94 -43 V
+80 -50 V
+63 -55 V
+44 -59 V
+24 -61 V
+6 -61 V
+-9 -60 V
+-23 -57 V
+-31 -55 V
+-35 -55 V
+-26 -44 V
+-13 -35 V
+-3 -31 V
+8 -31 V
+19 -30 V
+29 -29 V
+38 -31 V
+47 -32 V
+56 -34 V
+65 -40 V
+73 -45 V
+81 -54 V
+87 -67 V
+85 -79 V
+69 -85 V
+stroke 5387 2092 M
+46 -85 V
+25 -85 V
+3 -84 V
+-18 -83 V
+-38 -81 V
+-59 -78 V
+-78 -75 V
+-98 -69 V
+-115 -63 V
+-132 -57 V
+-147 -48 V
+-162 -41 V
+-175 -31 V
+-187 -21 V
+-198 -11 V
+-208 0 V
+-218 12 V
+-227 27 V
+-236 43 V
+-236 63 V
+-188 67 V
+-165 76 V
+-132 80 V
+-102 80 V
+-77 80 V
+-53 81 V
+-31 79 V
+-12 79 V
+8 76 V
+26 75 V
+43 72 V
+57 68 V
+71 66 V
+82 63 V
+94 60 V
+103 59 V
+115 58 V
+98 49 V
+89 43 V
+72 37 V
+60 33 V
+49 31 V
+40 29 V
+33 29 V
+26 29 V
+22 31 V
+18 31 V
+15 34 V
+16 37 V
+19 40 V
+25 42 V
+35 43 V
+46 42 V
+60 40 V
+75 35 V
+93 30 V
+101 19 V
+93 9 V
+88 1 V
+85 -5 V
+86 -9 V
+94 -13 V
+98 -18 V
+102 -20 V
+105 -23 V
+109 -27 V
+114 -30 V
+119 -34 V
+124 -38 V
+129 -44 V
+134 -50 V
+139 -59 V
+141 -70 V
+133 -78 V
+108 -80 V
+82 -78 V
+58 -77 V
+38 -75 V
+18 -74 V
+0 -73 V
+-17 -72 V
+-34 -71 V
+-49 -70 V
+-66 -69 V
+-81 -68 V
+-96 -66 V
+-112 -66 V
+-130 -64 V
+-148 -65 V
+-167 -62 V
+-168 -55 V
+-157 -44 V
+-145 -35 V
+-136 -28 V
+-130 -22 V
+-126 -16 V
+-121 -11 V
+-119 -6 V
+-115 1 V
+-111 7 V
+-107 13 V
+-103 21 V
+-95 28 V
+-87 35 V
+stroke 3337 1498 M
+-75 42 V
+-61 48 V
+-43 53 V
+-26 54 V
+-9 55 V
+7 54 V
+18 53 V
+26 51 V
+29 51 V
+17 39 V
+7 31 V
+-4 29 V
+-15 28 V
+-26 28 V
+-36 27 V
+-45 29 V
+-54 30 V
+-63 34 V
+-72 37 V
+-80 44 V
+-90 52 V
+-96 63 V
+-95 77 V
+-80 82 V
+-58 83 V
+-35 82 V
+-15 82 V
+6 81 V
+25 80 V
+46 78 V
+64 75 V
+83 71 V
+102 66 V
+118 61 V
+135 54 V
+151 48 V
+166 40 V
+181 31 V
+195 22 V
+209 11 V
+223 -1 V
+239 -16 V
+251 -34 V
+241 -53 V
+185 -56 V
+164 -66 V
+136 -70 V
+109 -74 V
+85 -76 V
+62 -77 V
+40 -77 V
+20 -77 V
+0 -76 V
+-19 -74 V
+-35 -72 V
+-51 -68 V
+-65 -65 V
+-77 -62 V
+-87 -59 V
+-97 -57 V
+-106 -56 V
+-98 -48 V
+-78 -39 V
+-68 -36 V
+-54 -31 V
+-43 -29 V
+-32 -28 V
+-24 -27 V
+-17 -28 V
+-9 -29 V
+-4 -31 V
+0 -33 V
+3 -37 V
+2 -42 V
+-1 -46 V
+-10 -51 V
+-23 -54 V
+-39 -53 V
+-55 -50 V
+-75 -46 V
+-91 -38 V
+-90 -26 V
+-92 -16 V
+-102 -10 V
+-95 -2 V
+-104 3 V
+-109 8 V
+-112 13 V
+-116 17 V
+-120 22 V
+-124 25 V
+-129 31 V
+-133 35 V
+-138 40 V
+-143 48 V
+-147 56 V
+-149 66 V
+-143 76 V
+-120 80 V
+-92 77 V
+-67 76 V
+-45 74 V
+-25 73 V
+-7 72 V
+stroke 1944 2350 M
+11 71 V
+28 70 V
+43 68 V
+60 67 V
+74 66 V
+89 64 V
+104 63 V
+119 62 V
+136 62 V
+153 60 V
+156 55 V
+144 46 V
+131 37 V
+120 30 V
+113 26 V
+107 21 V
+102 18 V
+98 13 V
+95 10 V
+92 5 V
+89 0 V
+87 -5 V
+84 -10 V
+80 -16 V
+74 -22 V
+67 -29 V
+56 -34 V
+43 -40 V
+28 -42 V
+14 -44 V
+2 -44 V
+-7 -43 V
+-9 -45 V
+-2 -34 V
+6 -28 V
+15 -26 V
+26 -26 V
+36 -25 V
+46 -25 V
+55 -27 V
+64 -28 V
+73 -30 V
+81 -35 V
+91 -39 V
+99 -47 V
+108 -56 V
+112 -68 V
+104 -77 V
+83 -80 V
+60 -79 V
+39 -79 V
+19 -79 V
+-1 -78 V
+-20 -77 V
+-38 -76 V
+-56 -73 V
+-75 -71 V
+-92 -67 V
+-109 -64 V
+-126 -59 V
+-143 -54 V
+-161 -49 V
+-179 -42 V
+-199 -34 V
+-221 -24 V
+-244 -11 V
+-251 5 V
+-230 22 V
+-201 33 V
+-176 42 V
+-153 51 V
+-131 57 V
+-111 62 V
+-90 67 V
+-69 70 V
+-49 72 V
+-29 73 V
+-8 74 V
+10 71 V
+28 70 V
+44 67 V
+57 64 V
+70 59 V
+80 57 V
+87 53 V
+95 53 V
+80 43 V
+61 35 V
+51 32 V
+36 29 V
+24 26 V
+13 26 V
+4 26 V
+-4 27 V
+-13 29 V
+-20 31 V
+-26 36 V
+-31 41 V
+-33 49 V
+-30 58 V
+-22 66 V
+-4 71 V
+16 69 V
+37 67 V
+stroke 3090 3106 M
+57 61 V
+74 55 V
+90 47 V
+102 37 V
+110 28 V
+117 19 V
+123 12 V
+127 5 V
+132 -3 V
+137 -8 V
+140 -14 V
+145 -20 V
+150 -26 V
+153 -33 V
+158 -40 V
+162 -49 V
+165 -59 V
+165 -71 V
+147 -78 V
+108 -72 V
+88 -74 V
+65 -75 V
+44 -73 V
+24 -73 V
+5 -71 V
+-12 -70 V
+-30 -69 V
+-45 -67 V
+-61 -66 V
+-75 -63 V
+-89 -62 V
+-102 -60 V
+-116 -59 V
+-130 -57 V
+-143 -57 V
+-139 -50 V
+-122 -41 V
+-107 -34 V
+-95 -29 V
+-87 -25 V
+-80 -23 V
+-73 -20 V
+-69 -19 V
+-65 -16 V
+-61 -14 V
+-60 -12 V
+-57 -10 V
+-57 -7 V
+-57 -4 V
+-56 0 V
+-55 5 V
+-53 9 V
+-49 15 V
+-42 20 V
+-34 23 V
+-27 27 V
+-27 29 V
+-25 24 V
+-29 20 V
+-34 20 V
+-46 21 V
+-55 21 V
+-62 23 V
+-71 23 V
+-79 25 V
+-87 28 V
+-95 32 V
+-104 35 V
+-111 42 V
+-120 49 V
+-126 59 V
+-126 69 V
+-111 76 V
+-88 76 V
+-65 75 V
+-43 75 V
+-24 75 V
+-5 73 V
+12 73 V
+31 72 V
+48 71 V
+64 68 V
+81 67 V
+97 65 V
+114 62 V
+131 60 V
+150 56 V
+170 52 V
+194 48 V
+212 40 V
+209 27 V
+193 14 V
+177 4 V
+165 -5 V
+153 -14 V
+142 -22 V
+132 -29 V
+119 -37 V
+106 -43 V
+92 -50 V
+75 -55 V
+59 -60 V
+40 -63 V
+21 -64 V
+stroke 5084 3003 M
+3 -65 V
+-15 -63 V
+-31 -62 V
+-45 -58 V
+-56 -55 V
+-64 -51 V
+-71 -50 V
+-74 -49 V
+-46 -33 V
+-31 -29 V
+-20 -27 V
+-7 -24 V
+4 -24 V
+16 -25 V
+25 -25 V
+35 -27 V
+43 -30 V
+53 -35 V
+61 -40 V
+67 -49 V
+73 -60 V
+68 -73 V
+53 -78 V
+30 -79 V
+9 -78 V
+-14 -76 V
+-33 -72 V
+-54 -69 V
+-72 -63 V
+-89 -57 V
+-104 -50 V
+-117 -42 V
+-129 -35 V
+-140 -27 V
+-149 -19 V
+-157 -11 V
+-165 -3 V
+-171 5 V
+-179 13 V
+-184 23 V
+-191 34 V
+-197 46 V
+-199 60 V
+-169 65 V
+-148 73 V
+-118 74 V
+-90 74 V
+-66 74 V
+-45 74 V
+-25 73 V
+-6 72 V
+12 71 V
+30 69 V
+46 67 V
+61 65 V
+75 62 V
+88 59 V
+99 57 V
+111 54 V
+122 54 V
+129 52 V
+104 39 V
+93 34 V
+79 30 V
+66 26 V
+56 24 V
+48 23 V
+39 22 V
+34 21 V
+27 21 V
+23 22 V
+19 23 V
+18 24 V
+18 25 V
+19 27 V
+25 26 V
+31 27 V
+39 25 V
+49 22 V
+62 19 V
+63 10 V
+58 3 V
+59 0 V
+60 -4 V
+65 -7 V
+76 -10 V
+83 -13 V
+89 -16 V
+95 -18 V
+101 -21 V
+108 -25 V
+115 -28 V
+121 -33 V
+128 -38 V
+135 -45 V
+140 -54 V
+143 -64 V
+134 -72 V
+111 -74 V
+85 -73 V
+62 -72 V
+41 -71 V
+22 -70 V
+3 -70 V
+stroke 5872 2275 M
+-14 -69 V
+-31 -68 V
+-47 -66 V
+-63 -65 V
+-79 -64 V
+-93 -62 V
+-109 -60 V
+-125 -59 V
+-142 -57 V
+-160 -56 V
+-172 -51 V
+-164 -41 V
+-151 -32 V
+-138 -24 V
+-129 -18 V
+-121 -13 V
+-115 -7 V
+-109 -3 V
+-103 3 V
+-98 8 V
+-92 13 V
+-85 19 V
+-78 25 V
+-69 30 V
+-59 36 V
+-46 40 V
+-33 44 V
+-17 46 V
+-2 48 V
+12 46 V
+24 45 V
+32 43 V
+37 42 V
+31 38 V
+16 27 V
+4 24 V
+-7 23 V
+-20 22 V
+-31 22 V
+-42 22 V
+-51 24 V
+-61 25 V
+-71 29 V
+-80 33 V
+-90 39 V
+-100 47 V
+-107 58 V
+-107 70 V
+-93 76 V
+-71 77 V
+-48 78 V
+-27 77 V
+-7 76 V
+13 75 V
+31 73 V
+50 70 V
+68 68 V
+85 63 V
+102 59 V
+117 55 V
+134 49 V
+148 43 V
+164 36 V
+179 29 V
+195 21 V
+212 10 V
+230 -2 V
+240 -19 V
+221 -32 V
+190 -42 V
+161 -50 V
+136 -55 V
+114 -60 V
+93 -63 V
+73 -67 V
+53 -69 V
+33 -70 V
+14 -70 V
+-5 -70 V
+-23 -68 V
+-40 -66 V
+-55 -63 V
+-68 -60 V
+-79 -56 V
+-90 -53 V
+-97 -50 V
+-105 -49 V
+-88 -39 V
+-70 -32 V
+-57 -28 V
+-43 -25 V
+-30 -23 V
+-18 -22 V
+-9 -22 V
+0 -23 V
+9 -24 V
+17 -26 V
+24 -29 V
+29 -34 V
+33 -40 V
+34 -47 V
+30 -56 V
+17 -62 V
+0 -64 V
+stroke 4743 1756 M
+-20 -63 V
+-40 -58 V
+-58 -52 V
+-73 -45 V
+-85 -36 V
+-94 -28 V
+-102 -20 V
+-110 -13 V
+-115 -7 V
+-122 -1 V
+-127 5 V
+-133 10 V
+-138 15 V
+-144 22 V
+-149 27 V
+-155 34 V
+-159 42 V
+-165 52 V
+-165 63 V
+-154 72 V
+-117 67 V
+-98 72 V
+-74 71 V
+-53 71 V
+-32 70 V
+-13 69 V
+4 68 V
+22 67 V
+39 66 V
+54 64 V
+69 63 V
+84 60 V
+97 58 V
+111 56 V
+124 55 V
+138 53 V
+147 51 V
+136 42 V
+119 35 V
+103 28 V
+91 24 V
+83 20 V
+74 18 V
+68 16 V
+62 13 V
+56 12 V
+52 10 V
+49 8 V
+45 7 V
+43 4 V
+40 1 V
+39 -1 V
+37 -4 V
+33 -8 V
+29 -11 V
+23 -15 V
+18 -17 V
+16 -19 V
+18 -19 V
+21 -15 V
+27 -14 V
+35 -14 V
+47 -16 V
+56 -16 V
+66 -18 V
+73 -19 V
+83 -22 V
+91 -24 V
+99 -28 V
+109 -32 V
+116 -38 V
+126 -45 V
+131 -55 V
+134 -64 V
+120 -72 V
+97 -73 V
+73 -72 V
+52 -72 V
+31 -72 V
+13 -71 V
+-7 -70 V
+-23 -69 V
+-41 -68 V
+-57 -66 V
+-74 -64 V
+-89 -62 V
+-106 -60 V
+-121 -57 V
+-139 -54 V
+-156 -52 V
+-178 -48 V
+-195 -41 V
+-197 -32 V
+-183 -20 V
+-166 -10 V
+-154 -2 V
+-143 5 V
+-134 12 V
+-123 19 V
+-113 25 V
+-103 32 V
+-91 37 V
+-78 43 V
+-64 48 V
+stroke 3036 1594 M
+-49 53 V
+-32 55 V
+-15 57 V
+2 58 V
+18 56 V
+34 55 V
+47 52 V
+57 49 V
+64 45 V
+69 43 V
+59 37 V
+39 27 V
+24 24 V
+12 22 V
+-1 21 V
+-13 20 V
+-24 20 V
+-35 22 V
+-45 24 V
+-55 27 V
+-65 31 V
+-74 36 V
+-83 45 V
+-90 56 V
+-90 68 V
+-77 75 V
+-54 76 V
+-31 77 V
+-11 75 V
+11 73 V
+30 70 V
+50 67 V
+67 63 V
+84 57 V
+99 51 V
+114 45 V
+127 39 V
+139 32 V
+151 24 V
+161 17 V
+172 10 V
+181 1 V
+192 -9 V
+201 -19 V
+211 -33 V
+214 -47 V
+176 -53 V
+157 -61 V
+130 -64 V
+103 -67 V
+81 -68 V
+60 -69 V
+39 -70 V
+20 -70 V
+1 -69 V
+-17 -69 V
+-34 -67 V
+-50 -64 V
+-65 -62 V
+-79 -59 V
+-91 -55 V
+-101 -53 V
+-111 -50 V
+-121 -48 V
+-111 -41 V
+-91 -33 V
+-80 -28 V
+-64 -25 V
+-51 -21 V
+-40 -21 V
+-29 -19 V
+-21 -19 V
+-13 -19 V
+-5 -20 V
+2 -22 V
+7 -24 V
+11 -27 V
+13 -30 V
+13 -35 V
+7 -39 V
+-1 -43 V
+-15 -44 V
+-30 -44 V
+-48 -40 V
+-52 -28 V
+-58 -22 V
+-65 -15 V
+-77 -11 V
+-78 -6 V
+-89 -2 V
+-97 3 V
+-103 7 V
+-110 11 V
+-117 15 V
+-123 19 V
+-130 24 V
+-137 29 V
+-142 35 V
+-149 43 V
+-155 51 V
+-155 61 V
+-143 70 V
+-118 71 V
+-91 70 V
+stroke 2184 2054 M
+-67 69 V
+-46 69 V
+-27 68 V
+-8 68 V
+10 66 V
+27 66 V
+44 64 V
+59 62 V
+74 61 V
+90 59 V
+103 57 V
+118 55 V
+132 54 V
+147 52 V
+158 48 V
+150 41 V
+133 32 V
+119 25 V
+107 20 V
+98 17 V
+90 13 V
+84 9 V
+76 7 V
+71 3 V
+66 0 V
+60 -3 V
+56 -6 V
+50 -10 V
+45 -13 V
+38 -17 V
+32 -20 V
+22 -24 V
+13 -26 V
+2 -27 V
+-7 -28 V
+-13 -28 V
+-15 -27 V
+-8 -22 V
+2 -18 V
+12 -16 V
+23 -14 V
+35 -16 V
+46 -16 V
+56 -17 V
+66 -19 V
+75 -21 V
+86 -24 V
+94 -28 V
+105 -32 V
+114 -39 V
+123 -47 V
+129 -57 V
+126 -68 V
+108 -72 V
+84 -72 V
+62 -73 V
+40 -72 V
+20 -72 V
+1 -71 V
+-17 -69 V
+-35 -68 V
+-52 -67 V
+-69 -63 V
+-85 -62 V
+-101 -58 V
+-117 -55 V
+-133 -52 V
+-150 -48 V
+-168 -43 V
+-188 -37 V
+-208 -30 V
+-212 -19 V
+-197 -6 V
+-178 4 V
+-160 12 V
+-146 20 V
+-133 27 V
+-119 33 V
+-106 39 V
+-91 45 V
+-76 50 V
+-61 54 V
+-43 57 V
+-26 60 V
+-8 60 V
+9 61 V
+26 60 V
+42 57 V
+55 54 V
+67 51 V
+76 47 V
+81 43 V
+87 42 V
+64 31 V
+46 25 V
+33 23 V
+18 20 V
+5 19 V
+-8 18 V
+-18 19 V
+-30 20 V
+-39 22 V
+-50 26 V
+-59 29 V
+stroke 3200 2475 M
+-68 36 V
+-77 44 V
+-82 54 V
+-79 67 V
+-65 73 V
+-42 74 V
+-20 73 V
+2 71 V
+22 68 V
+42 64 V
+60 60 V
+76 53 V
+90 48 V
+105 40 V
+116 35 V
+128 27 V
+138 21 V
+148 14 V
+156 7 V
+165 0 V
+174 -8 V
+181 -17 V
+190 -27 V
+197 -38 V
+198 -52 V
+180 -62 V
+147 -65 V
+117 -66 V
+92 -67 V
+69 -68 V
+48 -69 V
+29 -68 V
+10 -69 V
+-9 -67 V
+-26 -67 V
+-43 -65 V
+-58 -62 V
+-74 -60 V
+-86 -57 V
+-99 -54 V
+-110 -51 V
+-120 -48 V
+-131 -47 V
+-118 -38 V
+-99 -31 V
+-86 -26 V
+-72 -23 V
+-59 -20 V
+-48 -17 V
+-37 -17 V
+-29 -16 V
+-20 -16 V
+-13 -16 V
+-6 -17 V
+0 -18 V
+4 -21 V
+8 -22 V
+8 -26 V
+6 -28 V
+1 -31 V
+-7 -33 V
+-19 -34 V
+-34 -32 V
+-39 -22 V
+-45 -16 V
+-51 -12 V
+-58 -7 V
+-70 -4 V
+-79 -1 V
+-87 4 V
+-94 7 V
+-101 10 V
+-109 14 V
+-117 18 V
+-124 22 V
+-131 27 V
+-139 33 V
+-145 40 V
+-152 48 V
+-154 58 V
+-145 66 V
+-122 69 V
+-96 69 V
+-72 68 V
+-50 68 V
+-31 67 V
+-11 67 V
+6 65 V
+24 65 V
+41 64 V
+56 62 V
+73 60 V
+87 59 V
+101 56 V
+116 55 V
+131 52 V
+147 51 V
+160 48 V
+162 41 V
+147 33 V
+130 25 V
+118 19 V
+107 14 V
+98 11 V
+stroke 3753 3141 M
+90 7 V
+83 3 V
+77 0 V
+69 -3 V
+64 -7 V
+57 -11 V
+51 -14 V
+44 -17 V
+36 -22 V
+27 -24 V
+17 -27 V
+7 -30 V
+-5 -30 V
+-16 -30 V
+-24 -29 V
+-29 -28 V
+-29 -26 V
+-14 -20 V
+-2 -15 V
+9 -14 V
+23 -14 V
+34 -14 V
+46 -15 V
+57 -16 V
+66 -18 V
+78 -20 V
+87 -24 V
+97 -27 V
+108 -33 V
+117 -40 V
+127 -50 V
+130 -60 V
+122 -68 V
+100 -72 V
+77 -72 V
+54 -72 V
+33 -71 V
+14 -71 V
+-6 -70 V
+-24 -68 V
+-42 -66 V
+-59 -64 V
+-75 -62 V
+-92 -58 V
+-107 -55 V
+-123 -52 V
+-138 -48 V
+-155 -43 V
+-173 -38 V
+-192 -31 V
+-211 -24 V
+-212 -11 V
+-196 -1 V
+-175 10 V
+-157 18 V
+-141 24 V
+-127 31 V
+-112 37 V
+-98 43 V
+-83 48 V
+-67 51 V
+-51 56 V
+-33 58 V
+-16 60 V
+1 61 V
+19 60 V
+36 58 V
+50 56 V
+64 52 V
+75 49 V
+83 45 V
+88 41 V
+93 40 V
+68 28 V
+48 22 V
+35 20 V
+20 19 V
+6 16 V
+-6 17 V
+-17 17 V
+-29 18 V
+-39 20 V
+-49 23 V
+-59 28 V
+-69 33 V
+-78 41 V
+-84 51 V
+-83 63 V
+-69 70 V
+-48 73 V
+-25 71 V
+-3 70 V
+18 67 V
+37 63 V
+56 57 V
+71 53 V
+87 46 V
+99 40 V
+113 33 V
+123 27 V
+134 21 V
+143 14 V
+153 8 V
+161 1 V
+stroke 3993 3384 M
+170 -7 V
+178 -15 V
+187 -25 V
+195 -36 V
+197 -48 V
+181 -58 V
+151 -63 V
+121 -64 V
+95 -65 V
+73 -66 V
+52 -67 V
+33 -67 V
+13 -68 V
+-4 -66 V
+-23 -66 V
+-40 -65 V
+-56 -62 V
+-71 -59 V
+-85 -57 V
+-98 -54 V
+-109 -51 V
+-120 -47 V
+-130 -46 V
+-137 -42 V
+-107 -31 V
+-95 -27 V
+-78 -21 V
+-63 -19 V
+-52 -16 V
+-40 -15 V
+-31 -14 V
+-22 -14 V
+-13 -13 V
+-6 -15 V
+1 -15 V
+7 -17 V
+12 -20 V
+15 -22 V
+14 -25 V
+13 -29 V
+7 -31 V
+-2 -34 V
+-15 -35 V
+-26 -28 V
+-35 -20 V
+-42 -16 V
+-50 -12 V
+-63 -9 V
+-73 -4 V
+-82 -1 V
+-90 3 V
+-98 6 V
+-105 10 V
+-114 14 V
+-121 17 V
+-129 23 V
+-137 28 V
+-145 34 V
+-152 41 V
+-157 51 V
+-155 60 V
+-139 66 V
+-113 68 V
+-88 67 V
+-65 67 V
+-43 67 V
+-25 66 V
+-5 65 V
+12 65 V
+30 64 V
+46 62 V
+62 60 V
+78 59 V
+93 57 V
+107 55 V
+121 52 V
+136 51 V
+152 48 V
+163 44 V
+159 38 V
+143 28 V
+126 22 V
+112 17 V
+103 12 V
+93 9 V
+84 5 V
+77 2 V
+70 -2 V
+63 -4 V
+55 -8 V
+49 -10 V
+42 -14 V
+35 -17 V
+27 -20 V
+18 -22 V
+9 -24 V
+-2 -26 V
+-13 -27 V
+-21 -26 V
+-30 -24 V
+-32 -23 V
+-30 -22 V
+-12 -14 V
+1 -12 V
+stroke 4185 2825 M
+12 -11 V
+26 -11 V
+38 -12 V
+50 -12 V
+60 -14 V
+71 -16 V
+82 -19 V
+92 -22 V
+102 -26 V
+113 -31 V
+123 -39 V
+132 -47 V
+136 -59 V
+128 -66 V
+107 -70 V
+82 -71 V
+59 -71 V
+38 -70 V
+18 -70 V
+-1 -68 V
+-21 -68 V
+-37 -65 V
+-55 -63 V
+-72 -61 V
+-87 -58 V
+-103 -55 V
+-119 -52 V
+-134 -48 V
+-150 -44 V
+-168 -39 V
+-186 -34 V
+-204 -26 V
+-206 -16 V
+-191 -5 V
+-170 4 V
+-154 13 V
+-139 19 V
+-125 25 V
+-112 31 V
+-99 36 V
+-85 42 V
+-71 46 V
+-56 50 V
+-39 54 V
+-23 56 V
+-5 57 V
+11 58 V
+28 56 V
+44 55 V
+58 51 V
+70 48 V
+80 44 V
+86 40 V
+90 37 V
+79 30 V
+55 22 V
+38 19 V
+25 16 V
+9 15 V
+-3 15 V
+-16 14 V
+-28 16 V
+-38 17 V
+-50 19 V
+-61 23 V
+-71 28 V
+-82 34 V
+-91 43 V
+-97 54 V
+-93 66 V
+-75 71 V
+-52 72 V
+-30 72 V
+-7 70 V
+14 67 V
+33 63 V
+51 59 V
+69 54 V
+83 49 V
+98 43 V
+111 37 V
+123 31 V
+134 25 V
+145 18 V
+156 12 V
+165 5 V
+176 -3 V
+185 -11 V
+195 -22 V
+204 -33 V
+201 -46 V
+177 -54 V
+146 -58 V
+119 -60 V
+95 -62 V
+74 -63 V
+54 -65 V
+34 -66 V
+15 -67 V
+-3 -66 V
+-21 -65 V
+-39 -64 V
+-55 -61 V
+-71 -60 V
+stroke 5389 2461 M
+-84 -56 V
+-98 -52 V
+-108 -50 V
+-119 -46 V
+-128 -43 V
+-136 -40 V
+-106 -29 V
+-94 -25 V
+-75 -20 V
+-59 -17 V
+-46 -14 V
+-35 -14 V
+-23 -12 V
+-14 -13 V
+-5 -13 V
+5 -13 V
+12 -16 V
+20 -17 V
+26 -21 V
+31 -24 V
+32 -29 V
+30 -35 V
+25 -40 V
+13 -43 V
+-3 -46 V
+-18 -36 V
+-31 -31 V
+-40 -25 V
+-56 -21 V
+-60 -16 V
+-74 -11 V
+-84 -8 V
+-93 -3 V
+-102 0 V
+-110 5 V
+-118 9 V
+-126 13 V
+-134 19 V
+-142 23 V
+-150 30 V
+-157 37 V
+-163 46 V
+-164 56 V
+-152 63 V
+-126 65 V
+-100 66 V
+-76 66 V
+-54 66 V
+-34 65 V
+-15 65 V
+4 65 V
+21 63 V
+38 62 V
+55 61 V
+71 59 V
+86 57 V
+101 55 V
+115 52 V
+128 50 V
+142 48 V
+156 44 V
+162 40 V
+147 32 V
+129 24 V
+112 18 V
+99 14 V
+88 11 V
+79 7 V
+70 5 V
+62 2 V
+54 0 V
+47 -2 V
+40 -5 V
+33 -7 V
+26 -9 V
+19 -10 V
+13 -13 V
+5 -14 V
+-2 -15 V
+-11 -16 V
+-18 -16 V
+-25 -15 V
+-28 -14 V
+-26 -12 V
+-10 -9 V
+2 -6 V
+14 -6 V
+27 -7 V
+41 -7 V
+52 -9 V
+64 -10 V
+74 -12 V
+84 -15 V
+95 -18 V
+105 -22 V
+116 -26 V
+126 -32 V
+136 -40 V
+144 -49 V
+144 -59 V
+131 -66 V
+108 -68 V
+83 -69 V
+61 -69 V
+stroke 5660 2298 M
+39 -68 V
+18 -68 V
+0 -67 V
+-19 -65 V
+-37 -64 V
+-53 -62 V
+-70 -60 V
+-86 -57 V
+-102 -55 V
+-116 -52 V
+-133 -49 V
+-148 -45 V
+-166 -42 V
+-183 -37 V
+-196 -29 V
+-189 -20 V
+-172 -10 V
+-155 -2 V
+-141 4 V
+-128 11 V
+-116 16 V
+-106 21 V
+-94 27 V
+-83 31 V
+-71 36 V
+-57 41 V
+-44 44 V
+-29 48 V
+-14 49 V
+3 51 V
+18 51 V
+35 50 V
+48 48 V
+62 44 V
+71 41 V
+79 36 V
+82 33 V
+83 31 V
+50 19 V
+33 15 V
+18 14 V
+2 12 V
+-11 12 V
+-24 13 V
+-36 13 V
+-48 15 V
+-60 17 V
+-71 21 V
+-83 25 V
+-95 32 V
+-105 39 V
+-114 51 V
+-115 62 V
+-100 69 V
+-77 72 V
+-53 73 V
+-30 71 V
+-9 70 V
+12 68 V
+31 65 V
+50 61 V
+67 57 V
+83 53 V
+97 47 V
+112 42 V
+126 37 V
+138 31 V
+151 26 V
+164 18 V
+175 12 V
+189 3 V
+201 -6 V
+213 -17 V
+212 -30 V
+190 -40 V
+161 -46 V
+135 -50 V
+112 -53 V
+92 -57 V
+73 -60 V
+53 -62 V
+35 -63 V
+16 -65 V
+-2 -64 V
+-20 -64 V
+-38 -63 V
+-55 -61 V
+-70 -58 V
+-84 -54 V
+-97 -51 V
+-107 -47 V
+-116 -43 V
+-124 -39 V
+-130 -37 V
+-95 -25 V
+-81 -21 V
+-62 -16 V
+-46 -14 V
+-31 -13 V
+-19 -12 V
+-7 -11 V
+3 -12 V
+14 -13 V
+24 -14 V
+stroke 4307 2113 M
+34 -17 V
+42 -21 V
+51 -25 V
+56 -32 V
+59 -40 V
+57 -48 V
+45 -55 V
+26 -58 V
+5 -57 V
+-13 -48 V
+-32 -45 V
+-44 -37 V
+-60 -33 V
+-73 -28 V
+-84 -22 V
+-95 -17 V
+-104 -11 V
+-113 -7 V
+-122 -1 V
+-130 3 V
+-139 8 V
+-147 14 V
+-154 20 V
+-163 27 V
+-171 35 V
+-176 44 V
+-174 55 V
+-156 61 V
+-129 64 V
+-102 64 V
+-79 64 V
+-57 65 V
+-37 65 V
+-17 64 V
+1 65 V
+19 63 V
+36 63 V
+54 61 V
+70 59 V
+85 56 V
+100 54 V
+113 52 V
+126 48 V
+139 46 V
+151 43 V
+158 39 V
+132 28 V
+121 23 V
+103 18 V
+89 14 V
+77 11 V
+65 9 V
+56 6 V
+46 5 V
+37 3 V
+30 3 V
+21 1 V
+14 1 V
+7 0 V
+1 0 V
+-5 0 V
+-10 0 V
+-14 1 V
+-19 2 V
+-21 2 V
+-23 4 V
+-20 5 V
+-7 5 V
+5 5 V
+17 3 V
+28 2 V
+42 0 V
+54 -1 V
+66 -4 V
+76 -6 V
+87 -8 V
+97 -12 V
+106 -15 V
+117 -19 V
+127 -24 V
+137 -29 V
+147 -36 V
+154 -46 V
+157 -55 V
+145 -62 V
+123 -66 V
+97 -66 V
+73 -67 V
+52 -66 V
+30 -66 V
+11 -65 V
+-8 -65 V
+-25 -63 V
+-44 -61 V
+-60 -60 V
+-76 -58 V
+-91 -56 V
+-107 -53 V
+-122 -51 V
+-137 -48 V
+-153 -45 V
+-170 -42 V
+-182 -36 V
+-177 -28 V
+stroke 4439 1585 M
+-161 -19 V
+-144 -12 V
+-130 -7 V
+-118 -1 V
+-107 4 V
+-98 8 V
+-87 12 V
+-79 17 V
+-68 20 V
+-59 25 V
+-48 28 V
+-37 31 V
+-25 35 V
+-13 37 V
+1 39 V
+16 40 V
+29 39 V
+43 37 V
+54 35 V
+63 31 V
+68 28 V
+70 24 V
+55 18 V
+32 12 V
+16 10 V
+2 9 V
+-14 9 V
+-28 8 V
+-40 10 V
+-53 11 V
+-64 13 V
+-77 16 V
+-89 19 V
+-100 24 V
+-113 30 V
+-125 39 V
+-134 48 V
+-136 60 V
+-121 67 V
+-99 70 V
+-74 72 V
+-50 71 V
+-29 70 V
+-7 69 V
+13 68 V
+31 64 V
+50 62 V
+66 59 V
+83 55 V
+99 52 V
+114 47 V
+128 43 V
+143 38 V
+158 33 V
+173 27 V
+188 21 V
+206 12 V
+216 1 V
+207 -10 V
+184 -19 V
+161 -26 V
+141 -33 V
+123 -38 V
+106 -43 V
+90 -47 V
+73 -51 V
+57 -55 V
+39 -57 V
+21 -60 V
+4 -60 V
+-15 -61 V
+-32 -59 V
+-49 -58 V
+-64 -56 V
+-79 -51 V
+-91 -48 V
+-101 -43 V
+-108 -38 V
+-114 -35 V
+-118 -32 V
+-78 -20 V
+-59 -15 V
+-44 -13 V
+-28 -11 V
+-13 -10 V
+1 -10 V
+12 -11 V
+25 -11 V
+36 -13 V
+48 -15 V
+59 -19 V
+71 -24 V
+81 -31 V
+90 -39 V
+95 -51 V
+88 -61 V
+70 -67 V
+46 -67 V
+23 -67 V
+-1 -63 V
+-21 -60 V
+-40 -54 V
+-57 -49 V
+-72 -43 V
+stroke 4796 1569 M
+-86 -37 V
+-99 -32 V
+-110 -26 V
+-122 -20 V
+-132 -15 V
+-141 -8 V
+-151 -3 V
+-161 3 V
+-170 10 V
+-179 18 V
+-188 27 V
+-195 38 V
+-190 49 V
+-167 55 V
+-138 58 V
+-113 60 V
+-88 61 V
+-68 63 V
+-48 64 V
+-28 64 V
+-9 65 V
+9 64 V
+27 64 V
+46 62 V
+62 61 V
+78 57 V
+93 55 V
+107 52 V
+119 48 V
+130 45 V
+141 41 V
+150 38 V
+133 29 V
+119 23 V
+97 17 V
+78 14 V
+63 11 V
+50 8 V
+39 8 V
+27 6 V
+17 6 V
+7 6 V
+-3 7 V
+-11 7 V
+-20 9 V
+-27 10 V
+-33 14 V
+-38 18 V
+-39 21 V
+-39 26 V
+-35 31 V
+-24 36 V
+-6 31 V
+9 25 V
+22 21 V
+33 17 V
+48 15 V
+62 11 V
+72 8 V
+84 4 V
+93 1 V
+103 -3 V
+113 -7 V
+122 -11 V
+132 -15 V
+142 -20 V
+150 -26 V
+160 -34 V
+167 -41 V
+169 -52 V
+159 -59 V
+136 -63 V
+109 -64 V
+84 -64 V
+62 -64 V
+42 -64 V
+21 -65 V
+2 -63 V
+-16 -63 V
+-35 -61 V
+-51 -61 V
+-69 -58 V
+-84 -57 V
+-100 -54 V
+-114 -51 V
+-129 -49 V
+-143 -46 V
+-157 -43 V
+-170 -39 V
+-171 -33 V
+-154 -24 V
+-133 -18 V
+-118 -12 V
+-103 -7 V
+-92 -4 V
+-82 -1 V
+-71 2 V
+-63 5 V
+-53 7 V
+-44 10 V
+-35 13 V
+-27 14 V
+-18 17 V
+-8 19 V
+stroke 3586 1781 M
+1 19 V
+11 21 V
+22 22 V
+32 20 V
+41 19 V
+49 16 V
+53 14 V
+53 10 V
+38 6 V
+18 3 V
+3 2 V
+-11 2 V
+-27 3 V
+-40 3 V
+-53 5 V
+-65 7 V
+-77 9 V
+-89 12 V
+-101 15 V
+-112 19 V
+-124 25 V
+-136 31 V
+-147 39 V
+-155 49 V
+-152 59 V
+-135 66 V
+-110 67 V
+-85 69 V
+-60 68 V
+-39 68 V
+-18 67 V
+3 66 V
+21 65 V
+40 62 V
+56 60 V
+74 58 V
+89 55 V
+106 52 V
+120 49 V
+136 46 V
+152 42 V
+168 38 V
+185 32 V
+199 26 V
+197 16 V
+180 7 V
+161 0 V
+144 -8 V
+130 -13 V
+118 -19 V
+105 -23 V
+92 -29 V
+80 -33 V
+67 -37 V
+54 -41 V
+39 -45 V
+24 -47 V
+9 -50 V
+-8 -51 V
+-25 -51 V
+-40 -50 V
+-57 -47 V
+-70 -45 V
+-81 -40 V
+-90 -35 V
+-96 -31 V
+-98 -26 V
+-83 -20 V
+-55 -13 V
+-37 -10 V
+-21 -8 V
+-4 -8 V
+10 -7 V
+24 -8 V
+38 -9 V
+50 -10 V
+62 -13 V
+76 -15 V
+88 -21 V
+102 -26 V
+114 -34 V
+126 -44 V
+129 -57 V
+119 -66 V
+95 -70 V
+71 -72 V
+45 -71 V
+23 -70 V
+0 -68 V
+-20 -65 V
+-40 -61 V
+-57 -58 V
+-74 -52 V
+-90 -48 V
+-104 -43 V
+-118 -38 V
+-132 -33 V
+-144 -27 V
+-157 -22 V
+-170 -15 V
+-182 -8 V
+-195 0 V
+-209 10 V
+-214 21 V
+stroke 3421 1410 M
+-202 32 V
+-175 39 V
+-148 44 V
+-126 49 V
+-105 52 V
+-86 55 V
+-66 58 V
+-49 60 V
+-30 62 V
+-11 63 V
+8 63 V
+26 63 V
+44 62 V
+61 60 V
+77 56 V
+93 54 V
+105 49 V
+116 44 V
+125 40 V
+133 36 V
+140 32 V
+110 23 V
+88 16 V
+72 13 V
+54 10 V
+38 8 V
+23 7 V
+11 7 V
+-2 6 V
+-13 8 V
+-26 8 V
+-36 11 V
+-48 13 V
+-59 18 V
+-69 23 V
+-76 30 V
+-81 39 V
+-79 50 V
+-66 57 V
+-44 60 V
+-20 59 V
+2 49 V
+22 48 V
+35 39 V
+53 37 V
+68 31 V
+81 26 V
+92 20 V
+104 16 V
+113 11 V
+124 6 V
+134 1 V
+143 -4 V
+152 -9 V
+162 -16 V
+171 -22 V
+179 -30 V
+186 -41 V
+184 -50 V
+165 -56 V
+138 -60 V
+112 -61 V
+87 -62 V
+66 -62 V
+46 -64 V
+25 -64 V
+7 -63 V
+-13 -64 V
+-31 -62 V
+-49 -62 V
+-66 -59 V
+-82 -57 V
+-99 -55 V
+-113 -51 V
+-126 -49 V
+-139 -44 V
+-151 -42 V
+-163 -37 V
+-166 -33 V
+-133 -22 V
+-119 -17 V
+-101 -12 V
+-86 -9 V
+-71 -6 V
+-59 -4 V
+-48 -2 V
+-37 0 V
+-27 0 V
+-17 2 V
+-8 2 V
+2 2 V
+11 2 V
+19 1 V
+26 0 V
+34 -2 V
+39 -4 V
+44 -7 V
+47 -10 V
+46 -14 V
+41 -18 V
+19 -16 V
+2 -13 V
+-12 -12 V
+-26 -9 V
+stroke 4167 1786 M
+-41 -9 V
+-55 -5 V
+-67 -3 V
+-79 -1 V
+-91 3 V
+-101 6 V
+-113 9 V
+-124 13 V
+-135 18 V
+-146 23 V
+-156 31 V
+-166 38 V
+-171 48 V
+-166 57 V
+-146 62 V
+-119 64 V
+-94 65 V
+-71 65 V
+-48 65 V
+-27 64 V
+-7 64 V
+13 64 V
+30 61 V
+49 61 V
+65 58 V
+83 57 V
+98 54 V
+114 51 V
+129 49 V
+143 45 V
+159 43 V
+175 38 V
+185 33 V
+179 26 V
+160 17 V
+142 10 V
+125 5 V
+113 0 V
+100 -4 V
+90 -7 V
+79 -11 V
+68 -15 V
+59 -17 V
+48 -21 V
+38 -25 V
+26 -27 V
+15 -29 V
+3 -32 V
+-10 -32 V
+-23 -34 V
+-37 -33 V
+-50 -31 V
+-62 -28 V
+-70 -24 V
+-77 -20 V
+-79 -16 V
+-75 -11 V
+-42 -5 V
+-22 -2 V
+-6 -2 V
+10 -2 V
+26 -2 V
+40 -4 V
+53 -4 V
+67 -7 V
+79 -9 V
+92 -12 V
+106 -16 V
+119 -21 V
+132 -27 V
+145 -36 V
+156 -46 V
+156 -58 V
+142 -65 V
+117 -69 V
+91 -70 V
+65 -70 V
+42 -70 V
+19 -68 V
+-2 -67 V
+-21 -65 V
+-40 -63 V
+-58 -59 V
+-75 -57 V
+-92 -53 V
+-107 -50 V
+-122 -46 V
+-137 -42 V
+-153 -38 V
+-168 -33 V
+-184 -27 V
+-201 -21 V
+-212 -11 V
+-204 -2 V
+-184 8 V
+-163 14 V
+-145 21 V
+-128 27 V
+-113 31 V
+-98 36 V
+-84 41 V
+-69 45 V
+-53 48 V
+-38 52 V
+stroke 2785 1742 M
+-20 54 V
+-3 56 V
+14 57 V
+32 56 V
+50 55 V
+66 52 V
+82 49 V
+94 44 V
+105 39 V
+112 34 V
+116 29 V
+120 25 V
+90 15 V
+64 10 V
+47 8 V
+29 6 V
+11 5 V
+-5 5 V
+-18 5 V
+-32 6 V
+-45 8 V
+-59 10 V
+-72 13 V
+-86 17 V
+-99 24 V
+-113 31 V
+-125 43 V
+-128 55 V
+-115 65 V
+-92 69 V
+-66 71 V
+-40 71 V
+-16 68 V
+7 64 V
+28 61 V
+47 56 V
+64 51 V
+80 45 V
+95 41 V
+108 35 V
+121 30 V
+134 24 V
+146 19 V
+157 13 V
+168 7 V
+180 1 V
+192 -8 V
+203 -17 V
+210 -28 V
+201 -38 V
+178 -45 V
+149 -49 V
+125 -53 V
+103 -55 V
+82 -58 V
+62 -60 V
+44 -62 V
+24 -63 V
+5 -64 V
+-14 -64 V
+-33 -64 V
+-51 -62 V
+-69 -60 V
+-86 -57 V
+-101 -54 V
+-115 -49 V
+-127 -45 V
+-137 -41 V
+-147 -36 V
+-155 -32 V
+-137 -23 V
+-110 -16 V
+-94 -12 V
+-73 -9 V
+-56 -5 V
+-41 -5 V
+-27 -3 V
+-14 -3 V
+-1 -2 V
+10 -3 V
+22 -4 V
+35 -5 V
+45 -8 V
+57 -12 V
+66 -16 V
+47 -14 V
+stroke
+LTb
+LCb setrgbcolor
+1078 4379 N
+0 -3675 V
+5725 0 V
+0 3675 V
+-5725 0 V
+Z stroke
+1.000 UP
+1.000 UL
+LTb
+stroke
+grestore
+end
+showpage
+%%Trailer

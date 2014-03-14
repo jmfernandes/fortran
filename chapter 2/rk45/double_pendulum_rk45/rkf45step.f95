@@ -28,7 +28,7 @@ subroutine rkf45step(t,y,h)  ! 4-th order Runge-Kutta step
         h = delta*h
         write (unit = 3,fmt='(3f20.10)') t, y(1)
         write (unit = 4,fmt='(3f20.10)') t, y(2)
-        !write (unit = 5,fmt='(3f20.10)') t, y(3)
+        write (unit = 5,fmt='(3f20.10)') y(1), y(2)
     else
         delta = 0.92_dp * (epsilon/rr)**(0.25_dp)
         h = delta*h

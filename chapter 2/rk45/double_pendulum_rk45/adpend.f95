@@ -30,6 +30,9 @@ program pendulum
 	open(unit = 4, file = 'aaaaapend_momentum.data', &
 	    action = 'write', status = 'replace')
 
+	open(unit = 5, file = 'aapend_ang_mo.data', &
+	    action = 'write', status = 'replace')
+
 ! 	open(unit = 5, file = 'pend_momentum.data', &
 ! 	    action = 'write', status = 'replace')
 
