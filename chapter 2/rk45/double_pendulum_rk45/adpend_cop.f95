@@ -26,10 +26,10 @@ program pendulum
 	!!Below are four cases - Make sure only one set of y is uncommented!!
 
 	!!Low Energy - No Chaos
-	y(1) = 1._dp*(pi/180)		! initial angle 1
-	y(2) = 0._dp				! initial momentum 1
-	y(3) = 1._dp*(pi/180)		! initial angle 2
-	y(4) = 0._dp				! initial momentum 2
+! 	y(1) = 1._dp*(pi/180)		! initial angle 1
+! 	y(2) = 0._dp				! initial momentum 1
+! 	y(3) = 1._dp*(pi/180)		! initial angle 2
+! 	y(4) = 0._dp				! initial momentum 2
 
 	!!Medium Energy - Emerging Chaos But Stable Orbit
 !  	y(1) = 1._dp*(pi/180)		! initial angle 1
@@ -44,10 +44,10 @@ program pendulum
 ! 	y(4) = 1.3_dp				! initial momentum 2
 
 	!!High Energy - Full Chaos
-! 	y(1) = 60._dp*(pi/180)		! initial angle 1
-! 	y(2) = 1._dp				! initial momentum 1
-! 	y(3) = 60._dp*(pi/180)		! initial angle 2
-! 	y(4) = 2._dp				! initial momentum 2
+	y(1) = 60._dp*(pi/180)		! initial angle 1
+	y(2) = 1._dp				! initial momentum 1
+	y(3) = 60._dp*(pi/180)		! initial angle 2
+	y(4) = 2._dp				! initial momentum 2
 
 	
 	!!open all the files that data will be written to!!

@@ -1,5 +1,5 @@
 
-OBJS1 =	numtype.o matrix
+OBJS1 =	numtype.o matrix.o
 
 PROG1 =	mat
 

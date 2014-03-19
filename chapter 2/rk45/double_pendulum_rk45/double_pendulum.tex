@@ -105,22 +105,22 @@ In order to understand how the double pendulum behaves, the momentum will be plo
 \begin{lstlisting}[frame=single,caption={Module {\tt Cases}},label=module]
 
 	!!Low Energy - No Chaos
-	y(1) = 1._dp*(pi/180)			! initial angle for 1st pendulum
-	y(2) = 0._dp				! initial momentum for 1st pendulum
-	y(3) = 1._dp*(pi/180)			! initial angle for 2nd pendulum
-	y(4) = 0._dp				! initial momentum for 2nd pendulum
+	y(1)=1._dp*(pi/180)	! initial angle for 1st pendulum
+	y(2)=0._dp		! initial momentum for 1st pendulum
+	y(3)=1._dp*(pi/180)	! initial angle for 2nd pendulum
+	y(4)=0._dp		! initial momentum for 2nd pendulum
 
 	!!Medium Energy - Emerging Chaos But Stable Orbit
- 	y(1) = 1._dp*(pi/180)			! initial angle for 1st pendulum
- 	y(2) = 1._dp				! initial momentum for 1st pendulum
-  	y(3) = 1._dp*(pi/180)			! initial angle for 2nd pendulum
-  	y(4) = 1.01_dp				! initial momentum for 2nd pendulum
+ 	y(1)=1._dp*(pi/180)	! initial angle for 1st pendulum
+ 	y(2)=1._dp		! initial momentum for 1st pendulum
+  	y(3)=1._dp*(pi/180)	! initial angle for 2nd pendulum
+  	y(4)=1.01_dp	! initial momentum for 2nd pendulum
 
 	!!High Energy - Full Chaos
- 	y(1) = 1._dp*(pi/180)			! initial angle for 1st pendulum
- 	y(2) = 1._dp				! initial momentum for 1st pendulum
- 	y(3) = 1._dp*(pi/180)			! initial angle for 2nd pendulum
- 	y(4) = 1.3_dp				! initial momentum for 2nd pendulum
+ 	y(1)=1._dp*(pi/180)	! initial angle for 1st pendulum
+ 	y(2)=1._dp		! initial momentum for 1st pendulum
+ 	y(3)=1._dp*(pi/180) ! initial angle for 2nd pendulum
+ 	y(4)=1.3_dp		! initial momentum for 2nd pendulum
 
 \end{lstlisting}
 The mass for the first bob is 1 kg and the mass of the second bob is 2 kg. The length of both pendulums is 1 meter. The lyapunov exponents are given by
@@ -148,25 +148,27 @@ end module NumType
 
 \begin{lstlisting}[frame=single,caption={ {\tt rkf45.f95}},label=module]
 
-subroutine rkf45step(t,y,h)  ! 4-th order Runge-Kutta step
+subroutine rkf45step(t,y,h)  !4-th order Runge-Kutta step
 	
 	use setup, only : dp, n_eq
 	implicit none
 	real(dp), intent(inout) :: t, h
 	real(dp), dimension(n_eq), intent(inout) :: y 
-	real(dp), dimension(n_eq) :: k1, k2, k3, k4, k5, k6, y1, y2
-	real(dp), parameter :: epsilon = 1.e-6_dp, tiny = 1.e-20_dp
+	real(dp), dimension(n_eq) :: k1, k2, k3, &
+						   k4, k5, k6, y1, y2
+	real(dp), parameter :: epsilon = 1.e-6_dp, &
+					 tiny = 1.e-20_dp
 	real(dp) :: rr, delta
 		
 	call deriv(t,	     h,	 y,	   k1)
 	call deriv(t+h/4,	 h,  y+ k1/4,   k2)
 	call deriv(t+3*h/8,	 h,  y+ (3*k1+9*k2)/32,  k3)
-	call deriv(t+12*h/13,h,	 y+ (1932*k1-7200*k2+7296*k3) &
-	/2197 , k4)	
-	call deriv(t+h,	     h,  y+ (439*k1/216-8*k2+3680*k3/513 &
-	-845*k4/4104),	  k5)	
+	call deriv(t+12*h/13,h, y+ (1932*k1-7200*k2+7296*k3) &
+					2197 , k4)	
+	call deriv(t+h,h,  y+ (439*k1/216-8*k2+3680*k3/513 &
+					-845*k4/4104),	  k5)	
 	call deriv(t+h/2,	 h,  y+ (-8*k1/27 +2*k2-3544*k3/2565 + &
-	1859*k4/4104 -11*k5/40),	k6)
+					1859*k4/4104 -11*k5/40),	k6)
 	
     y1 = y + 25*k1/216 + 1408*k3/2565 + 2197*k4/4104 &
      - k5/5
@@ -342,31 +344,40 @@ Figure \ref{singlependulum} shows that you can predict the values of the momentu
 	\caption{Plot for the second bob. }
 	\label{dobulepend1}
 \end {figure}
+
 Figure \ref{dobulepend1} is similar to the single pendulum. The orbit has slight variation but it is a stable orbit. The calculated lyapanov exponent is a negative number, which confirms that the orbit is closed. 
 
 \begin {figure}[!htb]
+	\resizebox{\columnwidth}{!}{\input{eg1_1}}
+	\caption{The angle of the two pendulums plotted over time}
+	\label{dobulepend1_1}
+\end {figure}
+
+\begin {figure}[!htb]
 	\resizebox{\columnwidth}{!}{\input{eg3}}
-	\caption{The second bob begins to show chaotic motion, but resumes a stable orbit }
+	\resizebox{\columnwidth}{!}{\input{eg2_1}}
+	\caption{The second bob begins to show chaotic motion, but is in a stable orbit }
 	\label{dobulepend2}
 \end {figure}
-Figure \ref{dobulepend2}
 
 \begin {figure}[!htb]
-	\resizebox{\columnwidth}{!}{\input{eg4}}
-	\caption{The second bob does not have a stable orbit }
+	\input{eg4}
+	\input{eg5}
+	\caption{The second bob does not have a stable orbit. A graph of the x and y positions of the bobs are plotted so the chaotic motion can be visualized. }
 	\label{dobulepend3}
 \end {figure}
 
 \begin {figure}[!htb]
-	\resizebox{\columnwidth}{!}{\input{eg5}}
-	\caption{Notice that the first pendulum spins in a full circle at times.  }
-	\label{dobulepend3}
+	\resizebox{\columnwidth}{!}{\input{eg3_1}}
+	\caption{The chaotic behavior appears to die out after 40 seconds. }
+	\label{dobulepend2_1}
 \end {figure}
+
 
 
 \section{Summary and conclusions}
 
-The double pendulum is a chaotic system.
+A single pendulum is a non-chaotic, predictable system. A double pendulum is an inherently chaotic system, where the chaotic nature becomes more apparent as the difference between the initial conditions gets larger. 
 
 \begin{thebibliography}{}
 
