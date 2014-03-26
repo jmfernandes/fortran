@@ -28,3 +28,5 @@ List of included programs
 	This code replicates the exponential function.
 * hermite.f95  
 	This code replicates the hermit function. 
+* newton.f95  
+	This code solves a set of non-linear equations

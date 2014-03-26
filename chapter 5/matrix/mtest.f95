@@ -133,11 +133,11 @@ program matrix
         info = 0
         call zgetrf(nn,nn,e, ndim, ipiv,info)
         
-        if(info/= 0) stop ' OH FUCK'
+        if(info/= 0) stop 'stop'
         
         call zgetri(nn,e,ndim,ipiv,work, lwork,info)
         
-        if(info/= 0) stop ' Mega OH FUCK'
+        if(info/= 0) stop 'stop'
         
         Do i= 1,3
             print '(6f7.2,5x,6f7.2)', c(i,1:3)-e(i,1:3)

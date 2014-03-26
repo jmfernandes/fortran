@@ -1,7 +1,7 @@
 
-OBJS =	numtype.o mtest.o
+OBJS =	numtype.o matrix.o newton.o
 
-PROG =	mat
+PROG =	new
 
 F95 = gfortran
 
