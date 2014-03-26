@@ -15,7 +15,7 @@ all: $(PROG1)
 $(PROG1): $(OBJS1)
 	$(F95) $(LDFLAGS) -o $@ $(OBJS1) 
 
-attack:
+clean:
 	rm -f $(PROG1)  *.{o,mod}
 
 .SUFFIXES: $(SUFFIXES) .f95 

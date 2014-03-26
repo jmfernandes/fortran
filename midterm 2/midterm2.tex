@@ -1,0 +1,138 @@
+
+
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[section]{placeins} %this stops the figures from showing up in wrong section
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{dkblue}{rgb}{0,0.0,0.6}
+\definecolor{dkred}{rgb}{0.9,0.0,0.1}
+
+
+\begin{document}
+
+\lstset{language=Fortran,tabsize=4,numbers=left,numberstyle=\tiny,basicstyle=\ttfamily\small\color{dkblue},stringstyle=\ttfamily\color{blue},keywordstyle=\rmfamily\color{dkred}\bfseries\emph,backgroundcolor=\color{white},commentstyle=\color{dkgreen}}
+
+
+
+
+\title{Physics 562 - Computational Physics\\[.5cm]
+Midterm 2}
+\author{Josh Fernandes\\
+Department of Physics \& Astronomy\\
+California State University Long Beach}
+\date{\today}
+
+  
+\maketitle
+
+
+
+\begin{abstract}
+This paper examines two different questions. 
+\end{abstract}
+
+\section{Problem 1}\label{s:intro}
+The first problem is an interesting one. 
+
+
+\section{The Fortran95 code}
+
+Numtype is the same for problems 1 and 2. 
+\begin{lstlisting}[frame=single,caption={Module {\tt NumType}},label=module]
+
+module NumType
+
+	save
+	integer, parameter :: 	dp = kind(1.d0)	
+	real(dp), parameter :: 	pi = 4*atan(1._dp)
+	complex(dp), parameter :: 	iic = (0._dp,1._dp),&	
+								one = (1._dp,0._dp),&
+								zero = (0._dp,0._dp)
+
+
+end module NumType
+
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single,caption={ {\tt q1.f95}},label=module]
+
+
+
+\end{lstlisting}
+
+The main program is {\tt q1} and it begins with its own module. 
+
+\begin{lstlisting}[frame=single,caption={{\tt q1.f95}},label=adpend]
+
+
+
+\end{lstlisting}
+
+
+The code is run by typing {\tt ./q1}. Various data sets are plotted to different files for easy graphing.
+
+\section{Problem 2}
+The second problem is challenging.
+
+
+\section{The Fortran95 code}
+
+\begin{lstlisting}[frame=single,caption={ {\tt q2.f95}},label=module]
+
+
+
+\end{lstlisting}
+
+The main program is {\tt q2} and it begins with its own module. 
+
+\begin{lstlisting}[frame=single,caption={{\tt q2.f95}},label=adpend]
+
+
+
+\end{lstlisting}
+
+
+The code is run by typing {\tt ./q2}. Various data sets are plotted to different files for easy graphing.
+
+
+\section{Results}
+
+Both the results are talked about here. 
+
+\begin {figure}[!htb]
+	\includegraphics[width=1.\textwidth]{question_1/one.png}
+	%\resizebox{\columnwidth}{!}{\input{question_1/one.png}}
+	\caption{first image }
+	\label{imageone}
+\end {figure}
+
+\begin {figure}[!htb]
+	\includegraphics[width=1.\textwidth]{question_2/two.png}
+	%\resizebox{\columnwidth}{!}{\input{question_2/two.png}}
+	\caption{second image}
+	\label{imagetwo}
+\end {figure}
+
+
+
+
+\section{Summary and conclusions}
+
+Both problems have interesting results
+
+\begin{thebibliography}{}
+
+
+\bibitem{metcalf} M.\ Metcalf, J.\ Reid and M.\ Cohen, {\it Fortran 95/2003 explained}. Oxford University Press, 2004.
+ 
+
+\end{thebibliography}
+
+
+
+
+\end{document}

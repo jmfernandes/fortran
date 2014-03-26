@@ -1,7 +1,7 @@
 
-OBJS1 =	numtype.o mtest.o
+PROG = q1
 
-PROG1 =	mat
+OBJS = numtype.o q1.o
 
 F95 = gfortran
 
@@ -9,13 +9,13 @@ F95FLAGS = -O3 -funroll-loops -fexternal-blas
 
 LDFLAGS = -framework vecLib
 
-all: $(PROG1) 
+all: $(PROG) 
 
-$(PROG1): $(OBJS1)
-	$(F95) $(LDFLAGS) -o $@ $(OBJS1) 
+$(PROG): $(OBJS)
+	$(F95) $(LDFLAGS) -o $@ $(OBJS) 
 
 clean:
-	rm -f $(PROG1)  *.{o,mod}
+	rm -f $(PROG)  *.{o,mod}
 
 .SUFFIXES: $(SUFFIXES) .f95 
 

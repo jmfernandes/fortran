@@ -44,7 +44,9 @@ function func(x) result(f)
 	    
 !	f = x*cos(x) ! f = 1/(1+x**2) - x**3
 
-    f = sin(x)/x
+    !f = sin(x)/x
+    f = cos(x)/x
+
 	    
 end function func
 

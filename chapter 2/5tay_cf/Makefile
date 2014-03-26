@@ -1,13 +1,14 @@
 
-OBJS1 =	numtype.o mtest.o
+PROG1 =	cftt
 
-PROG1 =	mat
+
+OBJS1 =	numtype.o cfapprox.o cftest.o
 
 F95 = gfortran
 
-F95FLAGS = -O3 -funroll-loops -fexternal-blas
+F95FLAGS = -O3
 
-LDFLAGS = -framework vecLib
+LDFLAGS =   -framework vecLib
 
 all: $(PROG1) 
 
