@@ -1,0 +1,321 @@
+
+
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[section]{placeins} %this stops the figures from showing up in wrong section
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{dkblue}{rgb}{0,0.0,0.6}
+\definecolor{dkred}{rgb}{0.9,0.0,0.1}
+
+
+\begin{document}
+
+\lstset{language=Fortran,tabsize=4,numbers=left,numberstyle=\tiny,basicstyle=\ttfamily\small\color{dkblue},stringstyle=\ttfamily\color{blue},keywordstyle=\rmfamily\color{dkred}\bfseries\emph,backgroundcolor=\color{white},commentstyle=\color{dkgreen}}
+
+
+
+
+\title{Physics 562 - Computational Physics\\[.5cm]
+Assignment 4: Eigenvalues of Simple Harmonic Oscillator}
+\author{Josh Fernandes\\
+Department of Physics \& Astronomy\\
+California State University Long Beach}
+\date{\today}
+
+  
+\maketitle
+
+
+
+\begin{abstract}
+This paper examine 
+\end{abstract}
+
+\section{Hamiltonian}
+one dimensional harmonic oscillator is given by
+
+\begin{gather}
+m \frac{\partial^2 x}{\partial t^2} = -kx.
+\end{gather}
+which has the solution
+
+\begin{gather}
+x=x_0 sin(wt + \theta),
+\end{gather}
+where
+\begin{gather}
+w=\sqrt{\frac{k}{m}}
+\end{gather}
+The total energy of the system is the same as the hamiltonian which is given by
+\begin{gather}
+E = \mathcal{H} = \frac{p^2}{2m} + \frac{mw^2x^2}{2}
+\end{gather}
+let's say, 
+\begin{gather}
+\xi = x \sqrt{\frac{mw}{\hbar}} \\
+\pi = \frac{p}{\sqrt{\hbar mw}}. 
+\end{gather}
+This gives us the equation
+\begin{gather}
+\mathcal{H} = \frac{\hbar w}{2}(\pi^2+\xi^2)
+\end{gather}
+if you factorize the expression, it becomes
+\begin{gather}
+\mathcal{H} = \frac{\hbar w}{2}[(\xi + i \pi)(\xi - i \pi) + (\xi - i \pi)(\xi + i \pi)]
+\end{gather}
+we can now define the operators
+\begin{gather}
+a = \frac{\xi + i \pi}{\sqrt{2}} = \frac{1}{\sqrt{2 \hbar m w}}(mwx + ip) \\
+a^\dagger = \frac{\xi - i \pi}{\sqrt{2}} = \frac{1}{\sqrt{2 \hbar m w}}(mwx - ip)
+\end{gather}
+from the commutator relation
+\begin{gather}
+[i \pi,\xi] = 1
+\end{gather}
+it follows that
+\begin{gather}
+[a,a^\dagger] = 1
+\end{gather}
+Finally, we can write the hamiltonian
+\begin{gather}
+\mathcal{H} = \hbar w (a^\dagger a + \frac{1}{2}) = \hbar w (N + \frac{1}{2})
+\label{hamil}
+\end{gather}
+where
+\begin{gather}
+N = a^\dagger a
+\end{gather}
+\[ a^\dagger = \left( \begin{array}{ccccc}
+0 & 0 & 0 & 0 & \ldots \\
+\sqrt{1} & 0 & 0 & 0 & \ldots \\
+0 & \sqrt{2} & 0 & 0 & \ldots \\
+0 & 0 & \sqrt{3} & 0 & \ldots \\
+\vdots & \vdots & \vdots & \vdots & \ddots \end{array} \right)\]
+and
+\[ a= \left( \begin{array}{ccccc}
+0 & \sqrt{1}  & 0 & 0 & \ldots \\
+0 & 0 & \sqrt{2}  & 0 & \ldots \\
+0 & 0 & 0 & \sqrt{3}  & \ldots \\
+0 & 0 & 0 & 0 & \ldots \\
+\vdots & \vdots & \vdots & \vdots & \ddots \end{array} \right)\]
+From this we get
+\begin{gather}
+x = \sqrt{\frac{\hbar}{2mw}}(a^\dagger + a), \\
+p = i\sqrt{\frac{mw\hbar}{2}}(a^\dagger - a)
+\end{gather}
+Plugging in for $a^\dagger$ and $a$ we get
+\[ x= \sqrt{\frac{\hbar}{2mw}} \left( \begin{array}{ccccc}
+0 & \sqrt{1}  & 0 & 0 & \ldots \\
+\sqrt{1} & 0 & \sqrt{2}  & 0 & \ldots \\
+0 & \sqrt{2} & 0 & \sqrt{3}  & \ldots \\
+0 & 0 & \sqrt{3} & 0 & \ldots \\
+\vdots & \vdots & \vdots & \vdots & \ddots \end{array} \right)\]
+and
+\[ p= i\sqrt{\frac{mw\hbar}{2}} \left( \begin{array}{ccccc}
+0 & -\sqrt{1}  & 0 & 0 & \ldots \\
+\sqrt{1} & 0 & -\sqrt{2}  & 0 & \ldots \\
+0 & \sqrt{2} & 0 & -\sqrt{3}  & \ldots \\
+0 & 0 & \sqrt{3} & 0 & \ldots \\
+\vdots & \vdots & \vdots & \vdots & \ddots \end{array} \right)\]
+
+So, we want to find the eigenvalue of a harmonic oscillator that is using the basis of a different basis. The first harmonic oscillator has the parameters of $\hbar = 1$, $m = 1$, and $w=.5$. The second harmonic oscillator has the parameters of $\hbar = 1$, $m = 1$, and $w=1$. If you calculate the hamiltonians using equation \ref{hamil} you get
+\begin{gather}
+\mathcal{H}_1 =  (N + \frac{1}{2}) \\
+\mathcal{H}_2 =  .5 \cdot(N + \frac{1}{2})
+\end{gather}
+writing as a $10\times10$ matrix we get
+\[ \mathcal{H}_1 = \left( \begin{array}{cccccccccc}
+\frac{1}{2} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+0 & \frac{3}{2} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+0 & 0 & \frac{5}{2} & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+0 & 0 & 0 & \frac{7}{2} & 0 & 0 & 0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & \frac{9}{2} & 0 & 0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 0 & \frac{11}{2} & 0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 0 & 0 & \frac{13}{2} & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{15}{2} & 0 & 0\\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{17}{2} & 0\\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{19}{2} \end{array} \right)\]
+and
+\[ \mathcal{H}_2 = \left( \begin{array}{cccccccccc}
+\frac{1}{4} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+0 & \frac{3}{4} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+0 & 0 & \frac{5}{4} & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+0 & 0 & 0 & \frac{7}{4} & 0 & 0 & 0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & \frac{9}{4} & 0 & 0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 0 & \frac{11}{4} & 0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 0 & 0 & \frac{13}{4} & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{15}{4} & 0 & 0\\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{17}{4} & 0\\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{19}{4} \end{array} \right)\]
+finally, we know that the hamiltonian we want is
+\begin{gather}
+\mathcal{H} =   \mathcal{H}_1 + \mathcal{H}_2 + \frac{1}{2} m \cdot (\omega_2-\omega_1)^2 \cdot (x_2-x_1)^2
+\end{gather}
+where $w_2$ and $x_2$ are the matrices associated with the second harmonic oscillator, and $w_1$ and $x_1$ are the matrices associated with the first harmonic oscillator
+
+\section{The Fortran95 code}
+
+The code solves the equation of motion using the Runga-Kutta method. First a module called {\tt NumType} is created to store all my global parameters.
+
+\begin{lstlisting}[frame=single,caption={Module {\tt NumType}},label=module]
+
+module NumType
+
+	save
+	integer, parameter		::	dp = kind(1.d0)
+	real(dp), parameter		::	pi = 4*atan(1._dp)
+	complex(dp), parameter	:: 	iic = (0._dp,1._dp),&
+								one = (1._dp,0._dp),&
+								zero = (0._dp,0._dp)
+
+end module NumType
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single,caption={ {\tt mtest.f95}},label=module]
+
+module setup
+
+	use NumType
+	implicit none
+	integer,	parameter	::  ndim=10,lwork=5*ndim
+	real(dp),	parameter	::  mass=1.0_dp, &
+				        	    hbar=1.0_dp,&
+					 		    omega1=0.5_dp,& 
+							    omega2=1._dp
+	
+end module setup
+
+program matrix
+
+	use setup
+	implicit none
+
+	complex(dp), dimension(ndim,ndim)	:: A,B,E,H1,H2,H3
+	real(dp),	 dimension(ndim)		:: w
+	integer 							:: i, nn, info
+	complex(dp) 						:: work(lwork)
+	real(dp) 							:: rwork(lwork)
+
+	A(1:10,1:10) = reshape((/	             		    &
+			zero, sqrt(1*one), zero, zero, zero,		&
+			zero, zero, zero, zero, zero,				&
+			sqrt(1*one), zero, sqrt(2*one), zero, zero,	&
+			zero, zero, zero, zero, zero,				&
+			zero, sqrt(2*one), zero, sqrt(3*one), zero,	&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, sqrt(3*one), zero, sqrt(4*one), &
+			zero, zero, zero, zero, zero,				&
+			zero, zero, zero, sqrt(4*one), zero,		&
+			sqrt(5*one), zero, zero, zero, zero,		&
+			zero, zero, zero, zero, sqrt(5*one),		&
+			zero, sqrt(6*one), zero, zero, zero,		&
+			zero, zero, zero, zero, zero,				&
+			sqrt(6*one), zero, sqrt(7*one), zero, zero,	&
+			zero, zero, zero, zero, zero,				&
+			zero, sqrt(7*one), zero, sqrt(8*one), zero,	&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, sqrt(8*one), zero, sqrt(9*one),	&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, zero, sqrt(9*one), zero 		&
+	/), 												&
+	(/10,10/))
+
+	H1(1:10,1:10) = reshape((/  						&
+			1/2._dp*one, zero, zero, zero, zero,		&
+			zero, zero, zero, zero, zero,				&
+			zero, 3/2._dp*one, zero, zero, zero,		&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, 5/2._dp*one, zero, zero,		&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, zero, 7/2._dp*one, zero,		&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, zero, zero, 9/2._dp*one,		&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, zero, zero, zero,				&
+			11/2._dp*one, zero, zero, zero, zero,		&
+			zero, zero, zero, zero, zero,				&
+			zero, 13/2._dp*one, zero, zero, zero,		&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, 15/2._dp*one, zero, zero,		&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, zero, 17/2._dp*one, zero,		&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, zero, zero, 19/2._dp*one 		&
+	/), 												&
+	(/10,10/))
+
+	H2(1:10,1:10) = reshape((/							&
+			1/4._dp*one, zero, zero, zero, zero,		&
+			zero, zero, zero, zero, zero,				&
+			zero, 3/4._dp*one, zero, zero, zero,		&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, 5/4._dp*one, zero, zero,		&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, zero, 7/4._dp*one, zero,		&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, zero, zero, 9/4._dp*one,		&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, zero, zero, zero,				&
+			11/4._dp*one, zero, zero, zero, zero,		&
+			zero, zero, zero, zero, zero,				&
+			zero, 13/4._dp*one, zero, zero, zero,		&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, 15/4._dp*one, zero, zero,		&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, zero, 17/4._dp*one, zero,		&
+			zero, zero, zero, zero, zero,				&
+			zero, zero, zero, zero, 19/4._dp*one 		&
+	/), 												&
+	(/10,10/))
+
+	A(1:10,1:10)= sqrt(hbar/(2*mass*omega1))*A(1:10,1:10)
+	B(1:10,1:10)= sqrt(hbar/(2*mass*omega2))*A(1:10,1:10)
+	H3(1:10,1:10)= H1 + H2 + 1/2._dp*mass*&
+				   (omega2-omega1)**2*(B-A)**2
+
+	nn = 10
+	info = 0
+	E(1:nn,1:nn) = H3(1:nn,1:nn)
+
+	call zheev('v','u',nn,E,ndim,w,work,lwork,rwork,info)
+
+	print *, 'info=', info
+
+	do i = 1,10
+		print '(a,f15.8,a,20f6.0)','eigenvalues',w(i),&
+		'vector', dble(e(1:nn,i)) 
+	end do
+
+end program matrix
+
+\end{lstlisting}
+
+
+
+The code is run by typing {\tt ./mat}. The resulting eigenvalues and eigenvectors are printed out to the terminal.
+
+\section{Results}
+
+The eigenvalues are
+
+
+\section{Summary and conclusions}
+
+The eigenvalues tell us that Natalie is super cool. 
+
+\begin{thebibliography}{}
+
+
+\bibitem{metcalf} M.\ Metcalf, J.\ Reid and M.\ Cohen, {\it Fortran 95/2003 explained}. Oxford University Press, 2004.
+ 
+
+\end{thebibliography}
+
+
+
+
+\end{document}

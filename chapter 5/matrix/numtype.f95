@@ -7,6 +7,5 @@ module NumType
 	complex(dp), parameter :: 	iic = (0._dp,1._dp),&		!complex unit
 								one = (1._dp,0._dp),&
 								zero = (0._dp,0._dp)
-
-
+								
 end module NumType

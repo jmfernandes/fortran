@@ -14,7 +14,7 @@ program kicking
 
 	use setup
 	implicit none
-	real(dp) :: y(number_of_equations), t, dt, tmax, theta, omega
+	real(dp) :: y(number_of_equations), t, dt, tmax, theta, omega, z
 
 
 	t = 0._dp

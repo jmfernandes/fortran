@@ -32,7 +32,7 @@ subroutine rk4step(t,y,dt,k)
 			real(dp), dimension(number_of_equations) :: k, f
 
 			f(1) = y(2)
-			f(2) = -g/length * sin(y(1)) - mu/mass*y(2)
+			f(2) = -g/length * sin(y(1)) - mu/mass*y(2) + .01*cos(.5*t)
 			k = dt * f !step size times derivative
 
 		end subroutine deriv
