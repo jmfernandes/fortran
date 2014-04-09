@@ -5,6 +5,7 @@
 \usepackage{amsmath}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{braket}
 \usepackage[section]{placeins} %this stops the figures from showing up in wrong section
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -32,82 +33,73 @@ California State University Long Beach}
 
 
 \begin{abstract}
-This paper examine 
+This paper examines the eigenvalues and eigenvectors of two one-dimensional harmonic oscillators. 
 \end{abstract}
 
 \section{Hamiltonian}
-one dimensional harmonic oscillator is given by
-
+one dimensional harmonic oscillator is given by the differential operator
 \begin{gather}
 m \frac{\partial^2 x}{\partial t^2} = -kx.
 \end{gather}
-which has the solution
-
+This differential equation has the solution
 \begin{gather}
 x=x_0 sin(wt + \theta),
 \end{gather}
 where
 \begin{gather}
-w=\sqrt{\frac{k}{m}}
+w=\sqrt{\frac{k}{m}}.
 \end{gather}
 The total energy of the system is the same as the hamiltonian which is given by
 \begin{gather}
 E = \mathcal{H} = \frac{p^2}{2m} + \frac{mw^2x^2}{2}
 \end{gather}
-let's say, 
+Now, make the following substitutions of the form 
 \begin{gather}
-\xi = x \sqrt{\frac{mw}{\hbar}} \\
+\xi = x \sqrt{\frac{mw}{\hbar}}, \\
 \pi = \frac{p}{\sqrt{\hbar mw}}. 
 \end{gather}
-This gives us the equation
+This gives the equation
 \begin{gather}
-\mathcal{H} = \frac{\hbar w}{2}(\pi^2+\xi^2)
+\mathcal{H} = \frac{\hbar w}{2}(\pi^2+\xi^2).
 \end{gather}
-if you factorize the expression, it becomes
+The expression can be factorized so that it then becomes
 \begin{gather}
-\mathcal{H} = \frac{\hbar w}{2}[(\xi + i \pi)(\xi - i \pi) + (\xi - i \pi)(\xi + i \pi)]
+\mathcal{H} = \frac{\hbar w}{2}[(\xi + i \pi)(\xi - i \pi) + (\xi - i \pi)(\xi + i \pi)].
 \end{gather}
-we can now define the operators
+The following two operators can be defined in terms of the position and momentum, 
 \begin{gather}
 a = \frac{\xi + i \pi}{\sqrt{2}} = \frac{1}{\sqrt{2 \hbar m w}}(mwx + ip) \\
-a^\dagger = \frac{\xi - i \pi}{\sqrt{2}} = \frac{1}{\sqrt{2 \hbar m w}}(mwx - ip)
+a^\dagger = \frac{\xi - i \pi}{\sqrt{2}} = \frac{1}{\sqrt{2 \hbar m w}}(mwx - ip).
 \end{gather}
-from the commutator relation
+from the commutator relation $[i \pi,\xi] = 1$, it follows that $[a,a^\dagger] = 1$. Using this, the hamiltonian can be written in the form
 \begin{gather}
-[i \pi,\xi] = 1
-\end{gather}
-it follows that
-\begin{gather}
-[a,a^\dagger] = 1
-\end{gather}
-Finally, we can write the hamiltonian
-\begin{gather}
-\mathcal{H} = \hbar w (a^\dagger a + \frac{1}{2}) = \hbar w (N + \frac{1}{2})
+\mathcal{H} = \hbar w (a^\dagger a + \frac{1}{2}) = \hbar w (N + \frac{1}{2}).
 \label{hamil}
 \end{gather}
-where
+Note that $N = a^\dagger a$. The energy eigenvalues is given by
 \begin{gather}
-N = a^\dagger a
+\mathcal{H}\Ket{n} = (n+\frac{1}{2})\hbar w\Ket{n}
 \end{gather}
+The only nonzero matrix elements of $a^\dagger$ are $\Bra{n+1} a^\dagger \Ket{n} = \sqrt{n+1}$. So, this gives the matrix
 \[ a^\dagger = \left( \begin{array}{ccccc}
 0 & 0 & 0 & 0 & \ldots \\
 \sqrt{1} & 0 & 0 & 0 & \ldots \\
 0 & \sqrt{2} & 0 & 0 & \ldots \\
 0 & 0 & \sqrt{3} & 0 & \ldots \\
-\vdots & \vdots & \vdots & \vdots & \ddots \end{array} \right)\]
-and
+\vdots & \vdots & \vdots & \vdots & \ddots \end{array} \right),\]
+and the adjoint
 \[ a= \left( \begin{array}{ccccc}
 0 & \sqrt{1}  & 0 & 0 & \ldots \\
 0 & 0 & \sqrt{2}  & 0 & \ldots \\
 0 & 0 & 0 & \sqrt{3}  & \ldots \\
 0 & 0 & 0 & 0 & \ldots \\
-\vdots & \vdots & \vdots & \vdots & \ddots \end{array} \right)\]
-From this we get
+\vdots & \vdots & \vdots & \vdots & \ddots \end{array} \right).\]
+Now, the position and momentum can be defined in terms of $a$ and $a^\dagger$. This gives $x$ and $p$ in the form
 \begin{gather}
-x = \sqrt{\frac{\hbar}{2mw}}(a^\dagger + a), \\
-p = i\sqrt{\frac{mw\hbar}{2}}(a^\dagger - a)
+x = \sqrt{\frac{\hbar}{2mw}}(a^\dagger + a) \\
+p = i\sqrt{\frac{mw\hbar}{2}}(a^\dagger - a).
 \end{gather}
-Plugging in for $a^\dagger$ and $a$ we get
+Plugging in for $a^\dagger$ and $a$ results in
 \[ x= \sqrt{\frac{\hbar}{2mw}} \left( \begin{array}{ccccc}
 0 & \sqrt{1}  & 0 & 0 & \ldots \\
 \sqrt{1} & 0 & \sqrt{2}  & 0 & \ldots \\
@@ -122,7 +114,7 @@ and
 0 & 0 & \sqrt{3} & 0 & \ldots \\
 \vdots & \vdots & \vdots & \vdots & \ddots \end{array} \right)\]
 
-So, we want to find the eigenvalue of a harmonic oscillator that is using the basis of a different basis. The first harmonic oscillator has the parameters of $\hbar = 1$, $m = 1$, and $w=.5$. The second harmonic oscillator has the parameters of $\hbar = 1$, $m = 1$, and $w=1$. If you calculate the hamiltonians using equation \ref{hamil} you get
+Now look at the hamiltonians of two different harmonic oscillators. The first harmonic oscillator has the parameters of $\hbar = 1$, $m = 1$, and $w=.5$. The second harmonic oscillator has the parameters of $\hbar = 1$, $m = 1$, and $w=1$. If you calculate the hamiltonians using equation \ref{hamil} you get
 \begin{gather}
 \mathcal{H}_1 =  (N + \frac{1}{2}) \\
 \mathcal{H}_2 =  .5 \cdot(N + \frac{1}{2})
@@ -151,15 +143,16 @@ and
 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{15}{4} & 0 & 0\\
 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{17}{4} & 0\\
 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{19}{4} \end{array} \right)\]
-finally, we know that the hamiltonian we want is
+In the system that we are looking at, the first harmonic oscillator is going to be in the basis of the second harmonic oscillator. The new hamiltonian will be of the form 
 \begin{gather}
 \mathcal{H} =   \mathcal{H}_1 + \mathcal{H}_2 + \frac{1}{2} m \cdot (\omega_2-\omega_1)^2 \cdot (x_2-x_1)^2
+\label{hamil2}
 \end{gather}
-where $w_2$ and $x_2$ are the matrices associated with the second harmonic oscillator, and $w_1$ and $x_1$ are the matrices associated with the first harmonic oscillator
+where $w_2$ and $x_2$ are the matrices associated with the second harmonic oscillator, and $w_1$ and $x_1$ are the matrices associated with the first harmonic oscillator. The eigenvalues and eigenvector will now be calculated for the hamiltonian given in equation \ref{hamil2}.
 
 \section{The Fortran95 code}
 
-The code solves the equation of motion using the Runga-Kutta method. First a module called {\tt NumType} is created to store all my global parameters.
+The code calculates the eigenvalues and eigenvectors of a matrix of any size. For this project, a $10 \times 10$ matrix is used. First a module called {\tt NumType} is created to store all my global parameters.
 
 \begin{lstlisting}[frame=single,caption={Module {\tt NumType}},label=module]
 
@@ -300,7 +293,25 @@ The code is run by typing {\tt ./mat}. The resulting eigenvalues and eigenvector
 
 \section{Results}
 
-The eigenvalues are
+\begin{table}[h]
+\centering
+\begin{tabular}{cc}
+\hline
+             & eigenvalue \\ \hline\hline  
+ground state & {$\frac{3}{4}$}         \\ [1ex]
+1st excited  & {$\frac{9}{4}$}        \\ [1ex]
+2nd excited  & {$\frac{15}{4}$}         \\ [1ex]
+3rd excited  & {$\frac{21}{4}$}         \\ [1ex]
+4th excited  & {$\frac{27}{4}$}        \\ [1ex]
+5th excited  & {$\frac{33}{4}$}         \\ [1ex]
+6th excited  & {$\frac{39}{4}$}         \\ [1ex]
+7th excited  & {$\frac{45}{4}$}        \\ [1ex]
+8th excited  & {$\frac{51}{4}$}        \\ [1ex]
+9th excited  & {$\frac{57}{4}$}       \\  \hline
+\end{tabular}
+\end{table}
+
+The eigenvalues are not the same as the eigenvalues of the individual harmonic oscillators. This would indicate that the harmonic oscillators are coupled.  
 
 
 \section{Summary and conclusions}

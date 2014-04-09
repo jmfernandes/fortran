@@ -14,7 +14,7 @@ program matrix
 	use setup
 	implicit none
 
-	complex(dp), dimension(ndim,ndim)	:: A,B,E,H1,H2,H3
+	complex(dp), dimension(ndim,ndim)	:: A,B,C,D,E,H1,H2,H3,H4,H5
 	real(dp),	 dimension(ndim)		:: w
 	integer 							:: i, nn, info
 	complex(dp) 						:: work(lwork)
@@ -38,6 +38,29 @@ program matrix
 							zero, sqrt(7*one), zero, sqrt(8*one), zero,		&
 							zero, zero, zero, zero, zero,					&
 							zero, zero, sqrt(8*one), zero, sqrt(9*one),		&
+							zero, zero, zero, zero, zero,					&
+							zero, zero, zero, sqrt(9*one), zero 			&
+						/), 												&
+						(/10,10/))
+
+	C(1:10,1:10) = reshape((/	zero, -sqrt(1*one), zero, zero, zero,		&
+							zero, zero, zero, zero, zero,					&
+							sqrt(1*one), zero, -sqrt(2*one), zero, zero,	&
+							zero, zero, zero, zero, zero,					&
+							zero, sqrt(2*one), zero, -sqrt(3*one), zero,	&
+							zero, zero, zero, zero, zero,					&
+							zero, zero, sqrt(3*one), zero, -sqrt(4*one),	&
+							zero, zero, zero, zero, zero,					&
+							zero, zero, zero, sqrt(4*one), zero,			&
+							-sqrt(5*one), zero, zero, zero, zero,			&
+							zero, zero, zero, zero, sqrt(5*one),			&
+							zero, -sqrt(6*one), zero, zero, zero,			&
+							zero, zero, zero, zero, zero,					&
+							sqrt(6*one), zero, -sqrt(7*one), zero, zero,	&
+							zero, zero, zero, zero, zero,					&
+							zero, sqrt(7*one), zero, -sqrt(8*one), zero,	&
+							zero, zero, zero, zero, zero,					&
+							zero, zero, sqrt(8*one), zero, -sqrt(9*one),	&
 							zero, zero, zero, zero, zero,					&
 							zero, zero, zero, sqrt(9*one), zero 			&
 						/), 												&
@@ -91,11 +114,22 @@ program matrix
 
 	A(1:10,1:10)  = sqrt(hbar/(2*mass*omega1))*A(1:10,1:10)
 	B(1:10,1:10)  = sqrt(hbar/(2*mass*omega2))*A(1:10,1:10)
+
+	C(1:10,1:10)  = iic*sqrt((mass*omega1*hbar)/2)*C(1:10,1:10) 
+	D(1:10,1:10)  = iic*sqrt((mass*omega2*hbar)/2)*C(1:10,1:10) 
+
 	H3(1:10,1:10) = H1 + H2 + 1/2._dp*mass*(omega2-omega1)**2*(B-A)**2
+
+	H4(1:10,1:10) = (C*C)/(2*mass) + mass*omega1**2*(A*A)/2
+	H5(1:10,1:10) = (D*D)/(2*mass) + mass*omega2**2*(B*B)/2
 
 	nn = 10
 	info = 0
 	E(1:nn,1:nn) = H3(1:nn,1:nn)
+
+	print '(20f6.2)', A(1:10,1:10)
+	print *, '__________'
+	print '(20f6.2)', C(1:10,1:10)
 
 	call zheev('v','u',nn,E,ndim,w,work,lwork,rwork,info)
 
