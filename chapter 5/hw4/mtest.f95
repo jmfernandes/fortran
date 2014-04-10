@@ -112,24 +112,28 @@ program matrix
 						/), 												&
 						(/10,10/))
 
-	A(1:10,1:10)  = sqrt(hbar/(2*mass*omega1))*A(1:10,1:10)
 	B(1:10,1:10)  = sqrt(hbar/(2*mass*omega2))*A(1:10,1:10)
+	A(1:10,1:10)  = sqrt(hbar/(2*mass*omega1))*A(1:10,1:10)
 
+	D(1:10,1:10)  = iic*sqrt((mass*omega2*hbar)/2)*C(1:10,1:10)
 	C(1:10,1:10)  = iic*sqrt((mass*omega1*hbar)/2)*C(1:10,1:10) 
-	D(1:10,1:10)  = iic*sqrt((mass*omega2*hbar)/2)*C(1:10,1:10) 
+ 
 
-	H3(1:10,1:10) = H1 + H2 + 1/2._dp*mass*(omega2-omega1)**2*(B-A)**2
 
 	H4(1:10,1:10) = (C*C)/(2*mass) + mass*omega1**2*(A*A)/2
 	H5(1:10,1:10) = (D*D)/(2*mass) + mass*omega2**2*(B*B)/2
+
+	H3(1:10,1:10) = H1 + H2 + 1/2._dp*mass*(omega2-omega1)**2*(B-A)**2
+
+	
 
 	nn = 10
 	info = 0
 	E(1:nn,1:nn) = H3(1:nn,1:nn)
 
-	print '(20f6.2)', A(1:10,1:10)
-	print *, '__________'
 	print '(20f6.2)', C(1:10,1:10)
+	print *, '__________'
+	print '(20f6.2)', D(1:10,1:10)
 
 	call zheev('v','u',nn,E,ndim,w,work,lwork,rwork,info)
 
@@ -139,6 +143,5 @@ program matrix
 		print '(a,f15.8,a,20f6.0)','eigenvalues',w(i),'  vector  ', dble(e(1:nn,i)) 
 	end do
 
-	print *, "wa-bam"
 
 end program matrix
