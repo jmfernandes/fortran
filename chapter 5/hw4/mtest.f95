@@ -20,6 +20,7 @@ program matrix
 	complex(dp) 						:: work(lwork)
 	real(dp) 							:: rwork(lwork)
 
+	!x matrix
 	A(1:10,1:10) = reshape((/	zero, sqrt(1*one), zero, zero, zero,		&
 							zero, zero, zero, zero, zero,					&
 							sqrt(1*one), zero, sqrt(2*one), zero, zero,		&
@@ -43,6 +44,7 @@ program matrix
 						/), 												&
 						(/10,10/))
 
+	!p matrix
 	C(1:10,1:10) = reshape((/	zero, -sqrt(1*one), zero, zero, zero,		&
 							zero, zero, zero, zero, zero,					&
 							sqrt(1*one), zero, -sqrt(2*one), zero, zero,	&
@@ -66,6 +68,7 @@ program matrix
 						/), 												&
 						(/10,10/))
 
+	!eigenvalue matrix for omega=1
 	H1(1:10,1:10) = reshape((/ 1/2._dp*one, zero, zero, zero, zero,			&
 							zero, zero, zero, zero, zero,					&
 							zero, 3/2._dp*one, zero, zero, zero,			&
@@ -89,6 +92,7 @@ program matrix
 						/), 												&
 						(/10,10/))
 
+	!eigenvalue matrix for omega=.5
 	H2(1:10,1:10) = reshape((/ 1/4._dp*one, zero, zero, zero, zero,			&
 							zero, zero, zero, zero, zero,					&
 							zero, 3/4._dp*one, zero, zero, zero,			&
@@ -120,8 +124,8 @@ program matrix
  
 
 
-	H4(1:10,1:10) = (C*C)/(2*mass) + mass*omega1**2*(A*A)/2
-	H5(1:10,1:10) = (D*D)/(2*mass) + mass*omega2**2*(B*B)/2
+	H4(1:10,1:10) = (C*C)/(2*mass) + (mass*omega1**2*(A*A))/2
+	H5(1:10,1:10) = (D*D)/(2*mass) + (mass*omega2**2*(B*B))/2
 
 	H3(1:10,1:10) = H1 + H2 + 1/2._dp*mass*(omega2-omega1)**2*(B-A)**2
 
@@ -131,9 +135,9 @@ program matrix
 	info = 0
 	E(1:nn,1:nn) = H3(1:nn,1:nn)
 
-	print '(20f6.2)', C(1:10,1:10)
-	print *, '__________'
-	print '(20f6.2)', D(1:10,1:10)
+! 	print '(20f6.2)', C(1:10,1:10)
+! 	print *, '__________'
+! 	print '(20f6.2)', D(1:10,1:10)
 
 	call zheev('v','u',nn,E,ndim,w,work,lwork,rwork,info)
 

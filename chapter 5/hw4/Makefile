@@ -1,5 +1,5 @@
 
-OBJS =	numtype.o mtest.o
+OBJS =	numtype.o mtest_papp_version.o
 
 PROG =	mat
 
