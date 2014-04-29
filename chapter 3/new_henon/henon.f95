@@ -23,7 +23,7 @@ program orbit
 	dt = 0.1_dp !days
 	
 
-	E = 1/200._dp
+	E = 1/6._dp
 
 	y(1) = 0 !x
 	y(2) = 0 !px

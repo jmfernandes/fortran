@@ -19,6 +19,8 @@ program extrap_test
     end do
     print *,'------------'
     
+!     stop
+    
     call thiele_coef( n, zn, fn, an) 
     
     do i = n/2, -n/2, -1
@@ -38,15 +40,16 @@ end program extrap_test
 
 function func(x) result(f)
 	    
-	use numtype, only : dp
+	use numtype, only : dp, pi, iic
 	implicit none
-	real(dp) :: x, f
+	real(dp) :: x, f, z, alpha
 	    
 !	f = x*cos(x) ! f = 1/(1+x**2) - x**3
 
-    !f = sin(x)/x
-    f = cos(x)/x
-
+!     f = sin(x)/x
+    alpha = pi/2._dp
+    z = x*(cos(alpha)+iic*sin(alpha))
+    f = pi*(1/(tan(pi*x)))
 	    
 end function func
 
