@@ -7,8 +7,8 @@ program integral
 
 	real(dp) :: a,b,c,d,res,eps,ifail,scale
 	real(dp), dimension(maxint) :: w_legendre,x_legendre, w_cc, x_cc, &
-								   w_lag, x_lag
-	integer :: nint, itype, i,n_legendre, n_cc, n_lag
+								   w_lag, x_lag, w_new, x_new
+	integer :: nint, itype, i,n_legendre, n_cc, n_lag, n_new
 
 	print *, 'int_-5^5 1/(1+x^2) dx'
 
@@ -81,6 +81,7 @@ program integral
 	res = 0._dp
 	do i = 1,n_lag
 		res = res + sq(x_lag(i))*w_lag(i)
+		write(24,*) x_lag(i), sq(x_lag(i))
 	end do
 	print *, 'gauss', res
 
@@ -100,6 +101,7 @@ program integral
 	res = 0._dp
 	do i = 1,n_lag
 		res = res + sqa(x_lag(i))*w_lag(i)
+		write(34,*) x_lag(i), sqa(x_lag(i))*w_lag(i)
 	end do
 	print *, 'gauss', res
 
@@ -117,6 +119,121 @@ program integral
 	end do
 
 	print *, ' CC', res
+
+	print *, '================================================================'
+	print *, 'My Stuff'
+
+	itype = 4
+	a = 0._dp
+	b = 1._dp
+	c = 1._dp
+	d = 0._dp 
+	ifail = 0._dp
+	n_new = 50._dp
+
+	call d01bcf(itype,a,b,c,d,n_new,w_new,x_new,ifail)
+
+	res = 0._dp
+	do i = 1,n_new
+		res = res + sqas(x_new(i))*w_new(i)
+		write(14,*) x_new(i), sqas(x_new(i))
+	end do
+	print *, 'gauss', res
+
+	print *, '================================================================'
+	print *, 'My Stuff2'
+
+
+	itype = 0
+	a = 1._dp
+	b = 5._dp
+	c = 3._dp
+	d = 0._dp 
+	ifail = 0._dp
+	n_new = 50._dp
+
+	call d01bcf(itype,a,b,c,d,n_new,w_new,x_new,ifail)
+
+	res = 0._dp
+	do i = 1,n_new
+		res = res + sqa1(x_new(i))*w_new(i)
+	end do
+	print *, 'gauss', res
+
+	print *, '================================================================'
+	print *, 'My Stuff3'
+
+
+	itype = 3
+	a = 0._dp
+	b = 2._dp
+	c = 3._dp
+	d = 0._dp 
+	ifail = 0._dp
+	n_new = 50._dp
+
+	call d01bcf(itype,a,b,c,d,n_new,w_new,x_new,ifail)
+
+	res = 0._dp
+	do i = 1,n_new
+		res = res + sqa2(x_new(i))*w_new(i)
+	end do
+	print *, 'gauss', res
+
+
+	n_cc = 120
+	scale = 1._dp
+
+	call cc0inf(n_cc,scale,x_cc,w_cc)
+
+	res = 0._dp
+	do i = 1,n_cc
+		res = res + sqa2a(x_cc(i))*w_cc(i)
+	end do
+
+	print *, ' CC', res
+
+	print *, '================================================================'
+	print *, 'My Stuff4'
+
+
+	itype = 0
+	a = 0.1_dp
+	b = 100._dp
+	c = 3._dp
+	d = 0._dp 
+	ifail = 0._dp
+	n_new = 50._dp
+
+	call d01bcf(itype,a,b,c,d,n_new,w_new,x_new,ifail)
+
+	res = 0._dp
+	do i = 1,n_new
+		res = res + sqa3(x_new(i))*w_new(i)
+		write(44,*) x_new(i),sqa3(x_new(i))*w_new(i)
+	end do
+	print *, 'gauss', res
+
+
+	n_cc = 120
+	scale = 1._dp
+
+	call cc0inf(n_cc,scale,x_cc,w_cc)
+
+	res = 0._dp
+	do i = 1,n_cc
+		res = res + sqa3(x_cc(i))*w_cc(i)
+	end do
+	print *, 'CC', res
+
+
+	eps = 1.e-10_dp
+	nint = 20
+
+	res = 0._dp
+	call rombint(a,b,sqa3,res,nint,eps)
+
+	print *, ' romberg result :', res
 
 
 	contains
@@ -147,6 +264,51 @@ program integral
 			fx = (x**2 * exp(-x))/sqrt(1+x)
 
 		end function sqa
+
+		function sqas(x) result(fx)
+
+			real(dp) :: x,fx
+
+
+			fx = x**2
+
+		end function sqas
+
+		function sqa1(x) result(fx)
+
+			real(dp) :: x,fx
+
+
+			fx = x**2+(1/(x**2-x+5))+cos(x)
+
+		end function sqa1
+
+		function sqa2(x) result(fx)
+
+			real(dp) :: x,fx
+
+
+			fx = 1/x
+
+		end function sqa2
+
+		function sqa2a(x) result(fx)
+
+			real(dp) :: x,fx
+
+
+			fx = abs(x)**3*exp(-2*x)*(1/x)
+
+		end function sqa2a
+
+		function sqa3(x) result(fx)
+
+			real(dp) :: x,fx
+
+
+			fx = x**3/(exp(x)-1)
+
+		end function sqa3
 	
 
 end program integral

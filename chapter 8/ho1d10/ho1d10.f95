@@ -20,7 +20,7 @@ program ho1d
     real(dp) :: x, dx, xmax, xmin, y(n_eq)
     integer  :: imax, i
 
-    energy = 2.5_dp
+    energy = 0.5_dp
     xmin   = -5._dp
     xmax   = 5._dp
     dx     = 0.01_dp
