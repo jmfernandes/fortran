@@ -32,7 +32,7 @@ program ho1d
     maxf = 10
     imax = abs(xmax/dx)
     allocate(wf(0:imax,2))
-    allocate(w1(0:imax,10))
+    allocate(w1(0:2*imax,10))
     de = 0.01_dp
     izz = 0
     nch = 5
@@ -45,7 +45,6 @@ program ho1d
 
         call chebyex(psi0, nch, cheb, emin, emax)
         call chebyzero(nch,cheb,emin,emax,z0,iz0)
-!         print *, z0(1:iz0)
 
         do iz=1,iz0
             e0=z0(iz)
@@ -60,9 +59,7 @@ program ho1d
 
     end do
 
-!     do i =1,imax
-!         write(99,*) wf(i,1), w1(i,1)*w1(i,2)
-!     end do
+    print *, '============Orthogonality Test============'
 
     total = 0
     val1=0
@@ -70,25 +67,25 @@ program ho1d
     j=1
     k=1
 
-
-    print *, '============Orthogonality Test============'
-
     do j = 1,10
     do k = 1,10
-    do i = 1,imax
+    do i = 1,2*imax
         m=j
         n=k
         val1=w1(i,m)*w1(i,n)
         val2=w1(i+1,m)*w1(i+1,n)
+        !Rombint/trapazoidal method of integration
         total = total + (0.01*(val1+1/2._dp*(val2-val1)) )
     end do
 
-    print '(a,i3,a5,i2,a5,i2)','total=', nint(total+.01),'i=',j,'j=',k
+    print '(a,1f5.1,a5,i2,a5,i2)','total=', total,'i=',j,'j=',k
 
     total = 0
 
     end do
     end do
+
+
 
 end program ho1d
 
@@ -109,7 +106,6 @@ function psi0(eee) result(psi)
         call rk4step(x,y,-dx)
     end do 
     psi = y(1)*y(2)
-!     print *, eee,psi
 
 end function psi0
 
@@ -139,11 +135,10 @@ subroutine wavef(eee,iz)
         i = i-1
         wf(i,1) = x
         wf(i,2) = y(1)
-!         write(unit=20+iz, fmt='(2f15.5)') x,y(1)
         call rk4step(x,y,-dx)
     end do
 
-
+    !establish parity so the negative side of graph cam be plotted
     imin=i
     if( abs(y(1)) > abs(y(2)) ) then
         parity = 1
@@ -151,33 +146,15 @@ subroutine wavef(eee,iz)
         parity = -1
     end if 
 
-!     do i =1,imax
-!     write(2,*) wf(i,1), wf(i,2)
-!     end do
+    ! make a master list of wavefunctions called w1. Used for integration
+    w1(0:imax,iz) = parity*wf(0:imax,2)/sqrt(2*y(3)) 
+    w1(imax:2*imax,iz) = wf(0:imax,2)/sqrt(2*y(3)) 
 
-!     print *, y(3), 'babnans'
-!     if (iz == 1) then
-!         w1(0:imax,1) = wf(0:imax,2)/sqrt(2*y(3)) 
-!     else if (iz == 2) then
-!         w1(0:imax,2) = wf(0:imax,2)/sqrt(2*y(3)) 
-!     end if
-
-!     print *, iz , 'iz'
-
-    w1(0:imax,iz) = wf(0:imax,2)/sqrt(2*y(3)) 
-
+    !normalize the wavefunction
     wf(0:imax,2) = wf(0:imax,2)/sqrt(2*y(3)) 
     
 
-!     do i =1,imax
-!     write(99,*) w1(i,1), w1(i,2)
-!     end do
-
-!     do i =1,imax
-!     write(1,*) wf(i,1), wf(i,2)
-!     end do
-
-!     print *, parity, 'parity is', iz
+    !make the graphs for positive and negative sides
     do i = imax, imin, -1
         write(unit=20+iz,fmt='(2f15.5)') wf(i,1), &
             wf(i,2)
