@@ -33,7 +33,8 @@ subroutine rk4step(t,y,dt)
         x0 = sqrt(hbar/(mass*omega))
 
         f(1) = y(2)
-        f(2) = -((2*mass*energy)/hbar**2 - (x/x0)**2)*y(1)
+!         f(2) = -((2*mass*energy)/hbar**2 - (x/x0)**2)*y(1)
+        f(2) = -(2*mass/hbar**2)*(energy-(-1/sqrt(1+x**2))) * y(1)
         
         k= dt*f
         

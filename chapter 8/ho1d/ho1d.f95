@@ -18,14 +18,14 @@ program ho1d
 
     real(dp) :: x, dx, xmax, y(n_eq)
 
-    energy = 4.5
-    xmax   = 5._dp
+    energy = 9.5
+    xmax   = 10._dp
     dx     = 0.01_dp
 
     x = 0._dp
 
-    y(1) = 1
-    y(2) = 0
+    y(1) = 0
+    y(2) = 1
 
     do while (x < xmax)
 
