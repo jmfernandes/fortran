@@ -8,7 +8,7 @@ program cf_test
 	integer :: n, i
 	real(dp) :: sign, x
 	
-	n = 30
+	n = 50
 	x = 2._dp
 
 !	Taylor coefficients of logarithmic function
