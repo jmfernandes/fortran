@@ -56,7 +56,7 @@ program cf_test
 	
 	print *,'  taylor sum ',x,'=', horner(taylor,n,x)
 	
-! 	call taylor_cfrac(taylor,n,cf)	
+	call taylor_cfrac(taylor,n,cf)	
 
 	print *,'          cf ',x,'=',evalcf(cf,n,x)
     print *,'         epx ',x,'=',sin(x)

@@ -4,11 +4,12 @@ program exp_cf_rec
     use NumType
     use cf_approx
     implicit none
-    real(dp) :: x,result
-    real(dp), dimension(0:ncf) :: taylor
-    integer :: imax, i, n, info
+    real(dp) :: x,result, sign
+    real(dp), dimension(0:ncf) :: taylor, cf
+    integer :: imax, i, j, n, info
 
-    integer,    parameter   ::  n_basis=3,lwork=2*n_basis+1
+    integer,    parameter   ::  n_basis=10,lwork=2*n_basis+1
+    integer :: ipiv(n_basis)
     real(dp),   parameter   ::  mass=1.0_dp, hbar=1.0_dp,&
                                 omega_h=1._dp,omega_b=1/2._dp
     complex(dp) ::  x_mat(0:n_basis,0:n_basis+1), p_mat(0:n_basis,0:n_basis+1), &
@@ -18,7 +19,12 @@ program exp_cf_rec
                     mult_mat(0:n_basis,0:n_basis), &
                     unit_mat(0:n_basis,0:n_basis), &
                     psi_mat(0:n_basis,0:n_basis), &
-                    result_mat(0:n_basis,0:n_basis)
+                    result_mat(0:n_basis,0:n_basis), &
+                    e_mat(0:n_basis,0:n_basis), &
+                    f(0:n_basis,0:n_basis), &
+                    c(0:n_basis,0:n_basis), &
+                    d(0:n_basis,0:n_basis)                     
+                    
 
     real(dp) :: rwork(3*(n_basis-2)), w_eigen(n_basis+1)
 
@@ -62,69 +68,133 @@ program exp_cf_rec
     end do
     p_mat(n_basis,n_basis+1) = -sqrt(mass*hbar*omega_b/2)*sqrt(n_basis+1._dp) !add last point
 
-    print *, 'x matrix-------------------------'
+!     print *, 'x matrix-------------------------'
 
-    do n=0,n_basis
-        print '(12f10.3)', x_mat(n,0:n_basis+1)
-    end do
+!     do n=0,n_basis
+!         print '(12f10.3)', x_mat(n,0:n_basis+1)
+!     end do
 
     v_mat(0:n_basis,0:n_basis) = (1/2._dp)*mass*omega_h**2*&
         matmul(x_mat(0:n_basis,0:n_basis+1),transpose(x_mat(0:n_basis,0:n_basis+1)))
 
-    print *, 'V matrix-------------------------'
-    do n=0,n_basis
-        print '(12f10.2)', v_mat(n,0:n_basis)
-    end do
+!     print *, 'V matrix-------------------------'
+!     do n=0,n_basis
+!         print '(12f10.2)', v_mat(n,0:n_basis)
+!     end do
 
     !!!!!!!!!!!!!!!!!!!
 
-    do n=0,n_basis
-        g_mat(n,n) = (n+1)/2._dp    
-    end do
+!     do n=0,n_basis
+!         g_mat(n,n) = (n+1)/2._dp    
+!     end do
 
     !!!!!!!!!!!!!!!!!!
 
-    do n=0,n_basis
-        unit_mat(n,n) = 1._dp   
+!     do n=0,n_basis
+!         unit_mat(n,n) = 1._dp   
+!     end do
+
+!     do n=0,n_basis
+!         psi_mat(n,n) = 1._dp   
+!     end do
+
+!     print *, 'g matrix-------------------------'
+!     do n=0,n_basis
+!         print '(12f12.2)', g_mat(n,0:n_basis)
+!     end do
+
+    h_mat(0:n_basis,0:n_basis) = 1/(2*mass) * &
+        matmul(p_mat(0:n_basis,0:n_basis+1),conjg(transpose(p_mat(0:n_basis,0:n_basis+1)))) + &
+        mass*omega_h**2/2 * &
+        matmul(x_mat(0:n_basis,0:n_basis+1),transpose(x_mat(0:n_basis,0:n_basis+1)))
+
+
+    e_mat=h_mat
+
+    call zheev('v','u',n_basis+1,e_mat,n_basis+1,w_eigen,work,lwork,rwork,info)
+
+    print *, '----------'
+    print *, info
+
+    print *, '------- Eigen Values ------- '
+
+    print *, w_eigen(1:n_basis)
+
+    print *, '------- Eigen Vectors ------- '
+
+    do i = 1,n_basis
+        print '(a,200f6.2)', 'vector', dble(e_mat(1:n_basis,i)) 
     end do
 
-    do n=0,n_basis
-        psi_mat(n,n) = 1._dp   
-    end do
+!     f(1:n_basis,1:n_basis) = matmul(e_mat(1:n_basis,1:n_basis),&
+!         transpose(h_mat(1:n_basis,1:n_basis)))
 
-    print *, 'g matrix-------------------------'
-    do n=0,n_basis
-        print '(12f12.2)', g_mat(n,0:n_basis)
-    end do
-
-!     h_mat(0:n_basis,0:n_basis) = 1/(2*mass) * &
-!         matmul(p_mat(0:n_basis,0:n_basis+1),conjg(transpose(p_mat(0:n_basis,0:n_basis+1)))) + &
-!         mass*omega_h**2/2 * &
-!         matmul(x_mat(0:n_basis,0:n_basis+1),transpose(x_mat(0:n_basis,0:n_basis+1)))
-
-!     call zheev('n','u',n_basis+1,h_mat,n_basis+1,w_eigen,work,lwork,rwork,info)
-
-!     print *, '----------'
-!     print *, info
-
-!     print *, w_eigen(1:n_basis+1)
-
-    mult_mat(0:n_basis,0:n_basis) = matmul(g_mat(0:n_basis,0:n_basis), &
-        v_mat(0:n_basis,0:n_basis))
-
-    print *, 'multiplied matrix-------------------------'
-    do n=0,n_basis
-        print '(12f12.3)', mult_mat(n,0:n_basis)
-    end do
+!     print *, 'f matrix-------------------------'
+!     do n=1,n_basis
+!         print '(12f10.2)', dble(f(n,1:n_basis))
+!     end do
 
 
-    print *, 'result matrix-------------------------'
-    x=1
-    result_mat = fun4(x,psi_mat)
-!     print *, 'result =',result
-    do n=0,n_basis
-        print '(12f12.3)', result_mat(n,0:n_basis)
-    end do
+!     print *, '------- Orthogonality ------- '
+
+!     do j = 1,n_basis
+!             do i = 1,n_basis
+!                 print '(i5,i5,2f5.0)', i, j, dot_product(e_mat(1:n_basis,i) ,e_mat(1:n_basis,j) ) !determines if matrix is orthogonal
+            
+!             end do
+!         end do
+
+!     mult_mat(0:n_basis,0:n_basis) = matmul(g_mat(0:n_basis,0:n_basis), &
+!         v_mat(0:n_basis,0:n_basis))
+
+
+!     print *, '------- completeness & spectral decomp------- '
+        
+!         do j = 1,n_basis
+!             do i = 1,n_basis
+!                 f(i,j)= dot_product(e_mat(i,1:n_basis) ,&
+!                 e_mat(j,1:n_basis)*w_eigen(1:n_basis))  !determines if matrix is complete
+!             end do
+!         end do 
+        
+!         Do i= 1,n_basis
+!             print '(10f7.2)', f(i,1:n_basis)
+!         end do 
+        
+!         print *, '+++++++++++++++++++++++++++++++++++'
+
+!         c(1:n_basis,1:n_basis) = conjg(transpose(e_mat(1:n_basis,1:n_basis)))
+        
+!         f(1:n_basis,1:n_basis) = matmul(c(1:n_basis,1:n_basis),e_mat(1:n_basis,1:n_basis))
+!         f(1:n_basis,1:n_basis) = matmul(e_mat(1:n_basis,1:n_basis),c(1:n_basis,1:n_basis))
+        
+!         Do i= 1,n_basis
+!             print '(10f7.2)', f(i,1:n_basis)
+!         end do 
+        
+!         print *, '++++++++++++++++++++++++++++++++++++++++++++'
+
+!         f(1:n_basis,1:n_basis) = matmul(h_mat(1:n_basis,1:n_basis),e_mat(1:n_basis,1:n_basis))
+!         d(1:n_basis,1:n_basis) = matmul(c(1:n_basis,1:n_basis),f(1:n_basis,1:n_basis))
+        
+!         Do i= 1,n_basis
+!             print '(10f7.2)', d(i,1:n_basis)
+!         end do 
+
+
+!     print *, 'multiplied matrix-------------------------'
+!     do n=0,n_basis
+!         print '(12f12.3)', mult_mat(n,0:n_basis)
+!     end do
+
+
+!     print *, 'result matrix-------------------------'
+!     x=1
+!     result_mat = fun4(x,psi_mat)
+! !     print *, 'result =',result
+!     do n=0,n_basis
+!         print '(12f12.3)', result_mat(n,0:n_basis)
+!     end do
 
 
     !!!!!!!!!!!!!!!!!
