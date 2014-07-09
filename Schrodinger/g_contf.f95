@@ -6,6 +6,7 @@ program exp_cf_rec
     implicit none
     real(dp) :: x,result, sign
     real(dp), dimension(0:ncf) :: taylor, cf
+    real(dp), dimension(0:2) :: aa,bb,cc,dd
     integer :: imax, i, j, n, info
 
     integer,    parameter   ::  n_basis=10,lwork=2*n_basis+1
@@ -109,22 +110,70 @@ program exp_cf_rec
         matmul(x_mat(0:n_basis,0:n_basis+1),transpose(x_mat(0:n_basis,0:n_basis+1)))
 
 
-    e_mat=h_mat
+        print *, 'h matrix-------------------------'
 
-    call zheev('v','u',n_basis+1,e_mat,n_basis+1,w_eigen,work,lwork,rwork,info)
-
-    print *, '----------'
-    print *, info
-
-    print *, '------- Eigen Values ------- '
-
-    print *, w_eigen(1:n_basis)
-
-    print *, '------- Eigen Vectors ------- '
-
-    do i = 1,n_basis
-        print '(a,200f6.2)', 'vector', dble(e_mat(1:n_basis,i)) 
+    h_mat=matmul(h_mat,h_mat)
+    do n=0,n_basis
+        print '(12f12.2)', dble(h_mat(n,0:n_basis))
     end do
+
+
+
+    !=======================================================
+
+    n = 50
+    x = 2._dp
+
+    aa = (/1,2,3/)
+    bb = (/5,6,7/)
+
+    aa = bb/aa
+
+    print *, aa
+
+!   Taylor coefficients of logarithmic function
+
+!     taylor(1:2,1:2) = reshape((/ 1._dp,2._dp,3._dp,4._dp /), &
+!         (/2,2/))
+
+    taylor(0) = 0._dp
+    sign = 1._dp
+    do i = 1, n
+        taylor(i) = sign/i
+!         print *, i,taylor(i)
+        sign = -sign
+    end do
+    
+!   print *,'  taylor sum ',x,'=', horner(taylor,n,x)
+    
+  call taylor_cfrac(taylor,n,cf)  
+
+  print *,'          cf ',x,' =',evalcf(cf,n,x)
+    print *,'         log ',x,'=',log(1+x)    
+
+    print *,'--------------------------'
+
+
+
+    !========================================================
+
+
+!     e_mat=h_mat
+
+!     call zheev('v','u',n_basis+1,e_mat,n_basis+1,w_eigen,work,lwork,rwork,info)
+
+!     print *, '----------'
+!     print *, info
+
+!     print *, '------- Eigen Values ------- '
+
+!     print *, w_eigen(1:n_basis)
+
+!     print *, '------- Eigen Vectors ------- '
+
+!     do i = 1,n_basis
+!         print '(a,200f6.2)', 'vector', dble(e_mat(1:n_basis,i)) 
+!     end do
 
 !     f(1:n_basis,1:n_basis) = matmul(e_mat(1:n_basis,1:n_basis),&
 !         transpose(h_mat(1:n_basis,1:n_basis)))
