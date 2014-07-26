@@ -47,27 +47,31 @@ module cf_approx
         
             use numtype
             implicit none
-            real(dp), dimension(0:ncf) :: e
-            integer :: n, i
-            real(dp) :: x, g0, g1, c0, c1, d0, d1, delta
-        
-            g0 = e(0) + tiny
-            c1 = 1+e(1)*x/g0 + tiny
-            g1 = g0*c1
-            d0 = 1
-            c0 = c1
-            g0 = g1
+            real(dp), dimension(0:ncf,0:ncf) :: e
+            integer :: n, i, m
+            real(dp) :: x
+            real(dp), dimension(0:ncf) :: g0, g1, c0, c1, d0, d1, delta
+
+
+        do m=1,ncf        
+            g0(m) = e(m,0) + tiny
+            c1(m) = 1+e(m,1)*x/g0(m) + tiny
+            g1(m) = g0(m)*c1(m)
+            d0(m) = 1
+            c0(m) = c1(m)
+            g0(m) = g1(m)
             do i = 2, n
-                d1 = 1-e(i)*x*d0 + tiny
-                c1 = 1-e(i)*x/c0 + tiny
-                d1 = 1/d1
-                delta = c1*d1
-                g1 = g0*delta
+                d1(m) = 1-e(m,i)*x*d0(m) + tiny
+                c1(m) = 1-e(m,i)*x/c0(m) + tiny
+                d1(m) = 1/d1(m)
+                delta(m) = c1(m)*d1(m)
+                g1(m) = g0(m)*delta(m)
                 !if (abs(delta-1) < eps) return
-                d0 = d1
-                c0 = c1
-                g0 = g1
+                d0(m) = d1(m)
+                c0(m) = c1(m)
+                g0(m) = g1(m)
             end do
+        end do
     
         end function evalcf
               
