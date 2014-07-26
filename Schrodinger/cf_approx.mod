@@ -1,5 +1,5 @@
 GFORTRAN module version '10' created from cfapprox.f95
-MD5:9f4984aa9f51297be9cca75230cc4126 -- If you edit this, you'll get what you deserve.
+MD5:12c4490b572a2a58ae13e46dbac05bd9 -- If you edit this, you'll get what you deserve.
 
 (() () () () () () () () () () () () () () () () () () () () () () ()
 () () () ())
@@ -64,15 +64,17 @@ INTEGER 4 0 0 0 INTEGER ()) 0 '0') (CONSTANT (INTEGER 4 0 0 0 INTEGER ())
 12 'g1' '' '' 8 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN UNKNOWN 0
 0 RESULT) (REAL 8 0 0 0 REAL ()) 0 0 () () 0 () () () 0 0)
 20 'f' '' '' 19 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN UNKNOWN 0
-0 DIMENSION DUMMY) (REAL 8 0 0 0 REAL ()) 0 0 () (1 0 EXPLICIT (
+0 DIMENSION DUMMY) (REAL 8 0 0 0 REAL ()) 0 0 () (2 0 EXPLICIT (
 CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '0') (CONSTANT (INTEGER 4 0 0 0
-INTEGER ()) 0 '50')) 0 () () () 0 0)
+INTEGER ()) 0 '50') (CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '0') (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '50')) 0 () () () 0 0)
 21 'n' '' '' 19 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN UNKNOWN 0
 0 DUMMY) (INTEGER 4 0 0 0 INTEGER ()) 0 0 () () 0 () () () 0 0)
 22 'e' '' '' 19 ((VARIABLE UNKNOWN-INTENT UNKNOWN-PROC UNKNOWN UNKNOWN 0
-0 DIMENSION DUMMY) (REAL 8 0 0 0 REAL ()) 0 0 () (1 0 EXPLICIT (
+0 DIMENSION DUMMY) (REAL 8 0 0 0 REAL ()) 0 0 () (2 0 EXPLICIT (
 CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '0') (CONSTANT (INTEGER 4 0 0 0
-INTEGER ()) 0 '50')) 0 () () () 0 0)
+INTEGER ()) 0 '50') (CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '0') (
+CONSTANT (INTEGER 4 0 0 0 INTEGER ()) 0 '50')) 0 () () () 0 0)
 )
 
 ('__convert_i4_r8' 0 2 'atan' 0 3 'cf_approx' 0 4 'dp' 0 5 'eps' 0 6

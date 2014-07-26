@@ -12,34 +12,31 @@ module cf_approx
 	    
             use numtype
             implicit none
-            real(dp), dimension(0:ncf,0:ncf) :: f, e, r, s
-            integer :: n, i, nl, j, k, m
+            real(dp), dimension(0:ncf) :: f, e, r, s
+            integer :: n, i, nl, j, k
         
-        do m=1,ncf
-            e(m,0) = f(m,0)
-            e(m,1) = f(m,1)
-            e(m,2) = f(m,2)/(f(m,1)+tiny)
+            e(0) = f(0)
+            e(1) = f(1)
+            e(2) = f(2)/(f(1)+tiny)
             do i = 3, n
-                e(m,i) = f(m,i)/(f(m,i-1)+tiny)
-                r(m,i) = e(m,i)-e(m,i-1)
+                e(i) = f(i)/(f(i-1)+tiny)
+                r(i) = e(i)-e(i-1)
             end do
             nl = 1
             do j = 4, n
                 if(nl == 1) then
                     do k = j, n
-                        s(m,k) = r(m,k)/r(m,k-1)*e(m,k-1)
+                        s(k) = r(k)/r(k-1)*e(k-1)
                     end do
                 else
                     do k = j, n
-                        s(m,k) = r(m,k)-r(m,k-1)+e(m,k-1)
+                        s(k) = r(k)-r(k-1)+e(k-1)
                     end do
                 end if
-                e(m,j-1:n) = r(m,j-1:n)
-                r(m,j:n) = s(m,j:n)
+                e(j-1:n) = r(j-1:n)
+                r(j:n) = s(j:n)
                 nl = -nl
             end do
-
-        end do
                 
         end subroutine taylor_cfrac
         

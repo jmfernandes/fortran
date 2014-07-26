@@ -5,7 +5,7 @@ program exp_cf_rec
     use cf_approx
     implicit none
     real(dp) :: x,result, sign
-    real(dp), dimension(0:ncf) :: taylor, cf
+    real(dp), dimension(0:ncf,0:ncf) :: taylor, cf
     real(dp), dimension(0:2) :: aa,bb,cc,dd
     integer :: imax, i, j, n, info
 
@@ -110,38 +110,38 @@ program exp_cf_rec
         matmul(x_mat(0:n_basis,0:n_basis+1),transpose(x_mat(0:n_basis,0:n_basis+1)))
 
 
-        print *, 'h matrix-------------------------'
+!         print *, 'h matrix-------------------------'
 
-    h_mat=matmul(h_mat,h_mat)
-    do n=0,n_basis
-        print '(12f12.2)', dble(h_mat(n,0:n_basis))
-    end do
+!     h_mat=matmul(h_mat,h_mat)
+!     do n=0,n_basis
+!         print '(12f12.2)', dble(h_mat(n,0:n_basis))
+!     end do
 
 
 
     !=======================================================
 
     n = 50
-    x = 2._dp
+    x = 1._dp
 
-    aa = (/1,2,3/)
-    bb = (/5,6,7/)
+!     aa = (/1,2,3/)
+!     bb = (/5,6,7/)
 
-    aa = bb/aa
+!     aa = bb/aa
 
-    print *, aa
+!     print *, aa
 
 !   Taylor coefficients of logarithmic function
 
 !     taylor(1:2,1:2) = reshape((/ 1._dp,2._dp,3._dp,4._dp /), &
 !         (/2,2/))
 
-    taylor(0) = 0._dp
-    sign = 1._dp
+!     taylor(0) = 0._dp
+!     sign = 1._dp
     do i = 1, n
-        taylor(i) = sign/i
+        taylor(i,i) = i
 !         print *, i,taylor(i)
-        sign = -sign
+!         sign = -sign
     end do
     
 !   print *,'  taylor sum ',x,'=', horner(taylor,n,x)
