@@ -5,11 +5,10 @@ program exp_cf_rec
     use cf_approx
     implicit none
     real(dp) :: x,result, sign
-    real(dp), dimension(0:ncf,0:ncf) :: taylor, cf
     real(dp), dimension(0:2) :: aa,bb,cc,dd
     integer :: imax, i, j, n, info
 
-    integer,    parameter   ::  n_basis=10,lwork=2*n_basis+1
+    integer,    parameter   ::  n_basis=2,lwork=2*n_basis+1,steps=4
     integer :: ipiv(n_basis)
     real(dp),   parameter   ::  mass=1.0_dp, hbar=1.0_dp,&
                                 omega_h=1._dp,omega_b=1/2._dp
@@ -18,13 +17,20 @@ program exp_cf_rec
                     h_mat(0:n_basis,0:n_basis),v_mat(0:n_basis,0:n_basis), &
                     work(lwork), g_mat(0:n_basis,0:n_basis),&
                     mult_mat(0:n_basis,0:n_basis), &
+                    mult2_mat(0:n_basis), &
+                    h0(0:n_basis,0:n_basis), &
                     unit_mat(0:n_basis,0:n_basis), &
-                    psi_mat(0:n_basis,0:n_basis), &
                     result_mat(0:n_basis,0:n_basis), &
                     e_mat(0:n_basis,0:n_basis), &
+                    inv_mat(0:n_basis,0:n_basis), &
                     f(0:n_basis,0:n_basis), &
                     c(0:n_basis,0:n_basis), &
-                    d(0:n_basis,0:n_basis)                     
+                    d(0:n_basis,0:n_basis), &
+                    psi_mat(0:n_basis),&
+                    ss_mat(0:n_basis) 
+
+
+    real(dp), dimension(0:n_basis,0:steps) :: taylor, cf                    
                     
 
     real(dp) :: rwork(3*(n_basis-2)), w_eigen(n_basis+1)
@@ -75,8 +81,8 @@ program exp_cf_rec
 !         print '(12f10.3)', x_mat(n,0:n_basis+1)
 !     end do
 
-    v_mat(0:n_basis,0:n_basis) = (1/2._dp)*mass*omega_h**2*&
-        matmul(x_mat(0:n_basis,0:n_basis+1),transpose(x_mat(0:n_basis,0:n_basis+1)))
+!     v_mat(0:n_basis,0:n_basis) = (1/2._dp)*mass*omega_h**2*&
+!         matmul(x_mat(0:n_basis,0:n_basis+1),transpose(x_mat(0:n_basis,0:n_basis+1)))
 
 !     print *, 'V matrix-------------------------'
 !     do n=0,n_basis
@@ -109,20 +115,63 @@ program exp_cf_rec
         mass*omega_h**2/2 * &
         matmul(x_mat(0:n_basis,0:n_basis+1),transpose(x_mat(0:n_basis,0:n_basis+1)))
 
+!     h_mat(0:n_basis,0:n_basis) = 2._dp
+    h0(0:n_basis,0:n_basis) = h_mat(0:n_basis,0:n_basis)
+    v_mat(0:n_basis,0:n_basis) = h_mat(0:n_basis,0:n_basis)
+
+    do i=0,n_basis
+        v_mat(i,i) = 0
+    end do
+
+    do i=0,n_basis
+        do j=0,n_basis
+            h0(i,j)=h_mat(i,j)-v_mat(i,j)
+        end do    
+    end do
+
+
+    e_mat(0:n_basis,0:n_basis) = 1._dp
+
+    g_mat(0:n_basis,0:n_basis) = e_mat(0:n_basis,0:n_basis)-h0(0:n_basis,0:n_basis)
+
+    inv_mat(0:n_basis,0:n_basis) = inv(g_mat(0:n_basis,0:n_basis))
+
 
 !         print *, 'h matrix-------------------------'
 
 !     h_mat=matmul(h_mat,h_mat)
-!     do n=0,n_basis
-!         print '(12f12.2)', dble(h_mat(n,0:n_basis))
-!     end do
 
-
+    print *, 'h matrix--------------------'
+    do n=0,n_basis
+        print '(12f12.2)', dble(h_mat(n,0:n_basis))
+    end do
+    print *, 'h0 matrix--------------------'
+    do n=0,n_basis
+        print '(12f12.2)', dble(h0(n,0:n_basis))
+    end do
+    print *, 'v matrix--------------------'
+    do n=0,n_basis
+        print '(12f12.2)', dble(v_mat(n,0:n_basis))
+    end do
+    print *, '--------------------'
 
     !=======================================================
 
-    n = 50
+
     x = 1._dp
+
+    mult_mat(0:n_basis,0:n_basis) = matmul(inv_mat(0:n_basis,0:n_basis),&
+        v_mat(0:n_basis,0:n_basis))
+
+    psi_mat(0:n_basis) = 1._dp 
+
+    mult2_mat(0:n_basis) = matmul(mult_mat(0:n_basis,0:n_basis),&
+        psi_mat(0:n_basis)) 
+
+    print *, 'mult matrix--------------------'
+    do n=0,n_basis
+        print '(12f12.2)', dble(mult_mat(n,0:n_basis))
+    end do
 
 !     aa = (/1,2,3/)
 !     bb = (/5,6,7/)
@@ -138,20 +187,39 @@ program exp_cf_rec
 
 !     taylor(0) = 0._dp
 !     sign = 1._dp
-    do i = 1, n
-        taylor(i,i) = i
-!         print *, i,taylor(i)
-!         sign = -sign
+
+!     ss_mat = multiply_mat(3,mult_mat,psi_mat)
+
+    print *, 'psi matrix--------------------'
+    do n=0,n_basis
+        print '(12f12.2)', dble(psi_mat(n))
+    end do
+
+
+    do i = 0, 2
+        ss_mat = multiply_mat(i,mult_mat,psi_mat)
+        do j =0,steps
+            if (i==0) then
+                taylor(j,i) = psi_mat(j)
+            else
+                taylor(j,i+1) = ss_mat(j)
+            end if 
+        end do
+    end do
+
+    print *, 'taylor matrix--------------------'
+    do n=0,n_basis
+        print '(12f12.2)', dble(taylor(n,0:3))
     end do
     
 !   print *,'  taylor sum ',x,'=', horner(taylor,n,x)
     
-  call taylor_cfrac(taylor,n,cf)  
+!   call taylor_cfrac(taylor,n,cf)  
 
-  print *,'          cf ',x,' =',evalcf(cf,n,x)
-    print *,'         log ',x,'=',log(1+x)    
+!   print *,'          cf ',x,' =',evalcf(cf,n,x)
+!     print *,'         log ',x,'=',log(1+x)    
 
-    print *,'--------------------------'
+!     print *,'--------------------------'
 
 
 
@@ -249,6 +317,64 @@ program exp_cf_rec
     !!!!!!!!!!!!!!!!!
 
     contains
+
+        ! Returns the inverse of a matrix calculated by finding the LU
+        ! decomposition.  Depends on LAPACK.
+
+        function inv(A) result(Ainv)
+          complex(dp), dimension(:,:), intent(in) :: A
+          complex(dp), dimension(size(A,1),size(A,2)) :: Ainv
+
+          real(dp), dimension(size(A,1)) :: work  ! work array for LAPACK
+          integer, dimension(size(A,1)) :: ipiv   ! pivot indices
+          integer :: n, info
+
+          ! External procedures defined in LAPACK
+          external ZGETRF
+          external ZGETRI
+
+          ! Store A in Ainv to prevent it from being overwritten by LAPACK
+          Ainv = A
+          n = size(A,1)
+
+          ! DGETRF computes an LU factorization of a general M-by-N matrix A
+          ! using partial pivoting with row interchanges.
+          call ZGETRF(n, n, Ainv, n, ipiv, info)
+
+          if (info /= 0) then
+             stop 'Matrix is numerically singular!'
+          end if
+
+          ! DGETRI computes the inverse of a matrix using the LU factorization
+          ! computed by DGETRF.
+          call ZGETRI(n, Ainv, n, ipiv, work, n, info)
+
+          if (info /= 0) then
+             stop 'Matrix inversion failed!'
+          end if
+        end function inv
+
+        function multiply_mat(n,mult_mat,psi_mat) result(ss)
+        
+            implicit none
+            integer :: n,i
+            complex(dp) ::  mult_mat(0:n_basis,0:n_basis),&
+                            res(0:n_basis,0:n_basis),&
+                            ss(0:n_basis),&
+                            psi_mat(0:n_basis)
+            
+            res(0:n_basis,0:n_basis) = mult_mat(0:n_basis,0:n_basis)
+
+            do i=1,n
+            res(0:n_basis,0:n_basis) = matmul(res(0:n_basis,0:n_basis),&
+                mult_mat(0:n_basis,0:n_basis))
+            end do         
+        
+            ss(0:n_basis)=matmul(res(0:n_basis,0:n_basis),psi_mat(0:n_basis))
+
+        end function multiply_mat
+
+
     
         function fun1(x) result(ss)
         
