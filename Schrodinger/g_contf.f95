@@ -6,7 +6,9 @@ program exp_cf_rec
     implicit none
     real(dp) :: x,result, sign
     real(dp), dimension(0:2) :: aa,bb,cc,dd
-    integer :: imax, i, j, n, info
+    integer :: imax, i, j, n, info, ii
+    integer, parameter :: nsp =10
+    real(dp) :: yy1(nsp),yy2(nsp),yy(nsp)
 
     integer,    parameter   ::  n_basis=2,lwork=2*n_basis+1,steps=4
     integer :: ipiv(n_basis)
@@ -96,6 +98,21 @@ program exp_cf_rec
 !     end do
 
     !!!!!!!!!!!!!!!!!!
+
+
+    open(unit=2, file='pfaff_Hmatrix_N8_l6.5.dat')
+
+    do i =1, nsp
+        read(2,*) ii
+        yy(i) = ii
+    end do
+    close(2)
+
+!     do i =1,5
+!         print *, yy1
+!     end do
+
+    print *, '-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-='
 
 !     do n=0,n_basis
 !         unit_mat(n,n) = 1._dp   
