@@ -3,7 +3,7 @@ module cf_approx
 
 	use numtype
 	implicit none
-    integer,    parameter   ::  n_basis=2, steps=4
+    integer,    parameter   ::  n_basis=150, steps=50
 	integer, parameter :: ncf = n_basis, ncf2 =steps
     real(dp), parameter :: tiny = 1.e-30_dp, eps = 1.e-13_dp
 	
@@ -54,7 +54,7 @@ module cf_approx
             real(dp), dimension(0:ncf) :: g0, g1, c0, c1, d0, d1, delta
 
 
-        do m=1,ncf    
+        do m=1,ncf2    
             g0(m) = e(m,0) + tiny
             c1(m) = 1+e(m,1)*x/g0(m) + tiny
             g1(m) = g0(m)*c1(m)

@@ -4,29 +4,29 @@ program exp_cf_rec
     use NumType
     use cf_approx
     implicit none
-    real(dp) :: x,result, sign, num1,num2,num3
-    real(dp), dimension(0:2) :: aa,bb,cc,dd
-    integer  :: imax, i, j, n, info, ii, int1, int2
-    integer, parameter :: entries =10
-    real(dp) :: yy1(entries),yy2(entries),yy(entries)
+    real(dp)					::	x,result, sign
+    integer 					::	imax, i, j, k, l, n, info
+    integer,	parameter		::	entries =11758
+    integer                     ::  int1(entries),int2(entries)
+    real(dp)					::	yy(entries)
 
-    integer,    parameter   :: lwork=2*n_basis+1
-    integer  :: ipiv(n_basis)
-    real(dp),   parameter   ::  mass=1.0_dp, hbar=1.0_dp,&
-                                omega_h=1._dp,omega_b=1/2._dp
-    complex(dp) ::  x_mat(0:n_basis,0:n_basis+1),       &
-                    p_mat(0:n_basis,0:n_basis+1),       &
-                    h_mat(0:n_basis,0:n_basis),         &
-                    v_mat(0:n_basis,0:n_basis),         &
-                    work(lwork),                        &
-                    sub_mat(0:n_basis,0:n_basis),       &
-                    h0_mat(0:n_basis,0:n_basis),        &
-                    result_mat(0:n_basis,0:n_basis),    &
-                    e_mat(0:n_basis,0:n_basis),         &
-                    mult_mat(0:n_basis,0:n_basis),      &
-                    g0_mat(0:n_basis,0:n_basis),       &
-                    psi_mat(0:n_basis),                 &
-                    ss_mat(0:n_basis),                  &
+    integer,	parameter		::	lwork=2*n_basis+1
+    integer						::	ipiv(n_basis)
+    real(dp),   parameter		::  mass=1.0_dp, hbar=1.0_dp,&
+                                	omega_h=1._dp,omega_b=1/2._dp
+    complex(dp) ::  x_mat(0:n_basis,0:n_basis+1),		&
+                    p_mat(0:n_basis,0:n_basis+1),		&
+                    h_mat(0:n_basis,0:n_basis),			&
+                    v_mat(0:n_basis,0:n_basis),			&
+                    work(lwork),						&
+                    sub_mat(0:n_basis,0:n_basis),		&
+                    h0_mat(0:n_basis,0:n_basis),		&
+                    result_mat(0:n_basis,0:n_basis),	&
+                    e_mat(0:n_basis,0:n_basis),			&
+                    mult_mat(0:n_basis,0:n_basis),		&
+                    g0_mat(0:n_basis,0:n_basis),		&
+                    psi_mat(0:n_basis),					&
+                    ss_mat(0:n_basis),					&
                     pade_mat(0:n_basis)
 
 
@@ -47,9 +47,10 @@ program exp_cf_rec
     result_mat  = 0._dp
     e_mat       = 0._dp
     mult_mat    = 0._dp
-    g0_mat     = 0._dp
+    g0_mat      = 0._dp
     psi_mat     = 0._dp
     ss_mat      = 0._dp
+    pade_mat	= 0._dp
 
 
     do n=0,n_basis-1
@@ -78,10 +79,23 @@ program exp_cf_rec
     h0_mat(0:n_basis,0:n_basis) = h_mat(0:n_basis,0:n_basis)
     v_mat(0:n_basis,0:n_basis) = h_mat(0:n_basis,0:n_basis)
 
-    !Need to change this for bigger matrices. Only works for 3x3
+    !build V matrix
     do i=0,n_basis
-        v_mat(i,i) = 0
+        do j=1,n_basis
+            if (i==j) then
+                if ( i==1 .or. mod(i,10)==0) then
+!                     print *, i,j
+                    do k=i,(i+9)
+                        do l=i,(i+9)
+                            v_mat(k,l) = 0
+!                         print *, k,l
+                        end do
+                    end do
+                end if
+            end if
+        end do
     end do
+
 
     !this is fine for bigger matrices
     do i=0,n_basis
@@ -92,26 +106,26 @@ program exp_cf_rec
 
 !===============================================================================
 
-    open(unit=2,file='pfaff_Hmatrix_N8_l6.5.dat')
-    read (2,100) int1, int2, num3
-    100 format(1I1,1x,1I1,1x,1F1.5)
-!         150 format (I3, 1x, I3, 1x, F7.2)
-!     end do
+    !load the matrix given to me by peterson
+    open(unit=2,file='matrix_1.dat')
+    do i=0,entries
+        read(2,*) int1(i),int2(i),yy(i)
+        !store values in energy matrix - 
+        !NOTE: added correction to the indicies
+        !matrix_1 starts at 1, but e_mat starts at zero
+        e_mat(int1(i)-1,int2(i)-1) = yy(i)
+    end do
     close(2)
-
 
 !============================================================================
 
-    !set up matrices for energy and psi - Need to get from PETERSON
-    e_mat(0:n_basis,0:n_basis) = 1._dp
-
-    psi_mat(0:n_basis) = 10._dp 
+    !set up matrices for psi - Need to get from PETERSON
+    psi_mat(0:n_basis) = 1._dp 
 
     !set up g0
     sub_mat(0:n_basis,0:n_basis) = e_mat(0:n_basis,0:n_basis)-h0_mat(0:n_basis,0:n_basis)
 
     g0_mat(0:n_basis,0:n_basis) = inv(sub_mat(0:n_basis,0:n_basis))
-
 
 !===============================================================================
 
@@ -122,7 +136,7 @@ program exp_cf_rec
     mult_mat(0:n_basis,0:n_basis) = matmul(g0_mat(0:n_basis,0:n_basis),&
         v_mat(0:n_basis,0:n_basis))
 
-    !build the coefficients for the power series
+    !build the coefficients for the power series - for cfapprox.f95
     do i = 0, n_basis+1
         ss_mat = multiply_mat(i,mult_mat,psi_mat)
         do j =0,steps
@@ -135,138 +149,51 @@ program exp_cf_rec
     end do
 
 !==================================================================================
+    
+!     print *, 'hamiltonian matrix-------------------------'
+!     do n=0,n_basis
+!         print '(12f10.2)', dble(h_mat(n,0:n_basis))
+!     end do
 
-    print *, 'hamiltonian matrix-------------------------'
-    do n=0,n_basis
-        print '(12f10.2)', dble(h_mat(n,0:n_basis))
-    end do
+!     print *, 'h0 matrix-------------------------'
+!     do n=0,n_basis
+!         print '(12f10.2)', dble(h0_mat(n,0:n_basis))
+!     end do
 
-    print *, 'h0 matrix-------------------------'
-    do n=0,n_basis
-        print '(12f10.2)', dble(h0_mat(n,0:n_basis))
-    end do
+!     print *, 'potential matrix-------------------------'
+!     do n=0,n_basis
+!         print '(12f10.2)', dble(v_mat(n,0:n_basis))
+!     end do
 
-    print *, 'potential matrix-------------------------'
-    do n=0,n_basis
-        print '(12f10.2)', dble(v_mat(n,0:n_basis))
-    end do
+!     print *, 'G0 matrix-------------------------'
+!     do n=0,n_basis
+!         print '(12f10.2)', dble(g0_mat(n,0:n_basis))
+!     end do
 
-    print *, 'G0 matrix-------------------------'
-    do n=0,n_basis
-        print '(12f10.2)', dble(g0_mat(n,0:n_basis))
-    end do
+!     print *, 'taylor matrix-------STOPS at 4 steps instead of 50'
+!     do n=0,n_basis
+!         print '(12f12.2)', dble(taylor(n,0:steps))
+!     end do
 
-    print *, 'taylor matrix-------STOPS at 4 steps instead of 50'
-    do n=0,n_basis
-        print '(12f12.2)', dble(taylor(n,0:steps))
-    end do
+!     print *, 'e matrix-------------------------'
+!     do n=0,n_basis
+!         print '(12f10.2)', dble(e_mat(n,0:n_basis))
+!     end do
     
 
 !====================================================================
 
     !I'm not sure if this is right
     print *, 'pade approx--------------------------------'
-    n = 3
-    call taylor_cfrac(taylor,n,cf)  
+    call taylor_cfrac(taylor,steps,cf)  
 
-    pade_mat = evalcf(cf,n,x)
+    pade_mat = evalcf(cf,steps,x)
     print *, 'result array='
     do i=0,n_basis
-        print *, dble(pade_mat(i))
+        write (*,'(1I3,1f10.7)') i, dble(pade_mat(i))
     end do
 
 !=======================================================================
-
-
-!     e_mat=h_mat
-
-!     call zheev('v','u',n_basis+1,e_mat,n_basis+1,w_eigen,work,lwork,rwork,info)
-
-!     print *, '----------'
-!     print *, info
-
-!     print *, '------- Eigen Values ------- '
-
-!     print *, w_eigen(1:n_basis)
-
-!     print *, '------- Eigen Vectors ------- '
-
-!     do i = 1,n_basis
-!         print '(a,200f6.2)', 'vector', dble(e_mat(1:n_basis,i)) 
-!     end do
-
-!     f(1:n_basis,1:n_basis) = matmul(e_mat(1:n_basis,1:n_basis),&
-!         transpose(h_mat(1:n_basis,1:n_basis)))
-
-!     print *, 'f matrix-------------------------'
-!     do n=1,n_basis
-!         print '(12f10.2)', dble(f(n,1:n_basis))
-!     end do
-
-
-!     print *, '------- Orthogonality ------- '
-
-!     do j = 1,n_basis
-!             do i = 1,n_basis
-!                 print '(i5,i5,2f5.0)', i, j, dot_product(e_mat(1:n_basis,i) ,e_mat(1:n_basis,j) ) !determines if matrix is orthogonal
-            
-!             end do
-!         end do
-
-!     mult_mat(0:n_basis,0:n_basis) = matmul(sub_mat(0:n_basis,0:n_basis), &
-!         v_mat(0:n_basis,0:n_basis))
-
-
-!     print *, '------- completeness & spectral decomp------- '
-        
-!         do j = 1,n_basis
-!             do i = 1,n_basis
-!                 f(i,j)= dot_product(e_mat(i,1:n_basis) ,&
-!                 e_mat(j,1:n_basis)*w_eigen(1:n_basis))  !determines if matrix is complete
-!             end do
-!         end do 
-        
-!         Do i= 1,n_basis
-!             print '(10f7.2)', f(i,1:n_basis)
-!         end do 
-        
-!         print *, '+++++++++++++++++++++++++++++++++++'
-
-!         c(1:n_basis,1:n_basis) = conjg(transpose(e_mat(1:n_basis,1:n_basis)))
-        
-!         f(1:n_basis,1:n_basis) = matmul(c(1:n_basis,1:n_basis),e_mat(1:n_basis,1:n_basis))
-!         f(1:n_basis,1:n_basis) = matmul(e_mat(1:n_basis,1:n_basis),c(1:n_basis,1:n_basis))
-        
-!         Do i= 1,n_basis
-!             print '(10f7.2)', f(i,1:n_basis)
-!         end do 
-        
-!         print *, '++++++++++++++++++++++++++++++++++++++++++++'
-
-!         f(1:n_basis,1:n_basis) = matmul(h_mat(1:n_basis,1:n_basis),e_mat(1:n_basis,1:n_basis))
-!         d(1:n_basis,1:n_basis) = matmul(c(1:n_basis,1:n_basis),f(1:n_basis,1:n_basis))
-        
-!         Do i= 1,n_basis
-!             print '(10f7.2)', d(i,1:n_basis)
-!         end do 
-
-
-!     print *, 'multiplied matrix-------------------------'
-!     do n=0,n_basis
-!         print '(12f12.3)', mult_mat(n,0:n_basis)
-!     end do
-
-
-!     print *, 'result matrix-------------------------'
-!     x=1
-!     result_mat = fun4(x,psi_mat)
-! !     print *, 'result =',result
-!     do n=0,n_basis
-!         print '(12f12.3)', result_mat(n,0:n_basis)
-!     end do
-
-
-    !!!!!!!!!!!!!!!!!
 
     contains
 
@@ -274,12 +201,13 @@ program exp_cf_rec
         ! decomposition.  Depends on LAPACK.
 
         function inv(A) result(Ainv)
-          complex(dp), dimension(:,:), intent(in) :: A
-          complex(dp), dimension(size(A,1),size(A,2)) :: Ainv
+          complex(dp), dimension(0:n_basis,0:n_basis), intent(in) :: A
+          complex(dp), dimension(0:n_basis,0:n_basis) :: Ainv
 
           real(dp), dimension(size(A,1)) :: work  ! work array for LAPACK
           integer, dimension(size(A,1)) :: ipiv   ! pivot indices
           integer :: n, info
+
 
           ! External procedures defined in LAPACK
           external ZGETRF
@@ -315,13 +243,16 @@ program exp_cf_rec
                             ss(0:n_basis),&
                             psi_mat(0:n_basis)
             
+            !create placeholder matrix that will overwrite itself
             res(0:n_basis,0:n_basis) = mult_mat(0:n_basis,0:n_basis)
 
+            !multiply (G0*V) with itself for n times (n is input)
             do i=1,n
             res(0:n_basis,0:n_basis) = matmul(res(0:n_basis,0:n_basis),&
                 mult_mat(0:n_basis,0:n_basis))
             end do         
         
+        	!return the result as {(G0*V)^n}*psi
             ss(0:n_basis)=matmul(res(0:n_basis,0:n_basis),psi_mat(0:n_basis))
 
         end function multiply_mat

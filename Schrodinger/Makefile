@@ -6,7 +6,7 @@ PROG1 = gcf
 
 F95 = gfortran
 
-F95FLAGS = -O3 -funroll-loops -fexternal-blas
+F95FLAGS = -O3 -funroll-loops -fexternal-blas 
 
 LIBS = -framework vecLib
 

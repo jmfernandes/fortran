@@ -5,7 +5,7 @@ PROG =	gam
 
 F95 = gfortran
 
-F95FLAGS = -O3 -funroll-loops -fexternal-blas
+F95FLAGS = -O3 -funroll-loops -fexternal-blas 
 
 LDFLAGS = -framework vecLib
 
