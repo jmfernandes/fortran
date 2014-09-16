@@ -1,5 +1,5 @@
 
-OBJS1 = numtype.o cfapprox.o my_old.o 
+OBJS1 = numtype.o contf.o 
 
 PROG1 = gcf
 
