@@ -7,26 +7,26 @@ program exp_cf_rec
 	!=========================== CONSTANTS ===========================
 
 	integer,	parameter	::	n_basis =	5
-	real(dp),   parameter   ::  mass	=	1.0_dp,				& 
+	real(dp),	parameter	::	mass	=	1.0_dp,				& 
 								hbar	=	1.0_dp,				&
 								omega_h	=	1.0_dp,				&
 								omega_b	=	1.0_dp
 
 	!=========================== MATRICES ===========================
 
-	real(dp)                ::  x_mat(0:n_basis,0:n_basis),     &
-								p_mat(0:n_basis,0:n_basis),     &
-								h_mat(0:n_basis,0:n_basis),     &
-								h0_mat(0:n_basis,0:n_basis),    &
-								v_mat(0:n_basis,0:n_basis),     &
-								e_mat(0:n_basis,0:n_basis),     &
+	real(dp)				::	x_mat(0:n_basis,0:n_basis),		&
+								p_mat(0:n_basis,0:n_basis),		&
+								h_mat(0:n_basis,0:n_basis),		&
+								h0_mat(0:n_basis,0:n_basis),	&
+								v_mat(0:n_basis,0:n_basis),		&
+								e_mat(0:n_basis,0:n_basis),		&
 								g0_mat(0:n_basis,0:n_basis)
 
-	!================================================================
+	!=========================== PARAMETERS ==========================
 
-	integer,    parameter   ::  lwork=(n_basis+2)*n_basis
-	integer                 ::  n,i,j, block_size, info
-	real(dp)                ::  w_eigen(n_basis),work(lwork)
+	integer,	parameter	::  lwork=(n_basis+2)*n_basis
+	integer					::  n,i,j, block_size, info
+	real(dp)				::  w_eigen(n_basis),work(lwork)
 
 
 
