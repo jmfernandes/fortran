@@ -6,14 +6,11 @@ program exp_cf_rec
 
 	!=========================== CONSTANTS ===========================
 
-	integer,	parameter	::	n_basis		=	11,				&
-								bs			=	4,				&
-								nb 			=	(n_basis+1)/bs-1
-
-	real(dp),	parameter	::	mass		=	1.0_dp,			& 
-								hbar		=	1.0_dp,			&
-								omega_h		=	1.0_dp,			&
-								omega_b		=	1._dp
+	integer,	parameter	::	n_basis	=	9
+	real(dp),	parameter	::	mass	=	1.0_dp,				& 
+								hbar	=	1.0_dp,				&
+								omega_h	=	1.0_dp,				&
+								omega_b	=	1._dp
 
 	!=========================== MATRICES ===========================
 
@@ -21,16 +18,16 @@ program exp_cf_rec
 								p_mat(0:n_basis,0:n_basis),		&
 								h_mat(0:n_basis,0:n_basis),		&
 								eigen_mat(0:n_basis,0:n_basis),	&
-								h0_mat(1:bs,1:bs,0:nb),	&
+								h0_mat(0:n_basis,0:n_basis),	&
 								v_mat(0:n_basis,0:n_basis),		&
-								e_mat(1:bs,1:bs),		&
-								g0_mat(1:bs,1:bs,0:nb)
+								e_mat(0:n_basis,0:n_basis),		&
+								g0_mat(0:n_basis,0:n_basis)
 
 	!=========================== PARAMETERS ==========================
 
 	integer,	parameter	::  lwork=(n_basis+2)*n_basis
 	integer					::  n,i,j, block_size, info
-	real(dp)				::  w_eigen(n_basis+1),work(lwork)
+	real(dp)				::  w_eigen(n_basis),work(lwork)
 
 
 
@@ -39,8 +36,13 @@ program exp_cf_rec
 	x_mat	=	0._dp
 	p_mat	=	0._dp
 	h_mat	=	0._dp
+	h0_mat	=	0._dp
+	v_mat	=	0._dp
+	e_mat	=	0._dp
+	g0_mat	=	0._dp
 
-	!build X
+
+
 	do n=0,n_basis
 		x_mat(n,n) = (hbar/(2*mass*omega_b))*(2*n+1)
 		if (n>=2) then
@@ -51,7 +53,6 @@ program exp_cf_rec
 		end if
 	end do
 
-	!build P
 	do n=0,n_basis
 		p_mat(n,n) = (hbar*mass*omega_b)/2*(2*n+1)
 		if (n>=2) then
@@ -65,9 +66,21 @@ program exp_cf_rec
 	h_mat(0:n_basis,0:n_basis) = p_mat(0:n_basis,0:n_basis)/(2*mass)+ &
 							mass*omega_h**2*x_mat(0:n_basis,0:n_basis)/2
 
+
+
+! 	print *, 'x^2 matrix-------------------------'
+! 	do n=0,n_basis
+! 		print '(12f10.2)', x_mat(n,0:n_basis)
+! 	end do
+
+! 	print *, 'p^2 matrix-------------------------'
+! 	do n=0,n_basis
+! 		print '(12f10.2)', p_mat(n,0:n_basis)
+! 	end do
+
 	print *, 'hamiltonian matrix-------------------------'
 	do n=0,n_basis
-		print '(20f10.2)', h_mat(n,0:n_basis)
+		print '(12f10.2)', h_mat(n,0:n_basis)
 	end do
 
 !============================================================================
@@ -78,53 +91,66 @@ program exp_cf_rec
 
 	call dsyev('V','U',n_basis+1,eigen_mat,n_basis+1,w_eigen,work,lwork,info)
 
-	print *, 'eigenvalues-------------------------'
-	print '(20f10.2)', w_eigen
+! 	print *, 'info -------------------------'
+! 	print *, info
+
+! 	print *, 'eigenvalues-------------------------'
+! 	print '(10f10.2)', w_eigen
+
+! 	print *, 'vectors matrix-------------------------'
+! 	do n=0,n_basis
+! 		print '(12f10.2)', h_mat(n,0:n_basis)
+! 	end do
 
 !============================================================================
 
+	block_size = 2
 
 	!build V matrix
+! 	v_mat(0:n_basis,0:n_basis) = h_mat(0:n_basis,0:n_basis)
 
-	v_mat(0:n_basis,0:n_basis) = h_mat(0:n_basis,0:n_basis)
+! 	print *, 'v matrix-------------------------'
+!     do n=0,n_basis
+!         print '(12f10.2)', v_mat(n,0:n_basis)
+!     end do
 
-	do n=0,nb
-		h0_mat(1:bs,1:bs,n)=h_mat(bs*n:bs*n+bs,bs*n:bs*n+bs)
-		v_mat(bs*n:bs*n+bs,bs*n:bs*n+bs) = h_mat(bs*n:bs*n+bs,bs*n:bs*n+bs) - h0_mat(1:bs,1:bs,n)
+	do n=0,n_basis,block_size
+		do i=0,(block_size-1)
+			do j=0,(block_size-1)
+				h0_mat(n+i,n+j) = h_mat(n+i,n+j)
+			end do
+		end do
 	end do
 
-
-
     print *, 'h0 matrix-------------------------'
-    do n=0,nb
-    	print *, 'the n= ', n,' matrix'
-    	do i=1,bs
-        	print '(12f10.2)', h0_mat(i,1:bs,n)
-    	end do
+    do n=0,n_basis
+        print '(12f10.2)', h0_mat(n,0:n_basis)
     end do
 
+	!Build H0 matrix
+	do i=0,n_basis
+		do j=0,n_basis
+			v_mat(i,j)=h_mat(i,j)-h0_mat(i,j)
+		end do    
+	end do
 
-! 	print *, "h' matrix-------------------------"
-!     do n=0,n_basis
-!         print '(20f10.2)', v_mat(n,0:n_basis)
-!     end do
+	print *, 'v matrix-------------------------'
+    do n=0,n_basis
+        print '(12f10.2)', v_mat(n,0:n_basis)
+    end do
 
 !============================================================================
 
-	do n=1,bs
+	do n=0,n_basis
 		e_mat(n,n)	=	1.0_dp
 	end do
 
-	do n=0,nb
-		g0_mat(1:bs,1:bs,n)	=	inv(e_mat(1:bs,1:bs)-h0_mat(1:bs,1:bs,n))
-	end do
+	g0_mat(0:n_basis,0:n_basis)	=	inv(e_mat(0:n_basis,0:n_basis)-&
+									h0_mat(0:n_basis,0:n_basis))
 
 !     print *, 'g0 matrix-------------------------'
-!     do n=0,nb
-!     	print *, 'the n= ', n,' matrix'
-!     	do i=1,bs
-!         	print '(12f10.2)', g0_mat(i,1:bs,n)
-!     	end do
+!     do n=0,n_basis
+!         print '(12f10.2)', g0_mat(n,0:n_basis)
 !     end do
 
 !=======================================================================
@@ -135,8 +161,8 @@ program exp_cf_rec
 		! decomposition.  Depends on LAPACK.
 
 		function inv(A) result(Ainv)
-		  real(dp), dimension(1:bs,1:bs), intent(in) :: A
-		  real(dp), dimension(1:bs,1:bs) :: Ainv
+		  real(dp), dimension(0:n_basis,0:n_basis), intent(in) :: A
+		  real(dp), dimension(0:n_basis,0:n_basis) :: Ainv
 
 		  real(dp), dimension(size(A,1)) :: work  ! work array for LAPACK
 		  integer, dimension(size(A,1)) :: ipiv   ! pivot indices
