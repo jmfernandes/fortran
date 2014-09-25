@@ -34,7 +34,7 @@ program exp_cf_rec
 
 
 
-	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	!=================================================================
 
 	x_mat	=	0._dp
 	p_mat	=	0._dp
@@ -119,13 +119,13 @@ program exp_cf_rec
 		g0_mat(1:bs,1:bs,n)	=	inv(e_mat(1:bs,1:bs)-h0_mat(1:bs,1:bs,n))
 	end do
 
-!     print *, 'g0 matrix-------------------------'
-!     do n=0,nb
-!     	print *, 'the n= ', n,' matrix'
-!     	do i=1,bs
-!         	print '(12f10.2)', g0_mat(i,1:bs,n)
-!     	end do
-!     end do
+    print *, 'g0 matrix-------------------------'
+    do n=0,nb
+    	print *, 'the n= ', n,' matrix'
+    	do i=1,bs
+        	print '(12f10.2)', g0_mat(i,1:bs,n)
+    	end do
+    end do
 
 !=======================================================================
 
