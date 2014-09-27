@@ -6,28 +6,27 @@ program exp_cf_rec
 
 	!=========================== CONSTANTS ===========================
 
-	integer,	parameter	::	n_basis		=	11,				&
-								bs			=	4,				&
+	integer,	parameter	::	n_basis		=	11,					&
+								bs			=	4,					&
 								nb 			=	(n_basis+1)/bs-1
 
-	real(dp),	parameter	::	mass		=	1.0_dp,			& 
-								hbar		=	1.0_dp,			&
-								omega_h		=	1.0_dp,			&
+	real(dp),	parameter	::	mass		=	1.0_dp,				& 
+								hbar		=	1.0_dp,				&
+								omega_h		=	1.0_dp,				&
 								omega_b		=	2._dp
 
 	!=========================== MATRICES ===========================
 
-	real(dp)				::	x_mat(0:n_basis,0:n_basis),		&
-								p_mat(0:n_basis,0:n_basis),		&
-								h_mat(0:n_basis,0:n_basis),		&
-								eigen_mat(0:n_basis,0:n_basis),	&
+	real(dp)				::	x_mat(0:n_basis,0:n_basis),			&
+								p_mat(0:n_basis,0:n_basis),			&
+								h_mat(0:n_basis,0:n_basis),			&
+								eigen_mat(0:n_basis,0:n_basis),		&
 								h0_mat(0:bs-1,0:bs-1,0:nb),			&
-								v_mat(0:n_basis,0:n_basis),		&
+								v_mat(0:n_basis,0:n_basis),			&
 								e_mat(0:bs-1,0:bs-1),				&
 								g0_mat(0:bs-1,0:bs-1,0:nb),			&
-								mult_mat(0:n_basis,0:n_basis),			&
-								mult2_mat(0:bs-1,0:bs-1),		&
-								psi_mat(0:n_basis),				&
+								mult_mat(0:n_basis,0:n_basis),		&
+								psi_mat(0:n_basis),					&
 								ss(0:n_basis,0:20)
 
 	!=========================== PARAMETERS ==========================
@@ -74,9 +73,9 @@ program exp_cf_rec
 		print '(20f10.2)', h_mat(n,0:n_basis)
 	end do
 
-!============================================================================
+	!============================================================================
 
-!   compute eigenvalues
+	!   compute eigenvalues
 
 	eigen_mat(0:n_basis,0:n_basis) = h_mat(0:n_basis,0:n_basis)
 
@@ -85,7 +84,7 @@ program exp_cf_rec
 	print *, 'eigenvalues-------------------------'
 	print '(20f10.2)', w_eigen
 
-!============================================================================
+	!============================================================================
 
 
 	!build V matrix
@@ -94,64 +93,58 @@ program exp_cf_rec
 
 	do n=0,nb
 		h0_mat(0:bs-1,0:bs-1,n)=h_mat(bs*n:bs*n+bs-1,bs*n:bs*n+bs-1)
-		v_mat(bs*n:bs*n+bs-1,bs*n:bs*n+bs-1) = h_mat(bs*n:bs*n+bs-1,bs*n:bs*n+bs-1) - h0_mat(0:bs-1,0:bs-1,n)
+		v_mat(bs*n:bs*n+bs-1,bs*n:bs*n+bs-1) = &
+		h_mat(bs*n:bs*n+bs-1,bs*n:bs*n+bs-1) - h0_mat(0:bs-1,0:bs-1,n)
 	end do
 
-! 	print *, h0_mat(1,1,1), h_mat(0,0)
 
-    print *, 'h0 matrix-------------------------'
-    do n=0,nb
-    	print *, 'the n= ', n,' matrix'
-    	do i=0,bs-1
-        	print '(12f10.2)', h0_mat(i,0:bs-1,n)
-    	end do
-    end do
+	print *, 'h0 matrix-------------------------'
+	do n=0,nb
+		print *, 'the n= ', n,' matrix'
+		do i=0,bs-1
+			print '(12f10.2)', h0_mat(i,0:bs-1,n)
+		end do
+	end do
 
 
 	print *, "h' matrix-------------------------"
-    do n=0,n_basis
-        print '(20f10.2)', v_mat(n,0:n_basis)
-    end do
+	do n=0,n_basis
+		print '(20f10.2)', v_mat(n,0:n_basis)
+	end do
 
-!============================================================================
+	!============================================================================
 
 	do n=1,bs
-		e_mat(n,n)	=	10._dp
+		e_mat(n,n)	=	8._dp
 	end do
 
 
 	do n=0,nb
-		g0_mat(0:bs-1,0:bs-1,n)	=	inv(e_mat(0:bs-1,0:bs-1)-h0_mat(0:bs-1,0:bs-1,n))
+		g0_mat(0:bs-1,0:bs-1,n)	=inv(e_mat(0:bs-1,0:bs-1)-h0_mat(0:bs-1,0:bs-1,n))
 	end do
 
-!     print *, 'g0 matrix-------------------------'
-!     do n=0,nb
-!     	print *, 'the n= ', n,' matrix'
-!     	do i=0,bs-1
-!         	print '(12f10.2)', g0_mat(i,0:bs-1,n)
-!     	end do
-!     end do
-
-!     mult2_mat(0:3,0:3) = matmul(h0_mat(0:bs-1,0:bs-1,0), h_mat(0:bs-1,0:bs-1))
-
-! 	print *, 'mult mat----------'
-! 	do n=0,nb+1
-!         	print '(12f10.2)', mult2_mat(n,0:bs-1)
-!     end do
+	!     print *, 'g0 matrix-------------------------'
+	!     do n=0,nb
+	!     	print *, 'the n= ', n,' matrix'
+	!     	do i=0,bs-1
+	!         	print '(12f10.2)', g0_mat(i,0:bs-1,n)
+	!     	end do
+	!     end do
 
 	do n=0,nb
 			do i=0,nb
-				mult_mat(bs*n:bs*n+bs-1,bs*i:bs*i+bs-1)	= matmul(g0_mat(0:bs-1,0:bs-1,n), v_mat(bs*n:bs*n+bs-1,bs*i:bs*i+bs-1))
+				mult_mat(bs*n:bs*n+bs-1,bs*i:bs*i+bs-1)	= &
+				matmul(g0_mat(0:bs-1,0:bs-1,n), v_mat(bs*n:bs*n+bs-1,bs*i:bs*i+bs-1))
 			end do 
 	end do
 
-! 	print *, 'mult mat----------'
-! 	do n=0,n_basis
-!         	print '(12f10.2)', mult_mat(n,0:n_basis)
-!     end do
+	! 	print *, 'mult mat----------'
+	! 	do n=0,n_basis
+	!         	print '(12f10.2)', mult_mat(n,0:n_basis)
+	!     end do
 
 
-!======================================================================
+	!======================================================================
 
 psi_mat(0:n_basis) = 1.0_dp
 
@@ -159,10 +152,10 @@ do n=0,20
 	ss(0:n_basis,n) = multiply_mat(n,mult_mat,psi_mat)
 end do
 
-! 	print *, 'final mat----------'
-! 	do n=0,n_basis
-!         	print '(20f10.2)', ss(n,0:15)
-!     end do
+	print *, 'final mat----------'
+	do n=0,n_basis
+			print '(20f10.2)', ss(n,0:15)
+	end do
 
 
 !=======================================================================
