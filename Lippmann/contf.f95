@@ -2,18 +2,21 @@
 program exp_cf_rec
 
 	use NumType
+	use cf_approx
 	implicit none
 
 	!=========================== CONSTANTS ===========================
 
-	integer,	parameter	::	n_basis		=	11,					&
-								bs			=	4,					&
-								nb 			=	(n_basis+1)/bs-1
+	integer,	parameter	::	n_basis		=	99,					&
+								bs			=	10,					&
+								nb 			=	(n_basis+1)/bs-1,	&
+								steps 		=	ncf
 
 	real(dp),	parameter	::	mass		=	1.0_dp,				& 
 								hbar		=	1.0_dp,				&
 								omega_h		=	1.0_dp,				&
-								omega_b		=	2._dp
+								omega_b		=	2._dp,				&
+								x			=	1.0_dp
 
 	!=========================== MATRICES ===========================
 
@@ -26,8 +29,10 @@ program exp_cf_rec
 								e_mat(0:bs-1,0:bs-1),				&
 								g0_mat(0:bs-1,0:bs-1,0:nb),			&
 								mult_mat(0:n_basis,0:n_basis),		&
+								ss(0:n_basis,0:steps),			&
 								psi_mat(0:n_basis),					&
-								ss(0:n_basis,0:20)
+								taylor(0:ncf),						&
+								cf(0:ncf)
 
 	!=========================== PARAMETERS ==========================
 
@@ -68,24 +73,22 @@ program exp_cf_rec
 	h_mat(0:n_basis,0:n_basis) = p_mat(0:n_basis,0:n_basis)/(2*mass)+ &
 							mass*omega_h**2*x_mat(0:n_basis,0:n_basis)/2
 
-	print *, 'hamiltonian matrix-------------------------'
-	do n=0,n_basis
-		print '(20f10.2)', h_mat(n,0:n_basis)
-	end do
+! 	print *, 'hamiltonian matrix-------------------------'
+! 	do n=0,n_basis
+! 		print '(20f10.2)', h_mat(n,0:n_basis)
+! 	end do
 
 	!============================================================================
 
 	!   compute eigenvalues
-
 	eigen_mat(0:n_basis,0:n_basis) = h_mat(0:n_basis,0:n_basis)
 
 	call dsyev('V','U',n_basis+1,eigen_mat,n_basis+1,w_eigen,work,lwork,info)
 
-	print *, 'eigenvalues-------------------------'
-	print '(20f10.2)', w_eigen
+! 	print *, 'eigenvalues-------------------------'
+! 	print '(20f10.2)', w_eigen
 
 	!============================================================================
-
 
 	!build V matrix
 
@@ -98,24 +101,24 @@ program exp_cf_rec
 	end do
 
 
-	print *, 'h0 matrix-------------------------'
-	do n=0,nb
-		print *, 'the n= ', n,' matrix'
-		do i=0,bs-1
-			print '(12f10.2)', h0_mat(i,0:bs-1,n)
-		end do
-	end do
+! 	print *, 'h0 matrix-------------------------'
+! 	do n=0,nb
+! 		print *, 'the n= ', n,' matrix'
+! 		do i=0,bs-1
+! 			print '(12f10.2)', h0_mat(i,0:bs-1,n)
+! 		end do
+! 	end do
 
 
-	print *, "h' matrix-------------------------"
-	do n=0,n_basis
-		print '(20f10.2)', v_mat(n,0:n_basis)
-	end do
+! 	print *, "h' matrix-------------------------"
+! 	do n=0,n_basis
+! 		print '(20f10.2)', v_mat(n,0:n_basis)
+! 	end do
 
 	!============================================================================
 
 	do n=1,bs
-		e_mat(n,n)	=	8._dp
+		e_mat(n,n)	= 7._dp
 	end do
 
 
@@ -146,19 +149,23 @@ program exp_cf_rec
 
 	!======================================================================
 
-psi_mat(0:n_basis) = 1.0_dp
+	psi_mat(0:n_basis) = 1.0_dp/n_basis
 
-do n=0,20
-	ss(0:n_basis,n) = multiply_mat(n,mult_mat,psi_mat)
-end do
+	!doing it this way takes too long
+! 	do n=0,steps
+! 		ss(0:n_basis,n) = multiply_mat(n,mult_mat,psi_mat)
+! 	end do
 
-	print *, 'final mat----------'
-	do n=0,n_basis
-			print '(20f10.2)', ss(n,0:15)
+	do n=0,ncf
+		taylor(n)=dot_product(multiply_mat(0,mult_mat,psi_mat),multiply_mat(n,mult_mat,psi_mat))
+		print *, taylor(n)
 	end do
 
+	call taylor_cfrac(taylor,steps,cf)
 
-!=======================================================================
+	print *, 'cf=', evalcf(cf,steps,x)
+
+	!=======================================================================
 
 	contains
 
@@ -218,7 +225,11 @@ end do
 			end do         
 		
 			!return the result as {(G0*V)^n}*psi
-			ss(0:n_basis)=matmul(res(0:n_basis,0:n_basis),psi_mat(0:n_basis))
+			if (n == 0) then
+				ss(0:n_basis) = psi_mat(0:n_basis)
+			else
+				ss(0:n_basis)=matmul(res(0:n_basis,0:n_basis),psi_mat(0:n_basis))
+			end if
 
 		end function multiply_mat
 
