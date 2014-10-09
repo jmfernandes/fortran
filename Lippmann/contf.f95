@@ -7,8 +7,8 @@ program exp_cf_rec
 
 	!=========================== CONSTANTS ===========================
 
-	integer,	parameter	::	n_basis		=	99,					&
-								bs			=	10,					&
+	integer,	parameter	::	n_basis		=	999,					&
+								bs			=	100,					&
 								nb 			=	(n_basis+1)/bs-1,	&
 								steps 		=	ncf
 
@@ -32,7 +32,9 @@ program exp_cf_rec
 								ss(0:n_basis,0:steps),			&
 								psi_mat(0:n_basis),					&
 								taylor(0:ncf),						&
-								cf(0:ncf)
+								cf(0:ncf),							&
+								gff(0:n_basis,0:n_basis,0:steps),	&
+								gcc(0:n_basis,0:steps)
 
 	!=========================== PARAMETERS ==========================
 
@@ -117,8 +119,8 @@ program exp_cf_rec
 
 	!============================================================================
 
-	do n=1,bs
-		e_mat(n,n)	= 7._dp
+	do n=0,bs-1
+		e_mat(n,n)	= 15.0_dp
 	end do
 
 
@@ -141,10 +143,10 @@ program exp_cf_rec
 			end do 
 	end do
 
-	! 	print *, 'mult mat----------'
-	! 	do n=0,n_basis
-	!         	print '(12f10.2)', mult_mat(n,0:n_basis)
-	!     end do
+! 		print *, 'mult mat----------'
+! 		do n=0,n_basis
+! 	        	print '(12f10.2)', mult_mat(n,0:n_basis)
+! 	    end do
 
 
 	!======================================================================
@@ -156,15 +158,30 @@ program exp_cf_rec
 ! 		ss(0:n_basis,n) = multiply_mat(n,mult_mat,psi_mat)
 ! 	end do
 
-	do n=0,ncf
-		taylor(n)=dot_product(multiply_mat(0,mult_mat,psi_mat),multiply_mat(n,mult_mat,psi_mat))
+	gff(0:n_basis,0:n_basis,0) = mult_mat(0:n_basis,0:n_basis)
+	do n=1,steps
+		gff(0:n_basis,0:n_basis,n) = matmul(gff(0:n_basis,0:n_basis,n-1),mult_mat(0:n_basis,0:n_basis))
+	end do
+
+	gcc(0:n_basis,0) = psi_mat(0:n_basis)
+	do n=1,steps
+		gcc(0:n_basis,n) = matmul(gff(0:n_basis,0:n_basis,n-1),psi_mat(0:n_basis))
+		taylor(n)=dot_product(gcc(0:n_basis,0),gcc(0:n_basis,n))
 		print *, taylor(n)
 	end do
+
+	print *, '--------'
+
+! 	do n=0,ncf
+! 		taylor(n)=dot_product(multiply_mat(0,mult_mat,psi_mat),multiply_mat(n,mult_mat,psi_mat))
+! 		print *, taylor(n)
+! 	end do
 
 	call taylor_cfrac(taylor,steps,cf)
 
 	print *, 'cf=', evalcf(cf,steps,x)
 
+	print *, 'done'
 	!=======================================================================
 
 	contains
