@@ -7,8 +7,8 @@ program exp_cf_rec
 
 	!=========================== CONSTANTS ===========================
 
-	integer,	parameter	::	n_basis		=	999,					&
-								bs			=	100,					&
+	integer,	parameter	::	n_basis		=	8,					&
+								bs			=	3,					&
 								nb 			=	(n_basis+1)/bs-1,	&
 								steps 		=	ncf
 
@@ -34,7 +34,9 @@ program exp_cf_rec
 								taylor(0:ncf),						&
 								cf(0:ncf),							&
 								gff(0:n_basis,0:n_basis,0:steps),	&
-								gcc(0:n_basis,0:steps)
+								gcc(0:n_basis,0:steps),				&
+								g0_mat2(0:bs-1,0:bs-1,0:nb),		&
+								g0_mat3(0:bs-1,0:bs-1,0:nb)
 
 	!=========================== PARAMETERS ==========================
 
@@ -75,10 +77,10 @@ program exp_cf_rec
 	h_mat(0:n_basis,0:n_basis) = p_mat(0:n_basis,0:n_basis)/(2*mass)+ &
 							mass*omega_h**2*x_mat(0:n_basis,0:n_basis)/2
 
-! 	print *, 'hamiltonian matrix-------------------------'
-! 	do n=0,n_basis
-! 		print '(20f10.2)', h_mat(n,0:n_basis)
-! 	end do
+	print *, 'hamiltonian matrix-------------------------'
+	do n=0,n_basis
+		print '(20f10.2)', h_mat(n,0:n_basis)
+	end do
 
 	!============================================================================
 
@@ -103,38 +105,65 @@ program exp_cf_rec
 	end do
 
 
-! 	print *, 'h0 matrix-------------------------'
-! 	do n=0,nb
-! 		print *, 'the n= ', n,' matrix'
-! 		do i=0,bs-1
-! 			print '(12f10.2)', h0_mat(i,0:bs-1,n)
-! 		end do
-! 	end do
+	print *, 'h0 matrix-------------------------'
+	do n=0,nb
+		print *, 'the n= ', n,' matrix'
+		do i=0,bs-1
+			print '(12f10.2)', h0_mat(i,0:bs-1,n)
+		end do
+	end do
 
 
-! 	print *, "h' matrix-------------------------"
-! 	do n=0,n_basis
-! 		print '(20f10.2)', v_mat(n,0:n_basis)
-! 	end do
+	print *, "h' matrix-------------------------"
+	do n=0,n_basis
+		print '(20f10.2)', v_mat(n,0:n_basis)
+	end do
 
 	!============================================================================
 
 	do n=0,bs-1
-		e_mat(n,n)	= 30.5_dp
+		e_mat(n,n)	= 0.5_dp
 	end do
 
 
 	do n=0,nb
-		g0_mat(0:bs-1,0:bs-1,n)	=inv(e_mat(0:bs-1,0:bs-1)-h0_mat(0:bs-1,0:bs-1,n))
+		g0_mat(0:bs-1,0:bs-1,n)	=e_mat(0:bs-1,0:bs-1)-h0_mat(0:bs-1,0:bs-1,n)
+		g0_mat3(0:bs-1,0:bs-1,n) = g0_mat(0:bs-1,0:bs-1,n)
+		call inverse(g0_mat(0:bs-1,0:bs-1,n),g0_mat2(0:bs-1,0:bs-1,n),3)
+		g0_mat3(0:bs-1,0:bs-1,n)=matmul(g0_mat3(0:bs-1,0:bs-1,n),g0_mat2(0:bs-1,0:bs-1,n))
 	end do
 
-! 	    print *, 'g0 matrix-------------------------'
-! 	    do n=0,nb
-! 	    	print *, 'the n= ', n,' matrix'
-! 	    	do i=0,bs-1
-! 	        	print '(12f10.2)', g0_mat(i,0:bs-1,n)
-! 	    	end do
-! 	    end do
+! 	do n=0,nb
+! 		g0_mat2(0:bs-1,0:bs-1,n) = inv(g0_mat(0:bs-1,0:bs-1,n))
+! 	end do
+
+	    print *, 'g0 matrix-------------------------'
+	    do n=0,nb
+	    	print *, 'the n= ', n,' matrix'
+	    	do i=0,bs-1
+	        	print '(12f10.2)', g0_mat(i,0:bs-1,n)
+	    	end do
+	    end do
+
+! 	    call inverse(g0_mat(0:bs-1,0:bs-1,0),g0_mat2(0:bs-1,0:bs-1,0),3)
+
+	    print *, 'g02 matrix-------------------------'
+	    do n=0,nb
+	    	print *, 'the n= ', n,' matrix'
+	    	do i=0,bs-1
+	        	print '(12f10.2)', g0_mat2(i,0:bs-1,n)
+	    	end do
+	    end do
+
+	 	print *, 'g03 matrix-------------------------'
+	    do n=0,nb
+	    	print *, 'the n= ', n,' matrix'
+	    	do i=0,bs-1
+	        	print '(12f10.2)', g0_mat3(i,0:bs-1,n)
+	    	end do
+	    end do
+
+
 
 	do n=0,nb
 			do i=0,nb
@@ -151,7 +180,7 @@ program exp_cf_rec
 
 	!======================================================================
 
-	psi_mat(0:n_basis) = 1.0_dp/sqrt(real(n_basis))
+	psi_mat(0:n_basis) = 1.0_dp/n_basis
 
 	!doing it this way takes too long
 ! 	do n=0,steps
@@ -167,21 +196,21 @@ program exp_cf_rec
 	do n=1,steps
 		gcc(0:n_basis,n) = matmul(gff(0:n_basis,0:n_basis,n-1),psi_mat(0:n_basis))
 		taylor(n)=dot_product(gcc(0:n_basis,0),gcc(0:n_basis,n))
-		print *, taylor(n)
+! 		print *, taylor(n)
 	end do
 
 	print *, '--------'
 
 ! 	do n=0,ncf
 ! 		taylor(n)=dot_product(multiply_mat(0,mult_mat,psi_mat),multiply_mat(n,mult_mat,psi_mat))
-! ! 		print *, taylor(n)
+! 		print *, taylor(n)
 ! 	end do
 
 	call taylor_cfrac(taylor,steps,cf)
 
 	print *, 'cf=', 1/evalcf(cf,steps,x)
 
-! 	print *, 'done'
+	print *, 'done'
 	!=======================================================================
 
 	contains
@@ -252,3 +281,82 @@ program exp_cf_rec
 
 end program exp_cf_rec
 
+  subroutine inverse(a,c,n)
+!============================================================
+! Inverse matrix
+! Method: Based on Doolittle LU factorization for Ax=b
+! Alex G. December 2009
+!-----------------------------------------------------------
+! input ...
+! a(n,n) - array of coefficients for matrix A
+! n      - dimension
+! output ...
+! c(n,n) - inverse matrix of A
+! comments ...
+! the original matrix a(n,n) will be destroyed 
+! during the calculation
+!===========================================================
+implicit none 
+integer n
+double precision a(n,n), c(n,n)
+double precision L(n,n), U(n,n), b(n), d(n), x(n)
+double precision coeff
+integer i, j, k
+
+! step 0: initialization for matrices L and U and b
+! Fortran 90/95 aloows such operations on matrices
+L=0.0
+U=0.0
+b=0.0
+
+! step 1: forward elimination
+do k=1, n-1
+   do i=k+1,n
+      coeff=a(i,k)/a(k,k)
+      L(i,k) = coeff
+      do j=k+1,n
+         a(i,j) = a(i,j)-coeff*a(k,j)
+      end do
+   end do
+end do
+
+! Step 2: prepare L and U matrices 
+! L matrix is a matrix of the elimination coefficient
+! + the diagonal elements are 1.0
+do i=1,n
+  L(i,i) = 1.0
+end do
+! U matrix is the upper triangular part of A
+do j=1,n
+  do i=1,j
+    U(i,j) = a(i,j)
+  end do
+end do
+
+! Step 3: compute columns of the inverse matrix C
+do k=1,n
+  b(k)=1.0
+  d(1) = b(1)
+! Step 3a: Solve Ld=b using the forward substitution
+  do i=2,n
+    d(i)=b(i)
+    do j=1,i-1
+      d(i) = d(i) - L(i,j)*d(j)
+    end do
+  end do
+! Step 3b: Solve Ux=d using the back substitution
+  x(n)=d(n)/U(n,n)
+  do i = n-1,1,-1
+    x(i) = d(i)
+    do j=n,i+1,-1
+      x(i)=x(i)-U(i,j)*x(j)
+    end do
+    x(i) = x(i)/u(i,i)
+  end do
+! Step 3c: fill the solutions x(n) into column k of C
+  do i=1,n
+    c(i,k) = x(i)
+  end do
+  b(k)=0.0
+end do
+end subroutine inverse
