@@ -3,7 +3,7 @@ module chebyshev
 
 	use numtype
 	implicit none
-	integer, parameter :: maxch = 100
+	integer, parameter :: maxch = 50
 	real(dp), dimension(0:maxch) :: cheb, chder
 	real(dp), dimension(maxch) :: z0
 	integer :: iz0

@@ -77,8 +77,11 @@ function shoot(alpha) result(fail)
             write(13, fmt='(2f20.10)') y(1), y(3)
         end if
         call rk4step(t,y,dt)
+!         print *, alpha, (y(3) - height), 'nopfial'
     
     end do
+
+!     print *, alpha, fail, 'fail'
     
     fail = y(3) - height
     

@@ -3,19 +3,21 @@ program exp_cf_rec
 
 	use NumType
 	use cf_approx
+	use chebyshev
 	implicit none
 
 	!=========================== CONSTANTS ===========================
 
-	integer,	parameter	::	n_basis		=	999,					&
-								bs			=	100,					&
+	integer,	parameter	::	n_basis		=	99,					&
+								bs			=	10,					&
 								nb 			=	(n_basis+1)/bs-1,	&
-								steps 		=	ncf
+								steps 		=	ncf,				&
+								nch			=	10
 
 	real(dp),	parameter	::	mass		=	1.0_dp,				& 
 								hbar		=	1.0_dp,				&
 								omega_h		=	1.0_dp,				&
-								omega_b		=	2._dp,				&
+								omega_b		=	1.1_dp,				&
 								x			=	1.0_dp
 
 	!=========================== MATRICES ===========================
@@ -26,22 +28,14 @@ program exp_cf_rec
 								eigen_mat(0:n_basis,0:n_basis),		&
 								h0_mat(0:bs-1,0:bs-1,0:nb),			&
 								v_mat(0:n_basis,0:n_basis),			&
-								e_mat(0:bs-1,0:bs-1),				&
-								g0_mat(0:bs-1,0:bs-1,0:nb),			&
-								mult_mat(0:n_basis,0:n_basis),		&
-								ss(0:n_basis,0:steps),			&
-								psi_mat(0:n_basis),					&
-								taylor(0:ncf),						&
-								cf(0:ncf),							&
-								gff(0:n_basis,0:n_basis,0:steps),	&
-								gcc(0:n_basis,0:steps)
+								psi_mat(0:n_basis)
 
 	!=========================== PARAMETERS ==========================
 
 	integer,	parameter	::  lwork=(n_basis+2)*n_basis
 	integer					::  n,i,j, block_size, info
-	real(dp)				::  w_eigen(n_basis+1),work(lwork)
-
+	real(dp)				::  w_eigen(n_basis+1),work(lwork), offset
+	real(dp)				::	ya,yb
 
 
 	!=================================================================
@@ -75,20 +69,15 @@ program exp_cf_rec
 	h_mat(0:n_basis,0:n_basis) = p_mat(0:n_basis,0:n_basis)/(2*mass)+ &
 							mass*omega_h**2*x_mat(0:n_basis,0:n_basis)/2
 
-! 	print *, 'hamiltonian matrix-------------------------'
-! 	do n=0,n_basis
-! 		print '(20f10.2)', h_mat(n,0:n_basis)
-! 	end do
-
 	!============================================================================
 
-	!   compute eigenvalues
+	!   compute eigenvalues using LAPACK
 	eigen_mat(0:n_basis,0:n_basis) = h_mat(0:n_basis,0:n_basis)
 
 	call dsyev('V','U',n_basis+1,eigen_mat,n_basis+1,w_eigen,work,lwork,info)
 
-! 	print *, 'eigenvalues-------------------------'
-! 	print '(20f10.2)', w_eigen
+	print *, 'LAPACK eigenvalues-------------------------'
+	print '(10f10.2)', w_eigen
 
 	!============================================================================
 
@@ -102,86 +91,22 @@ program exp_cf_rec
 		h_mat(bs*n:bs*n+bs-1,bs*n:bs*n+bs-1) - h0_mat(0:bs-1,0:bs-1,n)
 	end do
 
-
-! 	print *, 'h0 matrix-------------------------'
-! 	do n=0,nb
-! 		print *, 'the n= ', n,' matrix'
-! 		do i=0,bs-1
-! 			print '(12f10.2)', h0_mat(i,0:bs-1,n)
-! 		end do
-! 	end do
-
-
-! 	print *, "h' matrix-------------------------"
-! 	do n=0,n_basis
-! 		print '(20f10.2)', v_mat(n,0:n_basis)
-! 	end do
+	!build psi matrix
+	psi_mat(0:n_basis) = 1.0_dp/sqrt(real(n_basis))
 
 	!============================================================================
 
-	do n=0,bs-1
-		e_mat(n,n)	= 30.5_dp
+	!calculate the eigenvalues using chebyshev
+	print *, 'calculated eigenvalues-------------------------'
+	do j=0,20
+		ya=j
+		yb=j+1
+		call chebyex(mcalc, nch, cheb, ya, yb)
+		call chebyzero(nch, cheb, ya, yb, z0, iz0)
+
+		print '(A6,1X,I2.1,A4,I2.1,5X,5f10.5)', 'range=',j,' to ', j+1, z0(1:iz0)
 	end do
 
-
-	do n=0,nb
-		g0_mat(0:bs-1,0:bs-1,n)	=inv(e_mat(0:bs-1,0:bs-1)-h0_mat(0:bs-1,0:bs-1,n))
-	end do
-
-! 	    print *, 'g0 matrix-------------------------'
-! 	    do n=0,nb
-! 	    	print *, 'the n= ', n,' matrix'
-! 	    	do i=0,bs-1
-! 	        	print '(12f10.2)', g0_mat(i,0:bs-1,n)
-! 	    	end do
-! 	    end do
-
-	do n=0,nb
-			do i=0,nb
-				mult_mat(bs*n:bs*n+bs-1,bs*i:bs*i+bs-1)	= &
-				matmul(g0_mat(0:bs-1,0:bs-1,n), v_mat(bs*n:bs*n+bs-1,bs*i:bs*i+bs-1))
-			end do 
-	end do
-
-! 		print *, 'mult mat----------'
-! 		do n=0,n_basis
-! 	        	print '(12f10.2)', mult_mat(n,0:n_basis)
-! 	    end do
-
-
-	!======================================================================
-
-	psi_mat(0:n_basis) = 1.0_dp/sqrt(real(n_basis))
-
-	!doing it this way takes too long
-! 	do n=0,steps
-! 		ss(0:n_basis,n) = multiply_mat(n,mult_mat,psi_mat)
-! 	end do
-
-	gff(0:n_basis,0:n_basis,0) = mult_mat(0:n_basis,0:n_basis)
-	do n=1,steps
-		gff(0:n_basis,0:n_basis,n) = matmul(gff(0:n_basis,0:n_basis,n-1),mult_mat(0:n_basis,0:n_basis))
-	end do
-
-	gcc(0:n_basis,0) = psi_mat(0:n_basis)
-	do n=1,steps
-		gcc(0:n_basis,n) = matmul(gff(0:n_basis,0:n_basis,n-1),psi_mat(0:n_basis))
-		taylor(n)=dot_product(gcc(0:n_basis,0),gcc(0:n_basis,n))
-		print *, taylor(n)
-	end do
-
-	print *, '--------'
-
-! 	do n=0,ncf
-! 		taylor(n)=dot_product(multiply_mat(0,mult_mat,psi_mat),multiply_mat(n,mult_mat,psi_mat))
-! ! 		print *, taylor(n)
-! 	end do
-
-	call taylor_cfrac(taylor,steps,cf)
-
-	print *, 'cf=', 1/evalcf(cf,steps,x)
-
-! 	print *, 'done'
 	!=======================================================================
 
 	contains
@@ -223,32 +148,54 @@ program exp_cf_rec
 		  end if
 		end function inv
 
-! 		function multiply_mat(n,mult_mat,psi_mat) result(ss)
-		
-! 			implicit none
-! 			integer :: n,i
-! 			real(dp) ::  mult_mat(0:n_basis,0:n_basis),&
-! 							res(0:n_basis,0:n_basis),&
-! 							ss(0:n_basis),&
-! 							psi_mat(0:n_basis)
-			
-! 			!create placeholder matrix that will overwrite itself
-! 			res(0:n_basis,0:n_basis) = mult_mat(0:n_basis,0:n_basis)
+		function mcalc(energy) result(mine)
 
-! 			!multiply (G0*V) with itself for n times (n is input)
-! 			do i=1,n
-! 			res(0:n_basis,0:n_basis) = matmul(res(0:n_basis,0:n_basis),&
-! 				mult_mat(0:n_basis,0:n_basis))
-! 			end do         
-		
-! 			!return the result as {(G0*V)^n}*psi
-! 			if (n == 0) then
-! 				ss(0:n_basis) = psi_mat(0:n_basis)
-! 			else
-! 				ss(0:n_basis)=matmul(res(0:n_basis,0:n_basis),psi_mat(0:n_basis))
-! 			end if
+			real(dp) :: energy, mine, cf_num
+			real(dp) :: g0_mat(0:bs-1,0:bs-1,0:nb),			&
+						mult_mat(0:n_basis,0:n_basis),		&
+						taylor(0:ncf),						&
+						cf(0:ncf),							&
+						gff(0:n_basis,0:n_basis,0:steps),	&
+						gcc(0:n_basis,0:steps),				&
+						e_mat(0:bs-1,0:bs-1)
 
-! 		end function multiply_mat
+			do n=0,bs-1
+				e_mat(n,n)	=  energy
+			end do
+
+			do n=0,nb
+				g0_mat(0:bs-1,0:bs-1,n)	=inv(e_mat(0:bs-1,0:bs-1)-h0_mat(0:bs-1,0:bs-1,n))
+			end do
+
+
+			do n=0,nb
+					do i=0,nb
+						mult_mat(bs*n:bs*n+bs-1,bs*i:bs*i+bs-1)	= &
+						matmul(g0_mat(0:bs-1,0:bs-1,n), v_mat(bs*n:bs*n+bs-1,bs*i:bs*i+bs-1))
+					end do 
+			end do
+
+
+			gff(0:n_basis,0:n_basis,0) = mult_mat(0:n_basis,0:n_basis)
+			do n=1,steps
+				gff(0:n_basis,0:n_basis,n) = matmul(gff(0:n_basis,0:n_basis,n-1),mult_mat(0:n_basis,0:n_basis))
+			end do
+
+			gcc(0:n_basis,0) = psi_mat(0:n_basis)
+			do n=1,steps
+				gcc(0:n_basis,n) = matmul(gff(0:n_basis,0:n_basis,n-1),psi_mat(0:n_basis))
+				taylor(n)=dot_product(gcc(0:n_basis,0),gcc(0:n_basis,n))
+			end do
+
+			call taylor_cfrac(taylor,steps,cf)
+
+			cf_num = abs(evalcf(cf,steps,x))
+
+			mine = 1/cf_num
+
+		end function mcalc
+
+
 
 end program exp_cf_rec
 
