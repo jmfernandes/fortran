@@ -12,7 +12,7 @@ program exp_cf_rec
 								bs			=	10,					&
 								nb 			=	(n_basis+1)/bs-1,	&
 								steps 		=	ncf,				&
-								nch			=	10
+								nch			=	4
 
 	real(dp),	parameter	::	mass		=	1.0_dp,				& 
 								hbar		=	1.0_dp,				&
@@ -104,7 +104,8 @@ program exp_cf_rec
 		call chebyex(mcalc, nch, cheb, ya, yb)
 		call chebyzero(nch, cheb, ya, yb, z0, iz0)
 
-		print '(A6,1X,I2.1,A4,I2.1,5X,5f10.5)', 'range=',j,' to ', j+1, z0(1:iz0)
+! 		print '(A6,1X,I2.1,A4,I2.1,5X,5f10.5)', 'range=',j,' to ', j+1, z0(1:iz0)
+		print *, 'range=',j,' to ', j+1, z0(1:iz0)
 	end do
 
 	!=======================================================================
