@@ -17,7 +17,7 @@ program exp_cf_rec
 	real(dp),	parameter	::	mass		=	1.0_dp,				& 
 								hbar		=	1.0_dp,				&
 								omega_h		=	1.0_dp,				&
-								omega_b		=	1.1_dp,				&
+								omega_b		=	2.0_dp,				&
 								x			=	1.0_dp
 
 	!=========================== MATRICES ===========================
@@ -35,7 +35,7 @@ program exp_cf_rec
 	integer,	parameter	::  lwork=(n_basis+2)*n_basis
 	integer					::  n,i,j, block_size, info
 	real(dp)				::  w_eigen(n_basis+1),work(lwork), offset
-	real(dp)				::	ya,yb
+	real(dp)				::	ya,yb, smallthing, dz, zz, r, num
 
 
 	!=================================================================
@@ -79,6 +79,11 @@ program exp_cf_rec
 	print *, 'LAPACK eigenvalues-------------------------'
 	print '(10f10.2)', w_eigen
 
+! 	do n = 0,n_basis
+! 		print '(A10,100f10.2)', '  vector  ', eigen_mat(0:n_basis,n) 
+! 	end do
+
+
 	!============================================================================
 
 	!build V matrix
@@ -98,7 +103,7 @@ program exp_cf_rec
 
 	!calculate the eigenvalues using chebyshev
 	print *, 'calculated eigenvalues-------------------------'
-	do j=0,20
+	do j=0,9
 		ya=j
 		yb=j+1
 		call chebyex(mcalc, nch, cheb, ya, yb)
@@ -107,6 +112,19 @@ program exp_cf_rec
 ! 		print '(A6,1X,I2.1,A4,I2.1,5X,5f10.5)', 'range=',j,' to ', j+1, z0(1:iz0)
 		print *, 'range=',j,' to ', j+1, z0(1:iz0)
 	end do
+
+
+! 	print *, floor(100*rand()),floor(100*rand()),floor(100*rand()),floor(100*rand())
+
+!	smallthing = 1.e-15_dp
+!    dz = 0.01_dp
+
+!     do i = 1,1
+!     	zz = 5.0
+!     	print *, zz
+!     call root_polish(mcalc,zz,dz,smallthing,100) 
+!     print *, zz
+! 	end do
 
 	!=======================================================================
 
@@ -149,9 +167,9 @@ program exp_cf_rec
 		  end if
 		end function inv
 
-		function mcalc(energy) result(mine)
+		function mcalc(energy) result(res_sum)
 
-			real(dp) :: energy, mine, cf_num
+			real(dp) :: energy, res_sum, cf_num, res
 			real(dp) :: g0_mat(0:bs-1,0:bs-1,0:nb),			&
 						mult_mat(0:n_basis,0:n_basis),		&
 						taylor(0:ncf),						&
@@ -181,18 +199,24 @@ program exp_cf_rec
 			do n=1,steps
 				gff(0:n_basis,0:n_basis,n) = matmul(gff(0:n_basis,0:n_basis,n-1),mult_mat(0:n_basis,0:n_basis))
 			end do
-
+			res = 0._dp
 			gcc(0:n_basis,0) = psi_mat(0:n_basis)
 			do n=1,steps
 				gcc(0:n_basis,n) = matmul(gff(0:n_basis,0:n_basis,n-1),psi_mat(0:n_basis))
 				taylor(n)=dot_product(gcc(0:n_basis,0),gcc(0:n_basis,n))
+				res = res + gcc(0,n)
+				!add small variation
+				taylor(n) = taylor(n)+(rand()*(taylor(n)*1e-12))
 			end do
+! 			print *, energy, '-', res, 'res'
 
 			call taylor_cfrac(taylor,steps,cf)
 
 			cf_num = abs(evalcf(cf,steps,x))
 
-			mine = 1/cf_num
+! 			print *, energy, cf_num, 'final energy'
+
+			res_sum = 1/exp(cf_num)
 
 		end function mcalc
 
