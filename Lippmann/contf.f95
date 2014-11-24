@@ -12,7 +12,7 @@ program exp_cf_rec
 								bs			=	10,					&
 								nb 			=	(n_basis+1)/bs-1,	&
 								steps 		=	ncf,				&
-								nch			=	4
+								nch			=	20
 
 	real(dp),	parameter	::	mass		=	1.0_dp,				& 
 								hbar		=	1.0_dp,				&
@@ -33,9 +33,10 @@ program exp_cf_rec
 	!=========================== PARAMETERS ==========================
 
 	integer,	parameter	::  lwork=(n_basis+2)*n_basis
-	integer					::  n,i,j, block_size, info
+	integer					::  n,i,j, block_size, info,np
 	real(dp)				::  w_eigen(n_basis+1),work(lwork), offset
-	real(dp)				::	ya,yb, smallthing, dz, zz, r, num
+	real(dp)				::	ya,yb, smallthing, dz, zz, r, num,set_x,set_dx, &
+								root_dz
 
 
 	!=================================================================
@@ -103,15 +104,32 @@ program exp_cf_rec
 
 	!calculate the eigenvalues using chebyshev
 	print *, 'calculated eigenvalues-------------------------'
-	do j=0,9
-		ya=j
-		yb=j+1
+! 	do j=0,9
+		ya=0
+		yb=1
 		call chebyex(mcalc, nch, cheb, ya, yb)
+		np = 100
+		set_dx = (yb-ya)/np 
+		do i = 1, np+1
+			set_x = ya+(i-1)*set_dx
+			write(1,*) set_x, cheby(set_x,cheb,nch,ya,yb)
+		end do
+
+
+
 		call chebyzero(nch, cheb, ya, yb, z0, iz0)
 
+		smallthing = 1.e-15_dp
+		root_dz = 0.01_dp
+! 		do i = 1, iz0
+! 			zz = z0(i)
+! 			call root_polish(mcalc,zz,root_dz,smallthing,100) 
+! 			print *, 'f(x) = 0 ',i,z0(i),zz
+! 		end do
+
 ! 		print '(A6,1X,I2.1,A4,I2.1,5X,5f10.5)', 'range=',j,' to ', j+1, z0(1:iz0)
-		print *, 'range=',j,' to ', j+1, z0(1:iz0)
-	end do
+		print *, 'range=','0',' to ', '1', z0(1:iz0)
+! 	end do
 
 
 ! 	print *, floor(100*rand()),floor(100*rand()),floor(100*rand()),floor(100*rand())
