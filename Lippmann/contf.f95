@@ -22,13 +22,7 @@ program exp_cf_rec
 
 	!=========================== MATRICES ===========================
 
-	real(dp)				::	x_mat(0:n_basis,0:n_basis),			&
-								p_mat(0:n_basis,0:n_basis),			&
-								h_mat(0:n_basis,0:n_basis),			&
-								eigen_mat(0:n_basis,0:n_basis),		&
-								h0_mat(0:bs-1,0:bs-1,0:nb),			&
-								v_mat(0:n_basis,0:n_basis),			&
-								psi_mat(0:n_basis)
+	real(dp)				::	eigen_mat(0:n_basis,0:n_basis)
 
 	!=========================== PARAMETERS ==========================
 
@@ -40,64 +34,61 @@ program exp_cf_rec
 
 	!=================================================================
 
-	x_mat	=	0._dp
-	p_mat	=	0._dp
-	h_mat	=	0._dp
+	!   compute eigenvalues using LAPACK
+! 	eigen_mat(0:n_basis,0:n_basis) = h_mat(0:n_basis,0:n_basis)
+
+! 	call dsyev('V','U',n_basis+1,eigen_mat,n_basis+1,w_eigen,work,lwork,info)
+
+! 	print *, 'LAPACK eigenvalues-------------------------'
+! 	print '(10f10.2)', w_eigen
+
+	! 	do n = 0,n_basis
+	! 		print '(A10,100f10.2)', '  vector  ', eigen_mat(0:n_basis,n) 
+	! 	end do
+
+
+	!============================================================================
+
 
 	!build X
-	do n=0,n_basis
-		x_mat(n,n) = (hbar/(2*mass*omega_b))*(2*n+1)
-		if (n>=2) then
-			x_mat(n,n-2) = hbar/(2*mass*omega_b)*sqrt(real(n*(n-1)))
-		end if
-		if (n<=(n_basis-2)) then
-			x_mat(n,n+2) = hbar/(2*mass*omega_b)*sqrt(real((n+1)*(n+2)))
-		end if
-	end do
-
-	!build P
-	do n=0,n_basis
-		p_mat(n,n) = (hbar*mass*omega_b)/2*(2*n+1)
-		if (n>=2) then
-			p_mat(n,n-2) = -(hbar*mass*omega_b)/2*sqrt(real(n*(n-1)))
-		end if
-		if (n<=(n_basis-2)) then
-			p_mat(n,n+2) = -(hbar*mass*omega_b)/2*sqrt(real((n+1)*(n+2)))
-		end if
-	end do
-
-	h_mat(0:n_basis,0:n_basis) = p_mat(0:n_basis,0:n_basis)/(2*mass)+ &
-							mass*omega_h**2*x_mat(0:n_basis,0:n_basis)/2
-
-	!============================================================================
-
-	!   compute eigenvalues using LAPACK
-	eigen_mat(0:n_basis,0:n_basis) = h_mat(0:n_basis,0:n_basis)
-
-	call dsyev('V','U',n_basis+1,eigen_mat,n_basis+1,w_eigen,work,lwork,info)
-
-	print *, 'LAPACK eigenvalues-------------------------'
-	print '(10f10.2)', w_eigen
-
-! 	do n = 0,n_basis
-! 		print '(A10,100f10.2)', '  vector  ', eigen_mat(0:n_basis,n) 
+! 	do n=0,n_basis
+! 		x_mat(n,n) = (hbar/(2*mass*omega_b))*(2*n+1)
+! 		if (n>=2) then
+! 			x_mat(n,n-2) = hbar/(2*mass*omega_b)*sqrt(real(n*(n-1)))
+! 		end if
+! 		if (n<=(n_basis-2)) then
+! 			x_mat(n,n+2) = hbar/(2*mass*omega_b)*sqrt(real((n+1)*(n+2)))
+! 		end if
 ! 	end do
 
+! 	!build P
+! 	do n=0,n_basis
+! 		p_mat(n,n) = (hbar*mass*omega_b)/2*(2*n+1)
+! 		if (n>=2) then
+! 			p_mat(n,n-2) = -(hbar*mass*omega_b)/2*sqrt(real(n*(n-1)))
+! 		end if
+! 		if (n<=(n_basis-2)) then
+! 			p_mat(n,n+2) = -(hbar*mass*omega_b)/2*sqrt(real((n+1)*(n+2)))
+! 		end if
+! 	end do
 
-	!============================================================================
+! 	h_mat(0:n_basis,0:n_basis) = p_mat(0:n_basis,0:n_basis)/(2*mass)+ &
+! 							mass*omega_h**2*x_mat(0:n_basis,0:n_basis)/2
 
-	!build V matrix
+! 	!============================================================================
 
-	v_mat(0:n_basis,0:n_basis) = h_mat(0:n_basis,0:n_basis)
+! 	!build V matrix
 
-	do n=0,nb
-		h0_mat(0:bs-1,0:bs-1,n)=h_mat(bs*n:bs*n+bs-1,bs*n:bs*n+bs-1)
-		v_mat(bs*n:bs*n+bs-1,bs*n:bs*n+bs-1) = &
-		h_mat(bs*n:bs*n+bs-1,bs*n:bs*n+bs-1) - h0_mat(0:bs-1,0:bs-1,n)
-	end do
+! 	v_mat(0:n_basis,0:n_basis) = h_mat(0:n_basis,0:n_basis)
 
-	!build psi matrix
-	psi_mat(0:n_basis) = 1.0_dp/sqrt(real(n_basis))
+! 	do n=0,nb
+! 		h0_mat(0:bs-1,0:bs-1,n)=h_mat(bs*n:bs*n+bs-1,bs*n:bs*n+bs-1)
+! 		v_mat(bs*n:bs*n+bs-1,bs*n:bs*n+bs-1) = &
+! 		h_mat(bs*n:bs*n+bs-1,bs*n:bs*n+bs-1) - h0_mat(0:bs-1,0:bs-1,n)
+! 	end do
+
+! 	!build psi matrix
+! 	psi_mat(0:n_basis) = 1.0_dp/sqrt(real(n_basis))
 
 	!============================================================================
 
@@ -110,7 +101,7 @@ program exp_cf_rec
 		call chebyzero(nch, cheb, ya, yb, z0, iz0)
 
 ! 		print '(A6,1X,I2.1,A4,I2.1,5X,5f10.5)', 'range=',j,' to ', j+1, z0(1:iz0)
-		print *, 'range=',j,' to ', j+1, z0(1:iz0)
+		print *, 'range=',ya,' to ', yb, z0(1:iz0)
 	end do
 
 
@@ -176,7 +167,69 @@ program exp_cf_rec
 						cf(0:ncf),							&
 						gff(0:n_basis,0:n_basis,0:steps),	&
 						gcc(0:n_basis,0:steps),				&
-						e_mat(0:bs-1,0:bs-1)
+						e_mat(0:bs-1,0:bs-1), &
+						x_mat(0:n_basis,0:n_basis),			&
+						p_mat(0:n_basis,0:n_basis),			&
+						h_mat(0:n_basis,0:n_basis),			&
+						h0_mat(0:bs-1,0:bs-1,0:nb),			&
+						v_mat(0:n_basis,0:n_basis),			&
+						psi_mat(0:n_basis)
+
+
+			g0_mat(0:bs-1,0:bs-1,0:nb)= 0._dp
+			mult_mat(0:n_basis,0:n_basis)=0._dp
+			taylor(0:ncf)=0._dp
+			cf(0:ncf)=0._dp
+			gff(0:n_basis,0:n_basis,0:steps)=0._dp
+			gcc(0:n_basis,0:steps)=0._dp
+			e_mat(0:bs-1,0:bs-1)=0._dp
+			x_mat(0:n_basis,0:n_basis)= 0._dp
+			p_mat(0:n_basis,0:n_basis)= 0._dp
+			h_mat(0:n_basis,0:n_basis)= 0._dp
+			h0_mat(0:bs-1,0:bs-1,0:nb)= 0._dp
+			v_mat(0:n_basis,0:n_basis)= 0._dp
+			psi_mat(0:n_basis)=0._dp
+			
+			!build X
+			do n=0,n_basis
+				x_mat(n,n) = (hbar/(2*mass*omega_b))*(2*n+1)
+				if (n>=2) then
+					x_mat(n,n-2) = hbar/(2*mass*omega_b)*sqrt(real(n*(n-1)))
+				end if
+				if (n<=(n_basis-2)) then
+					x_mat(n,n+2) = hbar/(2*mass*omega_b)*sqrt(real((n+1)*(n+2)))
+				end if
+			end do
+
+			!build P
+			do n=0,n_basis
+				p_mat(n,n) = (hbar*mass*omega_b)/2*(2*n+1)
+				if (n>=2) then
+					p_mat(n,n-2) = -(hbar*mass*omega_b)/2*sqrt(real(n*(n-1)))
+				end if
+				if (n<=(n_basis-2)) then
+					p_mat(n,n+2) = -(hbar*mass*omega_b)/2*sqrt(real((n+1)*(n+2)))
+				end if
+			end do
+
+			h_mat(0:n_basis,0:n_basis) = p_mat(0:n_basis,0:n_basis)/(2*mass)+ &
+									mass*omega_h**2*x_mat(0:n_basis,0:n_basis)/2
+
+			!============================================================================
+
+			!build V matrix
+
+			v_mat(0:n_basis,0:n_basis) = h_mat(0:n_basis,0:n_basis)
+
+			do n=0,nb
+				h0_mat(0:bs-1,0:bs-1,n)=h_mat(bs*n:bs*n+bs-1,bs*n:bs*n+bs-1)
+				v_mat(bs*n:bs*n+bs-1,bs*n:bs*n+bs-1) = &
+				h_mat(bs*n:bs*n+bs-1,bs*n:bs*n+bs-1) - h0_mat(0:bs-1,0:bs-1,n)
+			end do
+
+			!build psi matrix
+			psi_mat(0:n_basis) = 1.0_dp/sqrt(real(n_basis))
+
 
 			do n=0,bs-1
 				e_mat(n,n)	=  energy
@@ -194,19 +247,20 @@ program exp_cf_rec
 					end do 
 			end do
 
-
-			gff(0:n_basis,0:n_basis,0) = mult_mat(0:n_basis,0:n_basis)
-			do n=1,steps
+			gff(0:n_basis,0:n_basis,0) = 1._dp
+			gff(0:n_basis,0:n_basis,1) = mult_mat(0:n_basis,0:n_basis)
+			do n=2,steps
 				gff(0:n_basis,0:n_basis,n) = matmul(gff(0:n_basis,0:n_basis,n-1),mult_mat(0:n_basis,0:n_basis))
 			end do
 			res = 0._dp
 			gcc(0:n_basis,0) = psi_mat(0:n_basis)
-			do n=1,steps
-				gcc(0:n_basis,n) = matmul(gff(0:n_basis,0:n_basis,n-1),psi_mat(0:n_basis))
+			do n=0,steps
+				gcc(0:n_basis,n) = matmul(gff(0:n_basis,0:n_basis,n),psi_mat(0:n_basis))
 				taylor(n)=dot_product(gcc(0:n_basis,0),gcc(0:n_basis,n))
-				res = res + gcc(0,n)
+! 				print *, taylor(n), 'taylor'
+				res = res + taylor(n)
 				!add small variation
-				taylor(n) = taylor(n)+(rand()*(taylor(n)*1e-12))
+! 				taylor(n) = taylor(n)+(rand()*(taylor(n)*1e-12))
 			end do
 ! 			print *, energy, '-', res, 'res'
 
