@@ -189,7 +189,7 @@ program exp_cf_rec
 			h0_mat(0:bs-1,0:bs-1,0:nb)= 0._dp
 			v_mat(0:n_basis,0:n_basis)= 0._dp
 			psi_mat(0:n_basis)=0._dp
-			
+
 			!build X
 			do n=0,n_basis
 				x_mat(n,n) = (hbar/(2*mass*omega_b))*(2*n+1)
@@ -256,7 +256,7 @@ program exp_cf_rec
 			gcc(0:n_basis,0) = psi_mat(0:n_basis)
 			do n=0,steps
 				gcc(0:n_basis,n) = matmul(gff(0:n_basis,0:n_basis,n),psi_mat(0:n_basis))
-				taylor(n)=dot_product(gcc(0:n_basis,0),gcc(0:n_basis,n))
+				taylor(n) = dot_product(gcc(0:n_basis,0),gcc(0:n_basis,n))
 ! 				print *, taylor(n), 'taylor'
 				res = res + taylor(n)
 				!add small variation
@@ -266,11 +266,11 @@ program exp_cf_rec
 
 			call taylor_cfrac(taylor,steps,cf)
 
-			cf_num = abs(evalcf(cf,steps,x))
+			cf_num = evalcf(cf,steps,x)
 
 ! 			print *, energy, cf_num, 'final energy'
 
-			res_sum = 1/exp(cf_num)
+			res_sum = abs(1/cf_num)
 
 		end function mcalc
 
