@@ -7,8 +7,8 @@ program walking
 	!===================================================
 
 	real(dp)	:: r, r_rad, r_rad_old,r_last,x_1,x_2,y_1,y_2
-	real(dp), parameter :: length=1._dp
-	integer, parameter :: iter = 100
+	real(dp), parameter :: length=1._dp, spacing =2._dp
+	integer, parameter :: iter = 1000
 	integer		:: i, j
 	real(dp) :: x(0:iter),y(0:iter)
 
@@ -34,8 +34,8 @@ program walking
 			x(i) = x(i-1) + length*cos(r_rad)
 			y(i) = y(i-1) + length*sin(r_rad)
 ! 			print *, r_rad, r_rad_old , 'trigger'
-			r_last = r_rad
-			r_rad_old = r_last
+! 			r_last = r_rad
+! 			r_rad_old = r_last
 			do j=1,i 
 				if (x(j-1) < x(j)) then
 					x_1=x(j-1)
@@ -57,32 +57,32 @@ program walking
 				end if
 
 				if (x(i-1) > x_1 .and. x(i-1) < x_2 .and. y(i-1) > y_2 .and. y(i) < y_2) then
-					print *, 'collision'
+! 					print *, 'collision'
 					x(i) = x(i-1)
 					y(i) = y(i-1)
 					EXIT
 				else if (y(i-1) > y_1 .and. y(i-1) < y_2 .and. x(i-1) < x_1 .and. x(i) > x_1) then
-					print *, 'collision'
+! 					print *, 'collision'
 					x(i) = x(i-1)
 					y(i) = y(i-1)
 					EXIT
 				else if (y(i) > y_1 .and. y(i) < y_2 .and. x(i) > x_1 .and. x(i-1) < x_1) then
-					print *, 'collision'
+! 					print *, 'collision'
 					x(i) = x(i-1)
 					y(i) = y(i-1)
 					EXIT
 				else if (y(i-1) > y_1 .and. y(i-1) < y_2 .and. x(i-1) > x_1 .and. x(i) < x_1) then
-					print *, 'collision'
+! 					print *, 'collision'
 					x(i) = x(i-1)
 					y(i) = y(i-1)
 					EXIT
 				else if (x(i-1) > x_1 .and. x(i-1) < x_2 .and. y(i-1) < y_1 .and. y(i) > y_1) then
-					print *, 'collision'
+! 					print *, 'collision'
 					x(i) = x(i-1)
 					y(i) = y(i-1)
 					EXIT
 				else
-					continue
+					r_last = r_rad
 				end if
 			enddo
 		else

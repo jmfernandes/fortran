@@ -1,3 +1,4 @@
+
 program exp_cf_rec
 
 	use NumType
@@ -11,7 +12,7 @@ program exp_cf_rec
 								bs			=	10,					&
 								nb 			=	(n_basis+1)/bs-1,	&
 								steps 		=	ncf,				&
-								nch			=	100
+								nch			=	4
 
 	real(dp),	parameter	::	mass		=	1.0_dp,				& 
 								hbar		=	1.0_dp,				&
@@ -26,9 +27,10 @@ program exp_cf_rec
 	!=========================== PARAMETERS ==========================
 
 	integer,	parameter	::  lwork=(n_basis+2)*n_basis
-	integer					::  n,i,j, block_size, info,num_points,m
+	integer					::  n,i,j, block_size, info,np
 	real(dp)				::  w_eigen(n_basis+1),work(lwork), offset
-	real(dp)				::	ya,yb, smallthing, dz, zz, r, num, set_x, set_dx
+	real(dp)				::	ya,yb, smallthing, dz, zz, r, num,set_x,set_dx, &
+								root_dz
 
 
 	!=================================================================
@@ -93,23 +95,34 @@ program exp_cf_rec
 
 	!calculate the eigenvalues using chebyshev
 	print *, 'calculated eigenvalues-------------------------'
-	do j=0,3,1
+	do j=0,2
 		ya=j
 		yb=j+1
 		call chebyex(mcalc, nch, cheb, ya, yb)
-
-		num_points = 100
-		set_dx = (yb-ya)/num_points 
-		do i = 1, num_points+1
+		np = 100
+		set_dx = (yb-ya)/np 
+		do i = 1, np+1
 			set_x = ya+(i-1)*set_dx
 			write(1,*) set_x, cheby(set_x,cheb,nch,ya,yb)
 		end do
 
+
+
 		call chebyzero(nch, cheb, ya, yb, z0, iz0)
+
+		smallthing = 1.e-15_dp
+		root_dz = 0.01_dp
+! 		do i = 1, iz0
+! 			zz = z0(i)
+! 			call root_polish(mcalc,zz,root_dz,smallthing,100) 
+! 			print *, 'f(x) = 0 ',i,z0(i),zz
+! 		end do
 
 ! 		print '(A6,1X,I2.1,A4,I2.1,5X,5f10.5)', 'range=',j,' to ', j+1, z0(1:iz0)
 		print *, 'range=',ya,' to ', yb, z0(1:iz0)
+		print *, 'range=','0',' to ', '1', z0(1:iz0)
 	end do
+
 
 
 ! 	print *, floor(100*rand()),floor(100*rand()),floor(100*rand()),floor(100*rand())
@@ -174,7 +187,7 @@ program exp_cf_rec
 						cf(0:ncf),							&
 						gff(0:n_basis,0:n_basis,0:steps),	&
 						gcc(0:n_basis,0:steps),				&
-						e_mat(0:bs-1,0:bs-1),				&
+						e_mat(0:bs-1,0:bs-1), &
 						x_mat(0:n_basis,0:n_basis),			&
 						p_mat(0:n_basis,0:n_basis),			&
 						h_mat(0:n_basis,0:n_basis),			&
@@ -183,59 +196,44 @@ program exp_cf_rec
 						psi_mat(0:n_basis)
 
 
-			g0_mat(0:bs-1,0:bs-1,0:nb)				=	0._dp
-			mult_mat(0:n_basis,0:n_basis)			=	0._dp
-			taylor(0:ncf)							=	0._dp
-			cf(0:ncf)								=	0._dp
-			gff(0:n_basis,0:n_basis,0:steps)		=	0._dp
-			gcc(0:n_basis,0:steps)					=	0._dp
-			e_mat(0:bs-1,0:bs-1)					=	0._dp
-			x_mat(0:n_basis,0:n_basis)				=	0._dp
-			p_mat(0:n_basis,0:n_basis)				=	0._dp
-			h_mat(0:n_basis,0:n_basis)				=	0._dp
-			h0_mat(0:bs-1,0:bs-1,0:nb)				=	0._dp
-			v_mat(0:n_basis,0:n_basis)				=	0._dp
-			psi_mat(0:n_basis)						=	0._dp
+			g0_mat(0:bs-1,0:bs-1,0:nb)= 0._dp
+			mult_mat(0:n_basis,0:n_basis)=0._dp
+			taylor(0:ncf)=0._dp
+			cf(0:ncf)=0._dp
+			gff(0:n_basis,0:n_basis,0:steps)=0._dp
+			gcc(0:n_basis,0:steps)=0._dp
+			e_mat(0:bs-1,0:bs-1)=0._dp
+			x_mat(0:n_basis,0:n_basis)= 0._dp
+			p_mat(0:n_basis,0:n_basis)= 0._dp
+			h_mat(0:n_basis,0:n_basis)= 0._dp
+			h0_mat(0:bs-1,0:bs-1,0:nb)= 0._dp
+			v_mat(0:n_basis,0:n_basis)= 0._dp
+			psi_mat(0:n_basis)=0._dp
 
-			!build X**2
+			!build X
 			do n=0,n_basis
-				x_mat(n,n) = (hbar/(2._dp*mass*omega_b))*(2._dp*n+1._dp)
+				x_mat(n,n) = (hbar/(2*mass*omega_b))*(2*n+1)
 				if (n>=2) then
-					x_mat(n,n-2) = hbar/(2._dp*mass*omega_b)*sqrt(real(n*(n-1._dp)))
+					x_mat(n,n-2) = hbar/(2*mass*omega_b)*sqrt(real(n*(n-1)))
 				end if
 				if (n<=(n_basis-2)) then
-					x_mat(n,n+2) = hbar/(2._dp*mass*omega_b)*sqrt(real((n+1._dp)*(n+2._dp)))
+					x_mat(n,n+2) = hbar/(2*mass*omega_b)*sqrt(real((n+1)*(n+2)))
 				end if
 			end do
 
-			!build P**2
+			!build P
 			do n=0,n_basis
-				p_mat(n,n) = (hbar*mass*omega_b)/2._dp*(2._dp*n+1._dp)
+				p_mat(n,n) = (hbar*mass*omega_b)/2*(2*n+1)
 				if (n>=2) then
-					p_mat(n,n-2) = -(hbar*mass*omega_b)/2._dp*sqrt(real(n*(n-1._dp)))
+					p_mat(n,n-2) = -(hbar*mass*omega_b)/2*sqrt(real(n*(n-1)))
 				end if
 				if (n<=(n_basis-2)) then
-					p_mat(n,n+2) = -(hbar*mass*omega_b)/2._dp*sqrt(real((n+1._dp)*(n+2._dp)))
+					p_mat(n,n+2) = -(hbar*mass*omega_b)/2*sqrt(real((n+1)*(n+2)))
 				end if
 			end do
 
-			h_mat(0:n_basis,0:n_basis) = p_mat(0:n_basis,0:n_basis)/(2._dp*mass) + &
-									mass*omega_h**2._dp*x_mat(0:n_basis,0:n_basis)/2._dp
-
-! 			h_mat(0:n_basis,0:n_basis) = 1._dp
-
-! 			h_mat(0:n_basis,2) = 2._dp
-
-! 			h_mat(0:n_basis,1) = 3._dp
-
-! 			h_mat(0:n_basis,6) = 4._dp	
-
-! 			h_mat(0:n_basis,9) = 5._dp			
-
-! 			print *, 'vectors matrix-------------------------'
-! 	do n=0,n_basis
-! 		print '(12f10.2)', h_mat(n,0:n_basis)
-! 	end do
+			h_mat(0:n_basis,0:n_basis) = p_mat(0:n_basis,0:n_basis)/(2*mass)+ &
+									mass*omega_h**2*x_mat(0:n_basis,0:n_basis)/2
 
 			!============================================================================
 
@@ -250,66 +248,16 @@ program exp_cf_rec
 			end do
 
 			!build psi matrix
-
-! 			print *, 'v matrix-------------------------'
-! 	do n=0,n_basis
-! 		print '(12f10.2)', v_mat(n,0:n_basis)
-! 	end do
-
-
-! 	print *, 'h0 matrix-------------------------'
-! 	do n=0,bs-1
-! 		print '(12f10.2)', h0_mat(n,0:bs-1,0)
-! 	end do
-! 	print *, 'h1 matrix-------------------------'
-! 	do n=0,bs-1
-! 		print '(12f10.2)', h0_mat(n,0:bs-1,1)
-! 	end do
-! 	print *, 'h2 matrix-------------------------'
-! 	do n=0,bs-1
-! 		print '(12f10.2)', h0_mat(n,0:bs-1,2)
-! 	end do
-! 	print *, 'h3 matrix-------------------------'
-! 	do n=0,bs-1
-! 		print '(12f10.2)', h0_mat(n,0:bs-1,3)
-! 	end do
 			psi_mat(0:n_basis) = 1.0_dp/sqrt(real(n_basis))
-
 
 
 			do n=0,bs-1
 				e_mat(n,n)	=  energy
 			end do
 
-! 			print *, '------------------'
-! 			do n=0,bs-1
-! 				print '(12f10.2)', e_mat(n,0:bs-1)
-! 			end do
-
-! 			do n=0,nb
-! 				g0_mat(0:bs-1,0:bs-1,n)	=e_mat(0:bs-1,0:bs-1)-h0_mat(0:bs-1,0:bs-1,n)
-! 			end do
-
-! 						print *, '------------------'
-! 			do n=0,nb
-! 				do m=0,bs-1
-! 					print *, g0_mat(m,0:bs-1,0) ,'wow'
-! 				end do
-! 			end do
-
 			do n=0,nb
 				g0_mat(0:bs-1,0:bs-1,n)	=inv(e_mat(0:bs-1,0:bs-1)-h0_mat(0:bs-1,0:bs-1,n))
 			end do
-
-! 			print *, 'go'
-! 			do m=0,bs-1
-! 					print *, g0_mat(m,0:bs-1,0) ,'wow'
-! 			end do
-
-			! 			print *, '------------------'
-! 			do n=0,bs-1
-! 				print '(12f10.2)', e_mat(n,0:bs-1)
-! 			end do
 
 
 			do n=0,nb
@@ -319,10 +267,6 @@ program exp_cf_rec
 					end do 
 			end do
 
-! 			do m=0,n_basis
-! 					print *, mult_mat(m,0:n_basis) ,'wow'
-! 			end do
-
 			gff(0:n_basis,0:n_basis,0) = 1._dp
 			gff(0:n_basis,0:n_basis,1) = mult_mat(0:n_basis,0:n_basis)
 			do n=2,steps
@@ -330,7 +274,7 @@ program exp_cf_rec
 			end do
 			res = 0._dp
 			gcc(0:n_basis,0) = psi_mat(0:n_basis)
-			do n=1,steps
+			do n=0,steps
 				gcc(0:n_basis,n) = matmul(gff(0:n_basis,0:n_basis,n),psi_mat(0:n_basis))
 				taylor(n) = dot_product(gcc(0:n_basis,0),gcc(0:n_basis,n))
 ! 				print *, taylor(n), 'taylor'
@@ -338,11 +282,6 @@ program exp_cf_rec
 				!add small variation
 ! 				taylor(n) = taylor(n)+(rand()*(taylor(n)*1e-12))
 			end do
-! 									print *, '------------------'
-
-! 			do n=0,n_basis
-! 				print '(12f10.2)', gcc(n,0)
-! 			end do
 ! 			print *, energy, '-', res, 'res'
 
 			call taylor_cfrac(taylor,steps,cf)
@@ -358,3 +297,4 @@ program exp_cf_rec
 
 
 end program exp_cf_rec
+
