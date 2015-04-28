@@ -3,7 +3,7 @@ module cf_approx
 
 	use numtype
 	implicit none
-	integer, parameter :: ncf = 50
+	integer, parameter :: ncf = 20
     real(dp), parameter :: tiny = 1.e-30_dp, eps = 1.e-13_dp
 	
 	contains
