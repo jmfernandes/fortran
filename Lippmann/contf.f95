@@ -35,19 +35,20 @@ program exp_cf_rec
 	!=================================================================
 
 !   compute eigenvalues using LAPACK
-! 	eigen_mat(0:n_basis,0:n_basis) = 0.0_dp
-! 			eigen_mat(0,0) = 1.0_dp
-! 			eigen_mat(1,1) = 2.0_dp
-! 			eigen_mat(2,2) = 3.0_dp
-! 			eigen_mat(3,3) = 4.0_dp
-! 			eigen_mat(4,4) = 5.0_dp
-! 			eigen_mat(5,5) = 6.0_dp
+	eigen_mat(0:n_basis,0:n_basis) = 1.0_dp
+			eigen_mat(0,0) = 1.0_dp
+			eigen_mat(1,1) = 2.0_dp
+			eigen_mat(2,2) = 3.0_dp
+			eigen_mat(3,3) = 4.0_dp
+			eigen_mat(4,4) = 5.0_dp
+			eigen_mat(5,5) = 6.0_dp
 
 
-! 	call dsyev('V','U',n_basis+1,eigen_mat,n_basis+1,w_eigen,work,lwork,info)
+	call dsyev('V','U',n_basis+1,eigen_mat,n_basis+1,w_eigen,work,lwork,info)
 
-! 	print *, 'LAPACK eigenvalues-------------------------'
-! 	print '(10f10.2)', w_eigen
+	print *, 'LAPACK eigenvalues-------------------------'
+	print '(10f10.2)', w_eigen
+	print *, ' ====================================='
 
 ! 	do n = 0,n_basis
 ! 		print '(A10,100f10.2)', '  vector  ', eigen_mat(0:n_basis,n) 
@@ -60,23 +61,44 @@ program exp_cf_rec
 ! 	do j=0,3,1
 ! 		ya=j
 ! 		yb=j+1
-		ya = 1
-		yb = 10
-		call chebyex(mcalc, nch, cheb, ya, yb)
+! 		ya = 1
+! 		yb = 10
+! 		call chebyex(mcalc, nch, cheb, ya, yb)
 
-		num_points = 100
-		set_dx = (yb-ya)/num_points 
-		do i = 1, num_points+1
-			set_x = ya+(i-1)*set_dx
-			write(1,*) set_x, cheby(set_x,cheb,nch,ya,yb)
-		end do
+! 		num_points = 100
+! 		set_dx = (yb-ya)/num_points 
+! 		do i = 1, num_points+1
+! 			set_x = ya+(i-1)*set_dx
+! 			write(1,*) set_x, cheby(set_x,cheb,nch,ya,yb)
+! 		end do
 
-		call chebyzero(nch, cheb, ya, yb, z0, iz0)
+! 		call chebyzero(nch, cheb, ya, yb, z0, iz0)
 
-		print *, 'range=',ya,' to ', yb, z0(1:iz0)
+! 		print *, 'range=',ya,' to ', yb, z0(1:iz0)
 
 
 ! 	end do
+
+	ya = mcalc(2.0_dp)
+	print *, '2.0 ', 'and the value is ', ya
+	ya = mcalc(2.1_dp)
+	print *,  '2.1 ', 'and the value is ', ya
+	ya = mcalc(2.2_dp)
+	print *,  '2.2 ', 'and the value is ', ya
+	ya = mcalc(2.3_dp)
+	print *,  '2.3 ', 'and the value is ', ya
+	ya = mcalc(2.39_dp)
+	print *,  '2.39 ', 'and the value is ', ya
+	ya = mcalc(2.40_dp)
+	print *,  '2.40 ', 'and the value is ', ya
+	ya = mcalc(2.41_dp)
+	print *,  '2.41 ', 'and the value is ', ya
+	ya = mcalc(2.5_dp)
+	print *,  '2.5 ', 'and the value is ', ya
+	ya = mcalc(2.6_dp)
+	print *,  '2.6 ', 'and the value is ', ya
+	ya = mcalc(2.7_dp)
+	print *,  '2.7 ', 'and the value is ', ya
 
 
 
@@ -183,7 +205,7 @@ program exp_cf_rec
 									mass*omega_h**2._dp*x_mat(0:n_basis,0:n_basis)/2._dp
 
 
-			h_mat(0:n_basis,0:n_basis) = 0.0_dp
+			h_mat(0:n_basis,0:n_basis) = 1.0_dp
 			h_mat(0,0) = 1.0_dp
 			h_mat(1,1) = 2.0_dp
 			h_mat(2,2) = 3.0_dp
@@ -191,10 +213,10 @@ program exp_cf_rec
 			h_mat(4,4) = 5.0_dp
 			h_mat(5,5) = 6.0_dp
 
-			print *, 'MAIN MATRIX'
-			do n=0,n_basis
-					print *, h_mat(n,0:n_basis)
-			end do
+! 			print *, 'MAIN MATRIX'
+! 			do n=0,n_basis
+! 					print *, h_mat(n,0:n_basis)
+! 			end do
 
 			
 
@@ -212,6 +234,19 @@ program exp_cf_rec
 				h_mat(bs*n:bs*n+bs-1,bs*n:bs*n+bs-1) - h0_mat(0:bs-1,0:bs-1,n)
 			end do
 
+! 			print *, 'V MATRIX'
+! 			do n=0,n_basis
+! 					print *, v_mat(n,0:n_basis)
+! 			end do
+
+! 			print *, 'H0 MATRIX'
+! 			do j=0,nb
+! 				print *, 'AND J IS ', j
+! 			do n=0,bs-1
+! 					print *, h0_mat(n,0:bs-1,j)
+! 				end do
+! 			end do
+
 			!============================================================================
 
 			!Define phi and energy
@@ -222,9 +257,27 @@ program exp_cf_rec
 				e_mat(n,n)	=  energy
 			end do
 
+! 			print *, 'E MATRIX'
+! 			do n=0,bs-1
+! 					print *, e_mat(n,0:bs-1)
+! 			end do
+
 			!============================================================================
 
 			!Define G_0
+			do n=0,nb
+				g0_mat(0:bs-1,0:bs-1,n)	=e_mat(0:bs-1,0:bs-1)-h0_mat(0:bs-1,0:bs-1,n)
+			end do
+
+
+! 			print *, 'G0 MATRIX BEFORE!!!'
+! 			do j=0,nb
+! 				print *, 'AND J IS ', j
+! 			do n=0,bs-1
+! 					print *, g0_mat(n,0:bs-1,j)
+! 				end do
+! 			end do
+
 
 			do n=0,nb
 				g0_mat(0:bs-1,0:bs-1,n)	=inv(e_mat(0:bs-1,0:bs-1)-h0_mat(0:bs-1,0:bs-1,n))
@@ -238,6 +291,22 @@ program exp_cf_rec
 					end do 
 			end do
 
+! 			print *, 'G0 MATRIX'
+! 			do j=0,nb
+! 				print *, 'AND J IS ', j
+! 			do n=0,bs-1
+! 					print *, g0_mat(n,0:bs-1,j)
+! 				end do
+! 			end do
+
+! 			print *, '============================'
+
+
+! 			print *, 'MULT MATRIX'
+! 			do n=0,n_basis
+! 					print *, mult_mat(n,0:n_basis)
+! 			end do
+
 			!============================================================================
 
 			!Build Taylor series
@@ -248,12 +317,55 @@ program exp_cf_rec
 				gff(0:n_basis,0:n_basis,n) = matmul(gff(0:n_basis,0:n_basis,n-1),mult_mat(0:n_basis,0:n_basis))
 			end do
 
+! 			print *, '1st MATRIX'
+! 			do n=0,n_basis
+! 					print *, gff(n,0:n_basis,0)
+! 			end do
+
+! 			print *, '2nd MATRIX'
+! 			do n=0,n_basis
+! 					print *, gff(n,0:n_basis,1)
+! 			end do
+
+! 			print *, '3rd MATRIX'
+! 			do n=0,n_basis
+! 					print *, gff(n,0:n_basis,2)
+! 			end do
+
 			gcc(0:n_basis,0) = psi_mat(0:n_basis)
 
 			do n=1,steps
 				gcc(0:n_basis,n) = matmul(gff(0:n_basis,0:n_basis,n),psi_mat(0:n_basis))
-				taylor(n) = dot_product(gcc(0:n_basis,0),gcc(0:n_basis,n))
+! 				 taylor(n) = dot_product(gcc(0:n_basis,0),gcc(0:n_basis,n))
+! 				print *, ' n is ', n, ' value is ', taylor(n)
 			end do
+
+			res = 0.0_dp
+			do n=0,steps
+				taylor(n) = dot_product(gcc(0:n_basis,0),gcc(0:n_basis,n))
+				res = res + taylor(n)
+! 				print *, ' n is ', n, ' value is ', taylor(n)
+			end do
+
+! 			print *, '1st MATRIX GCC'
+! 			do n=0,n_basis
+! 					print *, gcc(n,0)
+! 			end do
+
+! 			print *, '2nd MATRIX GCC'
+! 			do n=0,n_basis
+! 					print *, gcc(n,1)
+! 			end do
+
+! 			print *, '3rd MATRIX GCC'
+! 			do n=0,n_basis
+! 					print *, gcc(n,2)
+! 			end do
+
+! 			print *, '4th MATRIX GCC'
+! 			do n=0,n_basis
+! 					print *, gcc(n,3)
+! 			end do
 
 			!============================================================================
 
@@ -266,7 +378,7 @@ program exp_cf_rec
 
 			cf_num = evalcf(cf,steps,x)
 
-			print *, energy, cf_num, 'final energy'
+! 			print *, energy, cf_num, '< - final energy taylor', res, ' <- final energy res'
 
 			res_sum = abs(1._dp/cf_num)
 
