@@ -34,13 +34,34 @@ program exp_cf_rec
 
 	!=================================================================
 
-	
+!   compute eigenvalues using LAPACK
+! 	eigen_mat(0:n_basis,0:n_basis) = 0.0_dp
+! 			eigen_mat(0,0) = 1.0_dp
+! 			eigen_mat(1,1) = 2.0_dp
+! 			eigen_mat(2,2) = 3.0_dp
+! 			eigen_mat(3,3) = 4.0_dp
+! 			eigen_mat(4,4) = 5.0_dp
+! 			eigen_mat(5,5) = 6.0_dp
+
+
+! 	call dsyev('V','U',n_basis+1,eigen_mat,n_basis+1,w_eigen,work,lwork,info)
+
+! 	print *, 'LAPACK eigenvalues-------------------------'
+! 	print '(10f10.2)', w_eigen
+
+! 	do n = 0,n_basis
+! 		print '(A10,100f10.2)', '  vector  ', eigen_mat(0:n_basis,n) 
+! 	end do
+
+!  stop
 
 	!calculate the eigenvalues using chebyshev
 	print *, 'calculated eigenvalues-------------------------'
-	do j=0,3,1
-		ya=j
-		yb=j+1
+! 	do j=0,3,1
+! 		ya=j
+! 		yb=j+1
+		ya = 1
+		yb = 10
 		call chebyex(mcalc, nch, cheb, ya, yb)
 
 		num_points = 100
@@ -55,7 +76,7 @@ program exp_cf_rec
 		print *, 'range=',ya,' to ', yb, z0(1:iz0)
 
 
-	end do
+! 	end do
 
 
 
@@ -162,17 +183,18 @@ program exp_cf_rec
 									mass*omega_h**2._dp*x_mat(0:n_basis,0:n_basis)/2._dp
 
 
-			h_mat(0:n_basis,0:n_basis) = 1.0_dp
-			h_mat(0,5) = 2.0_dp
-			h_mat(1,4) = 2.0_dp
-			h_mat(2,3) = 2.0_dp
-			h_mat(3,2) = 2.0_dp
-			h_mat(4,1) = 2.0_dp
-			h_mat(5,0) = 2.0_dp
+			h_mat(0:n_basis,0:n_basis) = 0.0_dp
+			h_mat(0,0) = 1.0_dp
+			h_mat(1,1) = 2.0_dp
+			h_mat(2,2) = 3.0_dp
+			h_mat(3,3) = 4.0_dp
+			h_mat(4,4) = 5.0_dp
+			h_mat(5,5) = 6.0_dp
 
-! 			do n=0,n_basis
-! 					print *, h_mat(n,0:n_basis)
-! 			end do
+			print *, 'MAIN MATRIX'
+			do n=0,n_basis
+					print *, h_mat(n,0:n_basis)
+			end do
 
 			
 
