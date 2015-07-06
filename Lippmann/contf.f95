@@ -7,7 +7,8 @@ program exp_cf_rec
 
 	!=========================== CONSTANTS ===========================
 
-	integer,	parameter	::	n_basis		=	99,					&
+	integer,	parameter	::	dimensions	=	100
+								n_basis		=	dimensions-1,					&
 								bs			=	10,					&
 								nb 			=	(n_basis+1)/bs-1,	&
 								steps 		=	ncf,				&
