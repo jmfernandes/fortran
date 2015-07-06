@@ -7,9 +7,9 @@ program exp_cf_rec
 
 	!=========================== CONSTANTS ===========================
 
-	integer,	parameter	::	dimensions	=	100
-								n_basis		=	dimensions-1,					&
-								bs			=	10,					&
+	integer,	parameter	::	dimensions	=	6,					&
+								n_basis		=	dimensions-1,		&
+								bs			=	2,					&
 								nb 			=	(n_basis+1)/bs-1,	&
 								steps 		=	ncf,				&
 								nch			=	6
@@ -161,6 +161,22 @@ program exp_cf_rec
 			h_mat(0:n_basis,0:n_basis) = p_mat(0:n_basis,0:n_basis)/(2._dp*mass) + &
 									mass*omega_h**2._dp*x_mat(0:n_basis,0:n_basis)/2._dp
 
+
+			h_mat(0:n_basis,0:n_basis) = 1.0_dp
+			h_mat(0,5) = 2.0_dp
+			h_mat(1,4) = 2.0_dp
+			h_mat(2,3) = 2.0_dp
+			h_mat(3,2) = 2.0_dp
+			h_mat(4,1) = 2.0_dp
+			h_mat(5,0) = 2.0_dp
+
+! 			do n=0,n_basis
+! 					print *, h_mat(n,0:n_basis)
+! 			end do
+
+			
+
+			
 
 			!============================================================================
 
