@@ -27,7 +27,7 @@ program exp_cf_rec
 	!=========================== PARAMETERS ==========================
 
 	integer,	parameter	::  lwork=(n_basis+2)*n_basis
-	integer					::  n,i,j, block_size, info,num_points,m
+	integer					::  n,i,j, block_size, info,num_points,m,int_num
 	real(dp)				::  w_eigen(n_basis+1),work(lwork), offset
 	real(dp)				::	ya,yb, smallthing, dz, zz, r, num, set_x, set_dx,eps_n
 
@@ -58,8 +58,9 @@ program exp_cf_rec
 
 	!calculate the eigenvalues using chebyshev
 	print *, 'calculated eigenvalues-------------------------'
-	do j=0,100,1
-		ya=2+j*0.01
+	do j=0,900,1
+		int_num = 0
+		ya=int_num+j*0.01
 ! 		yb=j+1
 ! 		ya = 1
 ! 		yb = 10
@@ -76,6 +77,7 @@ program exp_cf_rec
 
 ! 		print *, 'range=',ya,' to ', yb, z0(1:iz0)
 		yb = mcalc(ya)
+		write(3,*) ya, yb
 	print *, ya, 'and the value is ', yb
 
 	end do
@@ -345,6 +347,10 @@ program exp_cf_rec
 			do n=0,steps
 				taylor(n) = dot_product(gcc(0:n_basis,0),gcc(0:n_basis,n))
 				res = res + taylor(n)
+				call init_random_seed()
+				call random_number(r)
+! 				print *, 1+r*1e-15
+				taylor(n) = taylor(n)*(1+r*1e-10)
 ! 				print *, ' n is ', n, ' value is ', taylor(n)
 			end do
 

@@ -1,5 +1,5 @@
 
-OBJS1 = numtype.o cheby.o cf_approx.o contf.o 
+OBJS1 = numtype.o init_random_seed.o cheby.o cf_approx.o contf.o 
 
 PROG1 = gcf
 
