@@ -58,8 +58,8 @@ program exp_cf_rec
 
 	!calculate the eigenvalues using chebyshev
 	print *, 'calculated eigenvalues-------------------------'
-! 	do j=0,3,1
-! 		ya=j
+	do j=0,100,1
+		ya=2+j*0.01
 ! 		yb=j+1
 ! 		ya = 1
 ! 		yb = 10
@@ -75,30 +75,31 @@ program exp_cf_rec
 ! 		call chebyzero(nch, cheb, ya, yb, z0, iz0)
 
 ! 		print *, 'range=',ya,' to ', yb, z0(1:iz0)
+		yb = mcalc(ya)
+	print *, ya, 'and the value is ', yb
 
+	end do
 
-! 	end do
-
-	ya = mcalc(2.0_dp)
-	print *, '2.0 ', 'and the value is ', ya
-	ya = mcalc(2.1_dp)
-	print *,  '2.1 ', 'and the value is ', ya
-	ya = mcalc(2.2_dp)
-	print *,  '2.2 ', 'and the value is ', ya
+	ya = mcalc(2.53_dp)
+	print *, '2.53 ', 'and the value is ', ya
+	ya = mcalc(2.54_dp)
+	print *,  '2.54 ', 'and the value is ', ya
+	ya = mcalc(2.55_dp)
+	print *,  '2.55 ', 'and the value is ', ya
 	ya = mcalc(2.3_dp)
 	print *,  '2.3 ', 'and the value is ', ya
 	ya = mcalc(2.39_dp)
 	print *,  '2.39 ', 'and the value is ', ya
 	ya = mcalc(2.40_dp)
 	print *,  '2.40 ', 'and the value is ', ya
-	ya = mcalc(2.41_dp)
-	print *,  '2.41 ', 'and the value is ', ya
+	ya = mcalc(2.49_dp)
+	print *,  '2.49 ', 'and the value is ', ya
 	ya = mcalc(2.5_dp)
 	print *,  '2.5 ', 'and the value is ', ya
-	ya = mcalc(2.6_dp)
-	print *,  '2.6 ', 'and the value is ', ya
-	ya = mcalc(2.7_dp)
-	print *,  '2.7 ', 'and the value is ', ya
+	ya = mcalc(2.51_dp)
+	print *,  '2.51 ', 'and the value is ', ya
+	ya = mcalc(2.52_dp)
+	print *,  '2.52 ', 'and the value is ', ya
 
 
 
