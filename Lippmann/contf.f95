@@ -17,7 +17,7 @@ program exp_cf_rec
 	real(dp),	parameter	::	mass		=	1.0_dp,				& 
 								hbar		=	1.0_dp,				&
 								omega_h		=	1.0_dp,				&
-								omega_b		=	1.5_dp,				&
+								omega_b		=	1.1_dp,				&
 								x			=	1.0_dp
 
 	!=========================== MATRICES ===========================
@@ -58,7 +58,7 @@ program exp_cf_rec
 
 	!calculate the eigenvalues using chebyshev
 	print *, 'calculated eigenvalues-------------------------'
-	do j=0,900,1
+	do j=0,1100,1
 		int_num = 0
 		ya=int_num+j*0.01
 ! 		yb=j+1
@@ -77,7 +77,7 @@ program exp_cf_rec
 
 ! 		print *, 'range=',ya,' to ', yb, z0(1:iz0)
 		yb = mcalc(ya)
-		write(3,*) ya, yb
+		write(3,*) ya, (1.0/yb)
 	print *, ya, 'and the value is ', yb
 
 	end do
