@@ -12,7 +12,7 @@ program exp_cf_rec
 								bs			=	2,					&
 								nb 			=	(n_basis+1)/bs-1,	&
 								steps 		=	ncf,				&
-								nch			=	6
+								nch			=	1000
 
 	real(dp),	parameter	::	mass		=	1.0_dp,				& 
 								hbar		=	1.0_dp,				&
@@ -26,10 +26,14 @@ program exp_cf_rec
 
 	!=========================== PARAMETERS ==========================
 
-	integer,	parameter	::  lwork=(n_basis+2)*n_basis
+	real, parameter :: set_dx = 0.01
+	integer,	parameter	::  lwork=(n_basis+2)*n_basis,	&
+								nmin=0,	&
+								nmax=11,	&
+								esteps = (nmax-nmin)/set_dx
 	integer					::  n,i,j, block_size, info,num_points,m,int_num
 	real(dp)				::  w_eigen(n_basis+1),work(lwork), offset
-	real(dp)				::	ya,yb, smallthing, dz, zz, r, num, set_x, set_dx,eps_n
+	real(dp)				::	ya,yb, smallthing, dz, zz, r, num, set_x,eps_n,ya2,deriv(0:esteps)
 
 
 	!=================================================================
@@ -58,9 +62,14 @@ program exp_cf_rec
 
 	!calculate the eigenvalues using chebyshev
 	print *, 'calculated eigenvalues-------------------------'
-	do j=0,1100,1
+! 	nmin=0
+! 	nmax=6
+! 	set_dx = 0.01
+! 	esteps = (nmax-nmin)/set_dx
+	do j=nmin,esteps,1
 		int_num = 0
-		ya=int_num+j*0.01
+		ya=int_num+j*set_dx
+		ya2=int_num+(j+1)*set_dx
 ! 		yb=j+1
 ! 		ya = 1
 ! 		yb = 10
@@ -77,31 +86,49 @@ program exp_cf_rec
 
 ! 		print *, 'range=',ya,' to ', yb, z0(1:iz0)
 		yb = mcalc(ya)
-		write(3,*) ya, (1.0/yb)
-	print *, ya, 'and the value is ', yb
-
+		write(3,*) ya, yb
+! 		print *, ya, 'and the value is ', yb
+		deriv(j) = mcalc(ya2)-yb
+		write(4,*) ya, deriv(j)
+		if (deriv(j) <= 0 .and. deriv(j-1) >= 0 .and. j > 0) then
+			print '(10f10.2)', ya
+		end if 
 	end do
 
-	ya = mcalc(2.53_dp)
-	print *, '2.53 ', 'and the value is ', ya
-	ya = mcalc(2.54_dp)
-	print *,  '2.54 ', 'and the value is ', ya
-	ya = mcalc(2.55_dp)
-	print *,  '2.55 ', 'and the value is ', ya
-	ya = mcalc(2.3_dp)
-	print *,  '2.3 ', 'and the value is ', ya
-	ya = mcalc(2.39_dp)
-	print *,  '2.39 ', 'and the value is ', ya
-	ya = mcalc(2.40_dp)
-	print *,  '2.40 ', 'and the value is ', ya
-	ya = mcalc(2.49_dp)
-	print *,  '2.49 ', 'and the value is ', ya
-	ya = mcalc(2.5_dp)
-	print *,  '2.5 ', 'and the value is ', ya
-	ya = mcalc(2.51_dp)
-	print *,  '2.51 ', 'and the value is ', ya
-	ya = mcalc(2.52_dp)
-	print *,  '2.52 ', 'and the value is ', ya
+! 	ya = 0
+! 	yb = 2
+! 	set_dx = (yb-ya)/nch
+! ! 	print *, set_dx
+! 	call chebyex(mcalc,nch,cheb,ya,yb)
+! ! 	print *, cheb
+! 	do i=0,nch
+! 	set_x = ya+i*set_dx
+! ! 	print *, set_x
+! 	write(4,*) set_x, cheb(i)
+! 	end do
+
+
+
+! 	ya = mcalc(2.53_dp)
+! 	print *, '2.53 ', 'and the value is ', ya
+! 	ya = mcalc(2.54_dp)
+! 	print *,  '2.54 ', 'and the value is ', ya
+! 	ya = mcalc(2.55_dp)
+! 	print *,  '2.55 ', 'and the value is ', ya
+! 	ya = mcalc(2.3_dp)
+! 	print *,  '2.3 ', 'and the value is ', ya
+! 	ya = mcalc(2.39_dp)
+! 	print *,  '2.39 ', 'and the value is ', ya
+! 	ya = mcalc(2.40_dp)
+! 	print *,  '2.40 ', 'and the value is ', ya
+! 	ya = mcalc(2.49_dp)
+! 	print *,  '2.49 ', 'and the value is ', ya
+! 	ya = mcalc(2.5_dp)
+! 	print *,  '2.5 ', 'and the value is ', ya
+! 	ya = mcalc(2.51_dp)
+! 	print *,  '2.51 ', 'and the value is ', ya
+! 	ya = mcalc(2.52_dp)
+! 	print *,  '2.52 ', 'and the value is ', ya
 
 
 
@@ -387,7 +414,9 @@ program exp_cf_rec
 
 ! 			print *, energy, cf_num, '< - final energy taylor', res, ' <- final energy res'
 
-			res_sum = abs(1._dp/cf_num)
+! 			res_sum = abs(1._dp/cf_num)
+
+			res_sum = abs(cf_num)
 
 		end function mcalc
 
