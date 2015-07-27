@@ -7,12 +7,12 @@ program exp_cf_rec
 
 	!=========================== CONSTANTS ===========================
 
-	integer,	parameter	::	dimensions	=	6,					&
+	integer,	parameter	::	dimensions	=	151,					&
 								n_basis		=	dimensions-1,		&
-								bs			=	2,					&
+								bs			=	10,					&
 								nb 			=	(n_basis+1)/bs-1,	&
 								steps 		=	ncf,				&
-								nch			=	1000
+								nch			=	50
 
 	real(dp),	parameter	::	mass		=	1.0_dp,				& 
 								hbar		=	1.0_dp,				&
@@ -26,26 +26,38 @@ program exp_cf_rec
 
 	!=========================== PARAMETERS ==========================
 
-	real, parameter :: set_dx = 0.01
+	real, parameter :: set_dx = 0.001
 	integer,	parameter	::  lwork=(n_basis+2)*n_basis,	&
 								nmin=0,	&
-								nmax=11,	&
+								nmax=2,	&
 								esteps = (nmax-nmin)/set_dx
 	integer					::  n,i,j, block_size, info,num_points,m,int_num
 	real(dp)				::  w_eigen(n_basis+1),work(lwork), offset
 	real(dp)				::	ya,yb, smallthing, dz, zz, r, num, set_x,eps_n,ya2,deriv(0:esteps)
-
+	integer					::  ind1(0:11759),ind2(0:11759)
+	real(dp)				::  ind3(0:11759), &
+								hmat_load(0:n_basis,0:n_basis)
 
 	!=================================================================
 
 !   compute eigenvalues using LAPACK
-	eigen_mat(0:n_basis,0:n_basis) = 1.0_dp
-			eigen_mat(0,0) = 1.0_dp
-			eigen_mat(1,1) = 2.0_dp
-			eigen_mat(2,2) = 3.0_dp
-			eigen_mat(3,3) = 4.0_dp
-			eigen_mat(4,4) = 5.0_dp
-			eigen_mat(5,5) = 6.0_dp
+! 	eigen_mat(0:n_basis,0:n_basis) = 1.0_dp
+! 			eigen_mat(0,0) = 1.0_dp
+! 			eigen_mat(1,1) = 2.0_dp
+! 			eigen_mat(2,2) = 3.0_dp
+! 			eigen_mat(3,3) = 4.0_dp
+! 			eigen_mat(4,4) = 5.0_dp
+! 			eigen_mat(5,5) = 6.0_dp
+
+	open(unit=9, file='pfaff_Hmatrix_N8_l6.5.dat')
+
+    do i =1, 11759
+        read(9,*) ind1(i),ind2(i),ind3(i)
+        hmat_load(ind1(i)-1,ind2(i)-1) = ind3(i)
+    end do
+    close(9)
+
+    eigen_mat(0:n_basis,0:n_basis) = hmat_load(0:n_basis,0:n_basis)
 
 
 	call dsyev('V','U',n_basis+1,eigen_mat,n_basis+1,w_eigen,work,lwork,info)
@@ -94,6 +106,15 @@ program exp_cf_rec
 			print '(10f10.2)', ya
 		end if 
 	end do
+
+    
+!     print *, hmat_load(1,1)
+!     print *, hmat_load(1,2)
+!     print *, hmat_load(1,3)
+!     print *, hmat_load(1,4)
+!     print *, hmat_load(1,5)
+!     print *, hmat_load(2,2)
+!     print *, hmat_load(3,3)
 
 ! 	ya = 0
 ! 	yb = 2
@@ -210,38 +231,40 @@ program exp_cf_rec
 			!============================================================================
 
 			!build X**2
-			do n=0,n_basis
-				x_mat(n,n) = (hbar/(2._dp*mass*omega_b))*(2._dp*n+1._dp)
-				if (n>=2) then
-					x_mat(n,n-2) = hbar/(2._dp*mass*omega_b)*sqrt(real(n*(n-1._dp)))
-				end if
-				if (n<=(n_basis-2)) then
-					x_mat(n,n+2) = hbar/(2._dp*mass*omega_b)*sqrt(real((n+1._dp)*(n+2._dp)))
-				end if
-			end do
+! 			do n=0,n_basis
+! 				x_mat(n,n) = (hbar/(2._dp*mass*omega_b))*(2._dp*n+1._dp)
+! 				if (n>=2) then
+! 					x_mat(n,n-2) = hbar/(2._dp*mass*omega_b)*sqrt(real(n*(n-1._dp)))
+! 				end if
+! 				if (n<=(n_basis-2)) then
+! 					x_mat(n,n+2) = hbar/(2._dp*mass*omega_b)*sqrt(real((n+1._dp)*(n+2._dp)))
+! 				end if
+! 			end do
 
-			!build P**2
-			do n=0,n_basis
-				p_mat(n,n) = (hbar*mass*omega_b)/2._dp*(2._dp*n+1._dp)
-				if (n>=2) then
-					p_mat(n,n-2) = -(hbar*mass*omega_b)/2._dp*sqrt(real(n*(n-1._dp)))
-				end if
-				if (n<=(n_basis-2)) then
-					p_mat(n,n+2) = -(hbar*mass*omega_b)/2._dp*sqrt(real((n+1._dp)*(n+2._dp)))
-				end if
-			end do
+! 			!build P**2
+! 			do n=0,n_basis
+! 				p_mat(n,n) = (hbar*mass*omega_b)/2._dp*(2._dp*n+1._dp)
+! 				if (n>=2) then
+! 					p_mat(n,n-2) = -(hbar*mass*omega_b)/2._dp*sqrt(real(n*(n-1._dp)))
+! 				end if
+! 				if (n<=(n_basis-2)) then
+! 					p_mat(n,n+2) = -(hbar*mass*omega_b)/2._dp*sqrt(real((n+1._dp)*(n+2._dp)))
+! 				end if
+! 			end do
 
-			h_mat(0:n_basis,0:n_basis) = p_mat(0:n_basis,0:n_basis)/(2._dp*mass) + &
-									mass*omega_h**2._dp*x_mat(0:n_basis,0:n_basis)/2._dp
+! 			h_mat(0:n_basis,0:n_basis) = p_mat(0:n_basis,0:n_basis)/(2._dp*mass) + &
+! 									mass*omega_h**2._dp*x_mat(0:n_basis,0:n_basis)/2._dp
 
 
-			h_mat(0:n_basis,0:n_basis) = 1.0_dp
-			h_mat(0,0) = 1.0_dp
-			h_mat(1,1) = 2.0_dp
-			h_mat(2,2) = 3.0_dp
-			h_mat(3,3) = 4.0_dp
-			h_mat(4,4) = 5.0_dp
-			h_mat(5,5) = 6.0_dp
+! 			h_mat(0:n_basis,0:n_basis) = 1.0_dp
+! 			h_mat(0,0) = 1.0_dp
+! 			h_mat(1,1) = 2.0_dp
+! 			h_mat(2,2) = 3.0_dp
+! 			h_mat(3,3) = 4.0_dp
+! 			h_mat(4,4) = 5.0_dp
+! 			h_mat(5,5) = 6.0_dp
+
+			h_mat(0:n_basis,0:n_basis) = hmat_load(0:n_basis,0:n_basis)
 
 ! 			print *, 'MAIN MATRIX'
 ! 			do n=0,n_basis
