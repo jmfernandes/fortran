@@ -9,10 +9,10 @@ program exp_cf_rec
 
 	integer,	parameter	::	dimensions	=	151,					&
 								n_basis		=	dimensions-1,		&
-								bs			=	10,					&
+								bs			=	25,					&
 								nb 			=	(n_basis+1)/bs-1,	&
 								steps 		=	ncf,				&
-								nch			=	50
+								nch			=	15
 
 	real(dp),	parameter	::	mass		=	1.0_dp,				& 
 								hbar		=	1.0_dp,				&
@@ -26,10 +26,9 @@ program exp_cf_rec
 
 	!=========================== PARAMETERS ==========================
 
-	real, parameter :: set_dx = 0.001
+	real, parameter :: set_dx = 0.001,nmax=1
 	integer,	parameter	::  lwork=(n_basis+2)*n_basis,	&
 								nmin=0,	&
-								nmax=2,	&
 								esteps = (nmax-nmin)/set_dx
 	integer					::  n,i,j, block_size, info,num_points,m,int_num
 	real(dp)				::  w_eigen(n_basis+1),work(lwork), offset
@@ -63,7 +62,7 @@ program exp_cf_rec
 	call dsyev('V','U',n_basis+1,eigen_mat,n_basis+1,w_eigen,work,lwork,info)
 
 	print *, 'LAPACK eigenvalues-------------------------'
-	print '(10f10.2)', w_eigen
+	print '(10f10.3)', w_eigen
 	print *, ' ====================================='
 
 ! 	do n = 0,n_basis
@@ -103,7 +102,7 @@ program exp_cf_rec
 		deriv(j) = mcalc(ya2)-yb
 		write(4,*) ya, deriv(j)
 		if (deriv(j) <= 0 .and. deriv(j-1) >= 0 .and. j > 0) then
-			print '(10f10.2)', ya
+			print '(10f10.3)', ya
 		end if 
 	end do
 
@@ -400,7 +399,7 @@ program exp_cf_rec
 				call init_random_seed()
 				call random_number(r)
 ! 				print *, 1+r*1e-15
-				taylor(n) = taylor(n)*(1+r*1e-10)
+! 				taylor(n) = taylor(n)*(1+r*1e-15)
 ! 				print *, ' n is ', n, ' value is ', taylor(n)
 			end do
 
