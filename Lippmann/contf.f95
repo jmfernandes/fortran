@@ -7,12 +7,12 @@ program exp_cf_rec
 
 	!=========================== CONSTANTS ===========================
 
-	integer,	parameter	::	dimensions	=	151,					&
+	integer,	parameter	::	dimensions	=	150,					&
 								n_basis		=	dimensions-1,		&
-								bs			=	25,					&
+								bs			=	11,					&
 								nb 			=	(n_basis+1)/bs-1,	&
 								steps 		=	ncf,				&
-								nch			=	15
+								nch			=	10
 
 	real(dp),	parameter	::	mass		=	1.0_dp,				& 
 								hbar		=	1.0_dp,				&
@@ -26,7 +26,7 @@ program exp_cf_rec
 
 	!=========================== PARAMETERS ==========================
 
-	real, parameter :: set_dx = 0.001,nmax=1
+	real, parameter :: set_dx = 0.01,nmax=1
 	integer,	parameter	::  lwork=(n_basis+2)*n_basis,	&
 								nmin=0,	&
 								esteps = (nmax-nmin)/set_dx
@@ -48,7 +48,9 @@ program exp_cf_rec
 ! 			eigen_mat(4,4) = 5.0_dp
 ! 			eigen_mat(5,5) = 6.0_dp
 
-	open(unit=9, file='pfaff_Hmatrix_N8_l6.5.dat')
+	open(unit=9, file='peterson_data/two_one.dat')
+
+	hmat_load(0:n_basis,0:n_basis) = 0._dp
 
     do i =1, 11759
         read(9,*) ind1(i),ind2(i),ind3(i)
@@ -79,8 +81,8 @@ program exp_cf_rec
 ! 	esteps = (nmax-nmin)/set_dx
 	do j=nmin,esteps,1
 		int_num = 0
-		ya=int_num+j*set_dx
-		ya2=int_num+(j+1)*set_dx
+		ya=int_num+(j+1)*set_dx
+		ya2=int_num+(j+2)*set_dx
 ! 		yb=j+1
 ! 		ya = 1
 ! 		yb = 10
@@ -99,7 +101,7 @@ program exp_cf_rec
 		yb = mcalc(ya)
 		write(3,*) ya, yb
 ! 		print *, ya, 'and the value is ', yb
-		deriv(j) = mcalc(ya2)-yb
+		deriv(j) = (mcalc(ya2)-yb)/(ya2-ya)
 		write(4,*) ya, deriv(j)
 		if (deriv(j) <= 0 .and. deriv(j-1) >= 0 .and. j > 0) then
 			print '(10f10.3)', ya
@@ -255,6 +257,7 @@ program exp_cf_rec
 ! 									mass*omega_h**2._dp*x_mat(0:n_basis,0:n_basis)/2._dp
 
 
+
 ! 			h_mat(0:n_basis,0:n_basis) = 1.0_dp
 ! 			h_mat(0,0) = 1.0_dp
 ! 			h_mat(1,1) = 2.0_dp
@@ -262,7 +265,7 @@ program exp_cf_rec
 ! 			h_mat(3,3) = 4.0_dp
 ! 			h_mat(4,4) = 5.0_dp
 ! 			h_mat(5,5) = 6.0_dp
-
+! 
 			h_mat(0:n_basis,0:n_basis) = hmat_load(0:n_basis,0:n_basis)
 
 ! 			print *, 'MAIN MATRIX'
@@ -394,12 +397,13 @@ program exp_cf_rec
 
 			res = 0.0_dp
 			do n=0,steps
+! 				print *, 'steps are ', n
 				taylor(n) = dot_product(gcc(0:n_basis,0),gcc(0:n_basis,n))
 				res = res + taylor(n)
 				call init_random_seed()
 				call random_number(r)
 ! 				print *, 1+r*1e-15
-! 				taylor(n) = taylor(n)*(1+r*1e-15)
+! 				taylor(n) = taylor(n)*(1+r*1e-10)
 ! 				print *, ' n is ', n, ' value is ', taylor(n)
 			end do
 
